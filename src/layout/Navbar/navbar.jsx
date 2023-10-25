@@ -1,6 +1,5 @@
 import React from "react";
 import "./navbar.css";
-
 import amzonlogo from "../../assets/nav-images/amzon-logo.png";
 import cartImage from "../../assets/nav-images/cart.png";
 import egyptFlage from "../../assets/nav-images/egypt-flag.svg";
@@ -34,7 +33,7 @@ export const Navbar = () => {
                         <ul className='navbar-nav align-items-lg-center'>
                             <li className='nav-item location-item'>
                                 <div className='d-flex'>
-                                    <div className='mt-2 me-1'>
+                                    <div className='me-1'>
                                         <span className='location'>
                                             <IoLocationOutline />
                                         </span>
@@ -53,7 +52,7 @@ export const Navbar = () => {
                             </li>
                             <ul className='navbar-nav search-bar'>
                                 <li className='nav-item'>
-                                    <form role='ssearch'>
+                                    <form role='search'>
                                         <input
                                             className='form-control search-input align-items-center'
                                             type='search'
@@ -266,7 +265,7 @@ export const Navbar = () => {
                                     <img className='mb-2' src={cartImage} />
                                     <a
                                         href='../cart-page/cart.html'
-                                        className='nav-link cart'
+                                        className='cart'
                                     >
                                         Cart
                                     </a>

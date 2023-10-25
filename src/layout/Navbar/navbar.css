@@ -12,6 +12,7 @@
 
 .navbar {
     background-color: #131921 !important;
+    padding: 0;
 }
 .address {
     padding: 0 !important;
@@ -160,18 +161,20 @@
 .cart {
     padding: 8px 0 !important;
 }
-.cart-container a {
+.cart-container {
     text-decoration: none;
     position: relative;
 }
 .cart-container {
     margin-left: 10px;
 }
-.cart-container a span {
+.cart-container .item-count {
     color: #ff9900;
     position: absolute;
-    left: 18px;
-    bottom: 30px;
+    left: 22px;
+    bottom: 25px;
+    font-weight: 600;
+    font-size: 18px;
 }
 .nav-account a.nav-link.dropdown-toggle {
     padding-top: 0;
@@ -289,3 +292,6 @@
         width: 650px;
     }
 }
+/* .active-link {
+    border: 0.5px solid #b3b2b2;
+} */

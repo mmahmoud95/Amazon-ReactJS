@@ -1,20 +1,20 @@
-import React from "react";
 import "./navbar.css";
 import amzonlogo from "../../assets/nav-images/amzon-logo.png";
 import cartImage from "../../assets/nav-images/cart.png";
 import egyptFlage from "../../assets/nav-images/egypt-flag.svg";
 import { IoSearchOutline, IoLocationOutline } from "react-icons/io5";
+import { NavLink } from "react-router-dom";
 export const Navbar = () => {
     return (
         <>
             <nav className='navbar navbar-expand-lg'>
                 <div className='container-fluid'>
-                    <a className='navbar-brand' href='../index.html'>
+                    <NavLink className='navbar-brand' to='/'>
                         <img
                             src={amzonlogo}
                             style={{ width: "120px", height: "40px" }}
                         />
-                    </a>
+                    </NavLink>
                     <button
                         className='navbar-toggler'
                         type='button'
@@ -259,17 +259,21 @@ export const Navbar = () => {
                                     Orders
                                 </a>
                             </li>
-                            <li className='nav-item cart-container d-flex'>
-                                <a href='../cart-page/cart.html'>
-                                    <span>4</span>
+                            <li className=''>
+                                <NavLink
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? "text-decoration-none cart-container d-flex active-link p-1"
+                                            : "text-decoration-none cart-container d-flex p-1"
+                                    }
+                                    to='/cart'
+                                >
+                                    <span className='item-count'>4</span>
                                     <img className='mb-2' src={cartImage} />
-                                    <a
-                                        href='../cart-page/cart.html'
-                                        className='cart'
-                                    >
+                                    <span className='cart text-decoration-none'>
                                         Cart
-                                    </a>
-                                </a>
+                                    </span>
+                                </NavLink>
                             </li>
                         </ul>
                     </div>

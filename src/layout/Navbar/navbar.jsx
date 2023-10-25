@@ -3,8 +3,11 @@ import amzonlogo from "../../assets/nav-images/amzon-logo.png";
 import cartImage from "../../assets/nav-images/cart.png";
 import egyptFlage from "../../assets/nav-images/egypt-flag.svg";
 import { IoSearchOutline, IoLocationOutline } from "react-icons/io5";
-import { NavLink } from "react-router-dom";
-export const Navbar = () => {
+import { NavLink  } from "react-router-dom";
+import Nav from 'react-bootstrap/Nav';
+// import Navbar from 'react-bootstrap/Navbar';
+
+export const Header = () => {
     return (
         <>
             <nav className='navbar navbar-expand-lg'>
@@ -206,7 +209,7 @@ export const Navbar = () => {
                                 >
                                     <span className='account-lists'>
                                         <span className='hello'>
-                                            Hello, sign in
+                                        Hello, sign in
                                             <br />
                                         </span>
                                         Account & Lists
@@ -216,9 +219,11 @@ export const Navbar = () => {
                                     <li>
                                         <a
                                             className='dropdown-item drop-account shadow'
-                                            href='../login-page/login.html'
+                                           
                                         >
-                                            Sign in
+                                 <Nav className="me-auto ">
+                                 <NavLink to="/login" className={({isActive})=>(isActive)?"act":"test"}  >sign in</NavLink>
+                                   </Nav> 
                                         </a>
                                         <p className='register'>
                                             New customer?

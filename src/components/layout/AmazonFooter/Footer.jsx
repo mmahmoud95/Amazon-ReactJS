@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "./amazon-logo.png";
 import flag from "./egypt-flag.svg";
 
-const AFooter = () => {
+const Footer = () => {
     const handleScrollToTop = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
@@ -381,4 +381,4 @@ const AFooter = () => {
     );
 };
 
-export default AFooter;
+export default Footer;

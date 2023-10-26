@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import './footerStyle.css'
 import logo from "./amazon-logo.png";
 import flag from "./egypt-flag.svg";
 

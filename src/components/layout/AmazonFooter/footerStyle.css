@@ -13,7 +13,6 @@ color: rgb(249, 249, 255);
     color: rgb(249, 249, 255);  
 }
 #adLinks :any-link:hover{
-    font-style: italic;
     font-weight: bolder;
     color: rgb(249, 249, 255);
 }

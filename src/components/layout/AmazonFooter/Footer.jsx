@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import './footerStyle.css'
 import logo from "./amazon-logo.png";
 import flag from "./egypt-flag.svg";
 
@@ -221,12 +222,12 @@ const Footer = () => {
                 </div>
                 {/* this section is visilble only in large screens */}
                 <div
-                    className='m-0'
+                    className='m-0 '
                     id='adLinks'
                     style={{ fontSize: "0.7em", backgroundColor: "#131A22" }}
                 >
                     {/* first row of 5 main links */}
-                    <div className='d-none d-lg-flex justify-content-around mb-3 container'>
+                    <div className='d-none d-lg-flex justify-content-around mb-3 container pt-2'>
                         <div className='mx-5 mt-3 '>
                             <Link className='text-decoration-none text-white'>
                                 <span className='d-block'>
@@ -262,7 +263,7 @@ const Footer = () => {
                                 </span>
                             </Link>
                         </div>
-                        <div className='mx-5 mt-3 '>
+                        <div className='mx-4 mt-3  '>
                             <Link className='text-decoration-none text-white'>
                                 <span className='d-block'>
                                     Amazon Web Services
@@ -276,15 +277,14 @@ const Footer = () => {
                                 </span>
                             </Link>
                         </div>
-                        <div className='mx-5  mt-3'>
+                        <div className='mx-4  mt-3'>
                             <Link className='text-decoration-none text-white'>
                                 <span className='d-block'> Goodreads</span>
                                 <span className='text-secondary d-block'>
                                     Book reviews
                                 </span>
                                 <span className='text-secondary'>
-                                    {" "}
-                                    & recommendations
+                                 & recommendations
                                 </span>
                             </Link>
                         </div>
@@ -323,7 +323,7 @@ const Footer = () => {
                                 </span>
                             </Link>
                         </div>
-                        <div className=''>
+                        <div className='ms-4'>
                             <Link className='text-decoration-none text-white'>
                                 <span className='d-block'>Alexa</span>
                                 <span className='text-secondary d-block'>
@@ -346,12 +346,12 @@ const Footer = () => {
                                 </span>
                             </Link>
                         </div>
-                        <div className='m-5'></div>
+                        <div className='m-4'></div>
                     </div>
                 </div>
                 {/* bottom of the page  */}
                 <div
-                    className=' '
+                    className=' pt-4'
                     id='copyRightsSection'
                     style={{ fontSize: "0.8em", backgroundColor: "#131A22" }}
                 >

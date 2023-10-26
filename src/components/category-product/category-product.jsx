@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const CategoryProduct = (props) => {
     const navigate = useNavigate();
@@ -10,7 +10,7 @@ export const CategoryProduct = (props) => {
                 navigate(`/products/${props.productID}`);
             }}
         >
-            <div className='card text-black my-3'>
+            <div className='card text-black my-3' >
                 <a className='text-black text-decoration-none text-left category-product'>
                     <div className='img-container'>
                         <img
@@ -49,6 +49,7 @@ export const CategoryProduct = (props) => {
                         <p className='fifty-chars'>
                             {props.productDescription}
                         </p>
+                        <Link className="btn btn-success" to={`/products//${props.id}`}> more Details</Link>
                         {/* <button onClick={()=>handelAdd(props)} >jjj</button> */}
                     </div>
                 </a>

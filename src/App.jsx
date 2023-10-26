@@ -9,7 +9,7 @@ import Register from "./pages/Register/Register";
 import Login from "./pages/Login.jsx/Login";
 import Applayout from "./components/layout/AppLayout/applayout";
 import { Category } from "./pages/category/category";
-import { ProductDetails } from "./pages/product-details/product-details";
+import ProductDetails from "./pages/product-details/ProductDetails";
 import { store } from './Store/store';
 import { Provider } from 'react-redux';
 const router = createBrowserRouter([
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
             { index: true, element: <Home /> },
             { path: "cart", element: <Cart /> },
             { path: "products/category/:categoryname", element: <Category /> },
-            { path: "products/:id", element: <ProductDetails /> },
+            { path: "products/:id", element: <ProductDetails/> },
         ],
     },
     { path: "login", element: <Login /> },

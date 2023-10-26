@@ -1,4 +1,3 @@
-// import { useEffect} from "react";
 import "./cart.css";
 import { useDispatch, useSelector } from "react-redux";
 import { removFromCart } from "../../Store/Slice/Cart";

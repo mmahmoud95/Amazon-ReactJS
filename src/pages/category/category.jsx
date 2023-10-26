@@ -4,7 +4,6 @@ import { instance } from "../../services/axios/instance";
 import "./category.css";
 import { CategoryProduct } from "../../components/category-product/category-product";
 
-// import { FaStar } from "react-icons/fa6";
 
 export const Category = () => {
     const [categoryProducts, setCategoryProducts] = useState([]);

@@ -1,0 +1,33 @@
+.filter {
+    border-right: 1px solid #cccccc;
+}
+
+.category-product img {
+    /* border-radius: 22px; */
+    border-bottom: 1px solid #eee;
+}
+.img-container {
+    background-color: #dddddd2f;
+}
+.price {
+    font-weight: 500;
+    font-size: 24px;
+    margin-bottom: 0;
+}
+.flag-ships h2 {
+    color: rgb(111 62 198);
+    font-weight: bold;
+}
+.category-product-title {
+    border: none;
+    padding: 8px;
+}
+.fifty-chars {
+    height: 6ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
+}
+.product-rating {
+    font-size: 16px;
+}

@@ -3,11 +3,12 @@ import amzonlogo from "../../../assets/nav-images/amzon-logo.png";
 import cartImage from "../../../assets/nav-images/cart.png";
 import egyptFlage from "../../../assets/nav-images/egypt-flag.svg";
 import { IoSearchOutline, IoLocationOutline } from "react-icons/io5";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 // import Navbar from 'react-bootstrap/Navbar';
 
 export const Header = () => {
+    const navigate = useNavigate();
     return (
         <>
             <nav className='navbar navbar-expand-lg'>
@@ -370,18 +371,49 @@ export const Header = () => {
                         <a href='#'>Deals</a>
                     </li>
                     <li>
-                        <a href='../category-page/category.html'>
+                        <a
+                            onClick={() => {
+                                navigate(`/products/category/smartphones`);
+                            }}
+                        >
                             Mobile Phones
                         </a>
                     </li>
                     <li>
-                        <a href='#'>Electronics</a>
+                        <a
+                            onClick={() => {
+                                navigate(`/products/category/laptops`);
+                            }}
+                        >
+                            Laptops
+                        </a>
                     </li>
                     <li>
-                        <a href='#'>Application</a>
+                        <a
+                            onClick={() => {
+                                navigate(`/products/category/sunglasses`);
+                            }}
+                        >
+                            Sunglasses
+                        </a>
                     </li>
                     <li>
-                        <a href='#'>Fashion</a>
+                        <a
+                            onClick={() => {
+                                navigate(`/products/category/mens-watches`);
+                            }}
+                        >
+                            Mens-Watches
+                        </a>
+                    </li>
+                    <li>
+                        <a
+                            onClick={() => {
+                                navigate(`/products/category/groceries`);
+                            }}
+                        >
+                            Grocery
+                        </a>
                     </li>
                     <li>
                         <a href='#'>Home</a>
@@ -391,9 +423,6 @@ export const Header = () => {
                     </li>
                     <li>
                         <a href='#'>Toy & Games</a>
-                    </li>
-                    <li>
-                        <a href='#'>Grocery</a>
                     </li>
                     <li>
                         <a href='../help-page/help.html'>Help</a>

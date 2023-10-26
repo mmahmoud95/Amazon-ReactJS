@@ -5,10 +5,13 @@ import egyptFlage from "../../../assets/nav-images/egypt-flag.svg";
 import { IoSearchOutline, IoLocationOutline } from "react-icons/io5";
 import { NavLink, useNavigate } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
+import { useSelector } from "react-redux";
 // import Navbar from 'react-bootstrap/Navbar';
 
 export const Header = () => {
     const navigate = useNavigate();
+    const cart=useSelector((state)=>state.Cart)
+
     return (
         <>
             <nav className='navbar navbar-expand-lg'>
@@ -280,7 +283,7 @@ export const Header = () => {
                                     }
                                     to='/cart'
                                 >
-                                    <span className='item-count'>4</span>
+                                    <span className='item-count'>{cart.length}</span>
                                     <img className='mb-2' src={cartImage} />
                                     <span className='cart text-decoration-none'>
                                         Cart

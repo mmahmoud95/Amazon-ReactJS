@@ -10,6 +10,8 @@ import Login from "./pages/Login.jsx/Login";
 import Applayout from "./components/layout/AppLayout/applayout";
 import { Category } from "./pages/category/category";
 import { ProductDetails } from "./pages/product-details/product-details";
+import { store } from './Store/store';
+import { Provider } from 'react-redux';
 const router = createBrowserRouter([
     {
         path: "/",
@@ -28,7 +30,7 @@ const router = createBrowserRouter([
 function App() {
     return (
         <>
-            <RouterProvider router={router} />
+          <Provider store={store} ><RouterProvider router={router} /></Provider>  
         </>
     );
 }

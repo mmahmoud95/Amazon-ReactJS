@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import { instance } from "../../services/axios/instance";
 import "./category.css";
 import { CategoryProduct } from "../../components/category-product/category-product";
+
 // import { FaStar } from "react-icons/fa6";
 
 export const Category = () => {
     const [categoryProducts, setCategoryProducts] = useState([]);
     const { categoryname } = useParams();
+
     // console.log(categoryname);
     useEffect(() => {
         document.title = `Amazon - ${categoryname}`;
         instance
             .get(`category/${categoryname}`)
             .then((res) => {
-                // console.log(res.data.products);
+                console.log(res.data.products);
                 setCategoryProducts(res.data.products);
                 // console.log(res.data);
             })
@@ -40,9 +42,9 @@ export const Category = () => {
                         </div>
                     </div>
                     <div className='row'>
-                        {categoryProducts.map((product, index) => {
-                            return (
-                                <CategoryProduct
+                        {categoryProducts.map((product, index) => (
+                            // return (
+                               <CategoryProduct
                                     key={index}
                                     productID={product.id}
                                     productTitle={product.title}
@@ -50,10 +52,13 @@ export const Category = () => {
                                     productDiscount={product.discountPercentage}
                                     productThumbnail={product.thumbnail}
                                     productPrice={product.price}
-                                    productDescription={product.description}
-                                />
-                            );
-                        })}
+                                    productDescription={product.description} 
+                                    /> 
+                                 
+                            )
+                        )
+                            
+                        }         
                     </div>
                 </div>
             </div>

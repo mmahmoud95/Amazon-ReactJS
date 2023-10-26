@@ -49,6 +49,7 @@ export const CategoryProduct = (props) => {
                         <p className='fifty-chars'>
                             {props.productDescription}
                         </p>
+                        {/* <button onClick={()=>handelAdd(props)} >jjj</button> */}
                     </div>
                 </a>
             </div>

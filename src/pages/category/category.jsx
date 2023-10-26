@@ -45,6 +45,7 @@ export const Category = () => {
                                 <CategoryProduct
                                     key={index}
                                     productID={product.id}
+                                    productTitle={product.title}
                                     productRating={product.rating}
                                     productDiscount={product.discountPercentage}
                                     productThumbnail={product.thumbnail}

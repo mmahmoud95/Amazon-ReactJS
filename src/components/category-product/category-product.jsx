@@ -24,7 +24,7 @@ export const CategoryProduct = (props) => {
                     </div>
                     <div className='card-body'>
                         <h5 className='card-title category-product-title fifty-chars'>
-                            {props.title}
+                            {props.productTitle}
                         </h5>
                         <div className='product-rating'>
                             Rating : &nbsp;

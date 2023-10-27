@@ -12,6 +12,7 @@ import { Category } from "./pages/category/category";
 import ProductDetails from "./pages/product-details/ProductDetails";
 import { store } from './Store/store';
 import { Provider } from 'react-redux';
+import LoginStep2 from "./pages/Login.jsx/loginStep2";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
         ],
     },
     { path: "login", element: <Login /> },
+    { path: "login/loginStep2", element: <LoginStep2 /> },
     { path: "signup", element: <Register /> },
 ]);
 

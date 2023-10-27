@@ -7,15 +7,13 @@ import { NavLink } from "react-router-dom";
 const Login = () => {
     const [user, setUser] = useState({
         email: "",
-        password: "",
     });
     const [errors, setErrors] = useState({
         passwordError: "",
-        emailError: "",
     });
 
     const handelChange = (eve) => {
-        var regex = /^[a-zA-Z]{2,}(@)(gmail)(.com)$/;
+        var regex = /^[a-zA-Z0-9]{2,}(@)(gmail)(.com)$/;
 
         if (eve.target.name == "email") {
             setUser({ ...user, email: eve.target.value });
@@ -28,18 +26,7 @@ const Login = () => {
                         ? ""
                         : "Invalid Email (must contain @ and .come)",
             });
-        } else if (eve.target.name == "password") {
-            setUser({ ...user, password: eve.target.value });
-            setErrors({
-                ...errors,
-                passwordError:
-                    eve.target.value.length == 0
-                        ? "password is Required"
-                        : eve.target.value.length < 8
-                        ? "password must be at least 8 characters"
-                        : "",
-            });
-        }
+        } 
     };
 
     const handleSubmit = (evt) => {
@@ -104,12 +91,13 @@ const Login = () => {
                                                 </p>
                                             </div>
                                             <div className='form-outline mb-5'>
-                                                <input
+                                                < NavLink to='./loginStep2'><input
                                                     type='submit'
                                                     id='form3Example4cdg'
                                                     className='form-control submit '
                                                     value='Continue'
-                                                />
+                                                    
+                                                /></NavLink >
                                             </div>
                                             <div className='form-check d-flex justify-content-center mb-3 ptn'>
                                                 <p>

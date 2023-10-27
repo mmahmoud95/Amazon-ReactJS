@@ -1,6 +1,8 @@
 import { useState } from "react";
 import amzonlogo from "../../assets/download.png";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
+import { NavLink } from "react-router-dom";
+
 import "./Register.css";
 const Register = () => {
     const [user, setUser] = useState({
@@ -19,7 +21,7 @@ const Register = () => {
     const [visible, setvisible] = useState(false);
     const handelChange = (eve) => {
         // console.log(eve.target);
-        var regex = /^[a-zA-Z]{2,}(@)(gmail)(.com)$/;
+        var regex = /^[a-zA-Z0-9]{2,}(@)(gmail)(.com)$/;
         var regex2 =
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()\-+.]).{8,20}$/;
         if (eve.target.name == "name") {
@@ -192,11 +194,10 @@ const Register = () => {
                                                     </p>
                                                 </div>
                                             </div>
-
                                             <div className='form-outline mb-3'>
                                                 <label
                                                     className='form-label'
-                                                    htmlFor='form3Example4cdg'
+                                                    htmlFor='form3Example4cg'
                                                 >
                                                     Re-enter password
                                                 </label>
@@ -208,11 +209,8 @@ const Register = () => {
                                                     }
                                                     required
                                                     id='formGroupExampleInput'
-                                                    className={`form-control${
-                                                        errors.ConfirmPasswordError
-                                                            ? "border-danger shadow-none"
-                                                            : ""
-                                                    }`}
+                                                    className={`form-control
+              ${errors.ConfirmPasswordError ? "border-danger shadow-none" : ""}`}
                                                     name='ConfirmPassword'
                                                     placeholder='Please confirm password'
                                                     value={user.ConfirmPassword}
@@ -231,20 +229,18 @@ const Register = () => {
                                                         <FaRegEyeSlash />
                                                     )}
                                                     <p className='text-danger'>
-                                                        {
-                                                            errors.ConfirmPasswordError
-                                                        }
+                                                        {errors.ConfirmPasswordError}
                                                     </p>
                                                 </div>
                                             </div>
 
                                             <div className='form-outline mb-5'>
-                                                <input
+                                           <NavLink to='/'>  <input
                                                     type='submit'
                                                     id='form3Example4cdg'
                                                     className='form-control submit '
                                                     value='Continue'
-                                                />
+                                                /></NavLink> 
                                             </div>
                                             <div className='form-check d-flex justify-content-center mb-3 ptn'>
                                                 <p>

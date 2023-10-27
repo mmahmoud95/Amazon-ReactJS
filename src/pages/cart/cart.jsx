@@ -14,7 +14,7 @@ var handelRemove=(id)=>{
 dispatch(removFromCart(id))
 }
 /////right side//
-const [categoryProducts, setCategoryProducts] = useState([]);
+const [categoryProductss, setCategoryProductss] = useState([]);
 const { categoryname } = useParams();
 useEffect(() => {
     document.title = `Amazon - ${categoryname}`;
@@ -22,7 +22,7 @@ useEffect(() => {
         .get(`category/${categoryname}`)
         .then((res) => {
             console.log(res.data.products)
-            setCategoryProducts(res.data.products);
+            setCategoryProductss(res.data.products);
         })
         .catch((err) => {
             console.log(err);
@@ -54,6 +54,7 @@ return (
                             {product.description}
                         </h5>
                         <p className="price h5">EGP: {product.price}</p>
+                        
                         <p className="stock">
                             DiscountPercentage:{product.discountPercentage}
                         </p>
@@ -112,8 +113,7 @@ return (
                         <h5><strong>Pair with your cart</strong></h5>
                         <div className='row'>
                         <h3>{categoryname}</h3>
-
-                        {categoryProducts.map((product, index) => (
+                        {categoryProductss.map((product, index) => (
                             // return (
                                <CategoryProduct
                                     key={index}

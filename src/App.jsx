@@ -6,13 +6,13 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { Home } from "./pages/home/home";
 import { Cart } from "./pages/cart/cart";
 import Register from "./pages/Register/Register";
-import Login from "./pages/Login.jsx/Login";
+import Login from "./pages/Login/Login";
 import Applayout from "./components/layout/AppLayout/applayout";
 import { Category } from "./pages/category/category";
 import ProductDetails from "./pages/product-details/ProductDetails";
 import { store } from './Store/store';
 import { Provider } from 'react-redux';
-import LoginStep2 from "./pages/Login.jsx/loginStep2";
+import LoginStep2 from "./pages/Login/loginStep2";
 const router = createBrowserRouter([
     {
         path: "/",

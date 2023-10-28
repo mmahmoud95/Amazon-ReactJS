@@ -17,7 +17,11 @@ import beauty from "../../assets/home/cards/beauty.jpg";
 import stripeLight from "../../assets/home/cards/stripe light.jpg";
 import homeRefresh from "../../assets/home/cards/home refresh.jpg";
 import office from "../../assets/home/cards/office.jpg";
-import laptop from '../../assets/home/cards/shop laptopjpg.jpg';
+import laptop from "../../assets/home/cards/shop laptopjpg.jpg";
+import fitness from "../../assets/home/cards/fitness.jpg";
+import pets from '../../assets/home/cards/pets.jpg'
+import deals from '../../assets/home/cards/deals.jpg'
+import cuttle from '../../assets/home/cards/cuttle.jpg'
 import MainSlider from "./mainSlider";
 import MonoCard from "./mono-card";
 import QuartitCard from "./quartit-card";
@@ -178,6 +182,43 @@ export const Home = () => {
             limit3="6"
           />
           {/* ///////slider/////// */}
+
+          {/* ////////cards////////// */}
+
+          <div className="row gy-2 m-0 p-4">
+            <MonoCard
+              breackPoint="col-lg-3 col-md-4 p-0"
+              title="For your Fitness Needs"
+              navigation="laptops"
+              image={fitness}
+              body="Shop now"
+            />
+
+            <MonoCard
+              breackPoint="col-lg-3 col-md-4 p-0"
+              title=" Shop Pet supplies"
+              navigation="laptops"
+              image={pets}
+              body="Shop now"
+            />
+
+            <MonoCard
+              breackPoint="col-lg-3 col-md-4 p-0"
+              title="4+ Star picks for you"
+              navigation="laptops"
+              image={deals}
+              body="Shop now"
+            />
+
+            <MonoCard
+              breackPoint="col-lg-3 col-md-4 p-0"
+              title="Deals in Tools and Home Improvement"
+              navigation="laptops"
+              image={cuttle}
+              body="Shop now"
+            />
+          </div>
+          {/* ////////cards////////// */}
         </div>
       </div>
     </>

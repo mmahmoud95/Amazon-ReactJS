@@ -13,7 +13,11 @@ import fur3 from "../../assets/home/cards/fur3.jpg";
 import fur4 from "../../assets/home/cards/fur4.jpg";
 import shopSchool from "../../assets/home/cards/shop school.jpg";
 import tv from "../../assets/home/cards/tv.jpg";
-import beauty from '../../assets/home/cards/beauty.jpg'
+import beauty from "../../assets/home/cards/beauty.jpg";
+import stripeLight from "../../assets/home/cards/stripe light.jpg";
+import homeRefresh from "../../assets/home/cards/home refresh.jpg";
+import office from "../../assets/home/cards/office.jpg";
+import laptop from '../../assets/home/cards/shop laptopjpg.jpg';
 import MainSlider from "./mainSlider";
 import MonoCard from "./mono-card";
 import QuartitCard from "./quartit-card";
@@ -23,7 +27,7 @@ export const Home = () => {
   useEffect(() => {
     document.title = "Amazon";
   }, []);
- 
+
   return (
     <>
       <div className="container-fluid p-0 position-relative bg-body-secondary">
@@ -112,24 +116,57 @@ export const Home = () => {
           </div>
           {/* ///////////cards///////////////////// */}
 
-
           {/* ////////////second slider//////////// */}
 
-<SecondSlider
-title1="Related to items you've viewed"
-title2='Shop now'
-skip1="0"
-limit1='6'
-skip2="6"
-limit2='6'
-skip3="12"
-limit3='6'
+          <SecondSlider
+            title1="Related to items you've viewed"
+            title2="Shop now"
+            skip1="0"
+            limit1="6"
+            skip2="6"
+            limit2="6"
+            skip3="12"
+            limit3="6"
+          />
+          {/* ////////////second slider//////////// */}
 
-/>
-            {/* ////////////second slider//////////// */}
+          {/* ////////cards//////// */}
+          <div className="row gy-2 m-0 p-4">
+            <MonoCard
+              breackPoint="col-lg-3 col-sm-4 p-0"
+              title=" Stripe Light"
+              navigation="lighting"
+              image={stripeLight}
+              body="See more"
+            />
+
+            <MonoCard
+              breackPoint="col-lg-3 col-sm-4 p-0"
+              title=" Home Refresh"
+              navigation="home-decoration"
+              image={homeRefresh}
+              body="Discover now"
+            />
+
+            <MonoCard
+              breackPoint="col-lg-3 col-sm-4 p-0"
+              title="4+ Star picks for you"
+              navigation="furniture"
+              image={office}
+              body="Shop now"
+            />
+
+            <MonoCard
+              breackPoint="col-lg-3 col-md-4 p-0"
+              title="Shop Laptops & Tablets"
+              navigation="laptops"
+              image={laptop}
+              body="Shop now"
+            />
+          </div>
+          {/* ////////cards//////// */}
         </div>
       </div>
-      
     </>
   );
 };

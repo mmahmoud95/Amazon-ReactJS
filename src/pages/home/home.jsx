@@ -13,14 +13,17 @@ import fur3 from "../../assets/home/cards/fur3.jpg";
 import fur4 from "../../assets/home/cards/fur4.jpg";
 import shopSchool from "../../assets/home/cards/shop school.jpg";
 import tv from "../../assets/home/cards/tv.jpg";
+import beauty from '../../assets/home/cards/beauty.jpg'
 import MainSlider from "./mainSlider";
 import MonoCard from "./mono-card";
 import QuartitCard from "./quartit-card";
+import SecondSlider from "./second-slider";
 
 export const Home = () => {
   useEffect(() => {
     document.title = "Amazon";
   }, []);
+ 
   return (
     <>
       <div className="container-fluid p-0 position-relative bg-body-secondary">
@@ -98,10 +101,35 @@ export const Home = () => {
               image={tv}
               body="See more"
             />
+
+            <MonoCard
+              breackPoint="d-lg-none col-sm-4 p-0"
+              title=" Beauty Picks"
+              navigation="skincare"
+              image={beauty}
+              body="Shop now"
+            />
           </div>
           {/* ///////////cards///////////////////// */}
+
+
+          {/* ////////////second slider//////////// */}
+
+<SecondSlider
+title1="Related to items you've viewed"
+title2='Shop now'
+skip1="0"
+limit1='6'
+skip2="6"
+limit2='6'
+skip3="12"
+limit3='6'
+
+/>
+            {/* ////////////second slider//////////// */}
         </div>
       </div>
+      
     </>
   );
 };

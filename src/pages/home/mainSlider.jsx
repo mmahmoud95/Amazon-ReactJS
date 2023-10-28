@@ -1,9 +1,9 @@
-import school from '../../assets/mainSlider-images/school.jpg'
-import kitchen from '../../assets/mainSlider-images/kitchen.jpg'
-import books from '../../assets/mainSlider-images/books.jpg'
-import gaming from '../../assets/mainSlider-images/gaming.jpg'
-import toys from '../../assets/mainSlider-images/toys.jpg'
-import beauty from '../../assets/mainSlider-images/beauty.jpg'
+import school from '../../assets/home/mainSlider-images/school.jpg'
+import kitchen from '../../assets/home/mainSlider-images/kitchen.jpg'
+import books from '../../assets/home/mainSlider-images/books.jpg'
+import gaming from '../../assets/home/mainSlider-images/gaming.jpg'
+import toys from '../../assets/home/mainSlider-images/toys.jpg'
+import beauty from '../../assets/home/mainSlider-images/beauty.jpg'
 import { useNavigate } from "react-router-dom";
 
 

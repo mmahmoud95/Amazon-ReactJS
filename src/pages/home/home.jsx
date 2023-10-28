@@ -165,6 +165,19 @@ export const Home = () => {
             />
           </div>
           {/* ////////cards//////// */}
+
+          {/* ///////slider///// */}
+          <SecondSlider
+            title1="Related to items you've viewed"
+            title2="Shop now"
+            skip1="60"
+            limit1="6"
+            skip2="66"
+            limit2="6"
+            skip3="72"
+            limit3="6"
+          />
+          {/* ///////slider/////// */}
         </div>
       </div>
     </>

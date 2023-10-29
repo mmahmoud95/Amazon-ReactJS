@@ -14,17 +14,19 @@ import { store } from "./Store/store";
 import { Provider } from "react-redux";
 import LoginStep2 from "./pages/Login/loginStep2";
 const router = createBrowserRouter([
+    { path: "/", element: <Home /> },
+
     {
         path: "/",
         element: <Applayout />,
         children: [
-            { index: true, element: <Home /> },
             { path: "cart", element: <Cart /> },
             { path: "products/category/:categoryname", element: <Category /> },
             { path: "products/:id", element: <ProductDetails /> },
         ],
     },
     { path: "login", element: <Login /> },
+
     { path: "login/loginStep2", element: <LoginStep2 /> },
     { path: "signup", element: <Register /> },
 ]);

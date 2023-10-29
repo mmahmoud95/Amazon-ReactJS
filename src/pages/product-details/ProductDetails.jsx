@@ -24,6 +24,8 @@ const handelAdd = (product) => {
   const [myProd, setmyProd] = useState();
 
  useEffect(() => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+
     instance
         .get(`/${id}`)
         .then((res) => {

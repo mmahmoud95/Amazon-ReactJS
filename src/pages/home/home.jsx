@@ -18,90 +18,90 @@ import MonoCard from "./mono-card";
 import QuartitCard from "./quartit-card";
 
 export const Home = () => {
-  useEffect(() => {
-    document.title = "Amazon";
-  }, []);
-  return (
-    <>
-      <div className="container-fluid p-0 position-relative bg-body-secondary">
-        {/* main slider */}
-        <MainSlider />
-        <div className="container-fluid p-0 position-absolute top-50 start-0">
-          {/* //////////////// cards //////////////*/}
-          <div className="row gy-3 m-0 p-4">
-            <MonoCard
-              breackPoint="col-lg-3 col-sm-4 p-0"
-              title="Electronics"
-              navigation="laptops"
-              image={electronics}
-              body="See more"
-            />
+    useEffect(() => {
+        document.title = "Amazon";
+    }, []);
+    return (
+        <>
+            <div className='container-fluid p-0 position-relative bg-body-secondary'>
+                {/* main slider */}
+                <MainSlider />
+                <div className='container-fluid p-0 position-absolute top-50 start-0'>
+                    {/* //////////////// cards //////////////*/}
+                    <div className='row gy-3 m-0 p-4'>
+                        <MonoCard
+                            breackPoint='col-lg-3 col-sm-4 p-0'
+                            title='Electronics'
+                            navigation='laptops'
+                            image={electronics}
+                            body='See more'
+                        />
 
-            <MonoCard
-              breackPoint="col-lg-3 col-sm-4 p-0"
-              title=" Health & Personal Care"
-              navigation="skincare"
-              image={healthCare}
-              body="See more"
-            />
+                        <MonoCard
+                            breackPoint='col-lg-3 col-sm-4 p-0'
+                            title=' Health & Personal Care'
+                            navigation='skincare'
+                            image={healthCare}
+                            body='See more'
+                        />
 
-            <MonoCard
-              breackPoint="col-lg-3 col-sm-4 p-0"
-              title="Home & Kitchen Under $30"
-              navigation="home-decoration"
-              image={home}
-              body="Shop now"
-            />
+                        <MonoCard
+                            breackPoint='col-lg-3 col-sm-4 p-0'
+                            title='Home & Kitchen Under $30'
+                            navigation='home-decoration'
+                            image={home}
+                            body='Shop now'
+                        />
 
-            <MonoCard
-              breackPoint="col-lg-3 col-sm-4 p-0"
-              title="Toys Under $30"
-              navigation="home-decoration"
-              image={toys}
-              body="Shop now"
-            />
+                        <MonoCard
+                            breackPoint='col-lg-3 col-sm-4 p-0'
+                            title='Toys Under $30'
+                            navigation='home-decoration'
+                            image={toys}
+                            body='Shop now'
+                        />
 
-            <QuartitCard
-              breackPoint="col-lg-3 col-sm-4 p-0"
-              title="Pick up where you left off"
-              navigation="laptops"
-              image1={headphone1}
-              image2={headphone2}
-              image3={headphone3}
-              image4={headphone4}
-              body="View your browsing history"
-            />
+                        <QuartitCard
+                            breackPoint='col-lg-3 col-sm-4 p-0'
+                            title='Pick up where you left off'
+                            navigation='laptops'
+                            image1={headphone1}
+                            image2={headphone2}
+                            image3={headphone3}
+                            image4={headphone4}
+                            body='View your browsing history'
+                        />
 
-            <QuartitCard
-              breackPoint="col-lg-3 col-sm-4 p-0"
-              title="Pick up where you left off"
-              navigation="furniture"
-              image1={fur1}
-              image2={fur2}
-              image3={fur3}
-              image4={fur4}
-              body="View your browsing history"
-            />
+                        <QuartitCard
+                            breackPoint='col-lg-3 col-sm-4 p-0'
+                            title='Pick up where you left off'
+                            navigation='furniture'
+                            image1={fur1}
+                            image2={fur2}
+                            image3={fur3}
+                            image4={fur4}
+                            body='View your browsing history'
+                        />
 
-            <MonoCard
-              breackPoint="col-lg-3 col-sm-4 p-0"
-              title="Shop school essentials"
-              navigation="home-decoration"
-              image={shopSchool}
-              body="See more"
-            />
+                        <MonoCard
+                            breackPoint='col-lg-3 col-sm-4 p-0'
+                            title='Shop school essentials'
+                            navigation='home-decoration'
+                            image={shopSchool}
+                            body='See more'
+                        />
 
-            <MonoCard
-              breackPoint="col-lg-3 col-sm-4 p-0"
-              title="Get your TV easily"
-              navigation="laptops"
-              image={tv}
-              body="See more"
-            />
-          </div>
-          {/* ///////////cards///////////////////// */}
-        </div>
-      </div>
-    </>
-  );
+                        <MonoCard
+                            breackPoint='col-lg-3 col-sm-4 p-0'
+                            title='Get your TV easily'
+                            navigation='laptops'
+                            image={tv}
+                            body='See more'
+                        />
+                    </div>
+                    {/* ///////////cards///////////////////// */}
+                </div>
+            </div>
+        </>
+    );
 };

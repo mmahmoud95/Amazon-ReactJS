@@ -26,6 +26,7 @@ const ProductDetails = () => {
     const [myProd, setmyProd] = useState();
 
     useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
         instance
             .get(`/products/${id}`)
             .then((res) => {

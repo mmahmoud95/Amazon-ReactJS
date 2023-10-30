@@ -10,6 +10,7 @@ export const Category = () => {
     const navigate = useNavigate();
     useEffect(() => {
         document.title = `Amazon - ${categoryName}`;
+        window.scrollTo({ top: 0, behavior: "smooth" });
         instance
             .get(`products/category/${categoryID}`)
             .then((res) => {

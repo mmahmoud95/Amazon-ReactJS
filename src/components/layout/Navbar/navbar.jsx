@@ -6,9 +6,26 @@ import { IoSearchOutline, IoLocationOutline } from "react-icons/io5";
 import { NavLink, useNavigate } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { instance } from "../../../services/axios/instance";
 // import Navbar from 'react-bootstrap/Navbar';
 
 export const Header = () => {
+    const [catogories, setCatogories] = useState([]);
+    useEffect(() => {
+        instance
+            .get("category")
+            .then((res) => {
+                // console.log(res.data);
+                setCatogories(res.data);
+                // setCategoryProducts(res.data.data);
+                // console.log(res.data.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
+    console.log(catogories);
     const navigate = useNavigate();
     const cart = useSelector((state) => state.Cart);
 
@@ -370,50 +387,25 @@ export const Header = () => {
             <div className='menu'>
                 <ul className='list-unstyled d-flex flex-row'>
                     <li>
-                        <a
-                            onClick={() => {
-                                navigate(`/products/category/smartphones`);
-                            }}
-                        >
-                            Mobile Phones
-                        </a>
+                        <a href='#'>All</a>
                     </li>
                     <li>
-                        <a
-                            onClick={() => {
-                                navigate(`/products/category/laptops`);
-                            }}
-                        >
-                            Laptops
-                        </a>
+                        <a href='#'>Deals</a>
                     </li>
-                    <li>
-                        <a
-                            onClick={() => {
-                                navigate(`/products/category/sunglasses`);
-                            }}
-                        >
-                            Sunglasses
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            onClick={() => {
-                                navigate(`/products/category/mens-watches`);
-                            }}
-                        >
-                            Mens-Watches
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            onClick={() => {
-                                navigate(`/products/category/groceries`);
-                            }}
-                        >
-                            Grocery
-                        </a>
-                    </li>
+
+                    {catogories.map((category, index) => {
+                        return (
+                            <li key={index}>
+                                <NavLink
+                                    className='text-capitalize'
+                                    to={`/products/category/${category._id}`}
+                                >
+                                    {category.name}
+                                </NavLink>
+                            </li>
+                        );
+                    })}
+
                     <li>
                         <a href='#'>Home</a>
                     </li>
@@ -422,12 +414,6 @@ export const Header = () => {
                     </li>
                     <li>
                         <a href='#'>Toy & Games</a>
-                    </li>
-                    <li>
-                        <a href='#'>All</a>
-                    </li>
-                    <li>
-                        <a href='#'>Deals</a>
                     </li>
                     <li>
                         <a href='../help-page/help.html'>Help</a>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import "./footerStyle.css";
+import './footerStyle.css'
 import logo from "./amazon-logo.png";
 import flag from "./egypt-flag.svg";
 
@@ -20,7 +20,7 @@ const Footer = () => {
         <>
             {/*  by eng.hamza mohamed  */}
             <div
-                className='container-fluid p-0'
+                className='container-fluid p-0 '
                 style={{ backgroundColor: "#232f3e" }}
             >
                 {/* first section back to top button */}
@@ -284,7 +284,7 @@ const Footer = () => {
                                     Book reviews
                                 </span>
                                 <span className='text-secondary'>
-                                    & recommendations
+                                 & recommendations
                                 </span>
                             </Link>
                         </div>

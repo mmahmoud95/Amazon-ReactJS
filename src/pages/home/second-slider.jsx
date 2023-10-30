@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 // import { useState, useEffect } from "react";
 // import { instance } from "../../services/axios/instance";
+// import { useNavigate } from "react-router-dom";
 
 import CaraouselItem from "./caraousel-item";
 
@@ -18,7 +19,7 @@ export default function SecondSlider(props) {
   //       console.log(err);
   //     });
   // }, []);
-
+  // const navigate = useNavigate();
   return (
     <>
       <div className="container-fluid px-4 py-2">

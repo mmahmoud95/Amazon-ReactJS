@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { instance } from "../../services/axios/instance";
 import "./category.css";
 import { CategoryProduct } from "../../components/category-product/category-product";
-
 
 export const Category = () => {
     const [categoryProducts, setCategoryProducts] = useState([]);
@@ -12,6 +11,7 @@ export const Category = () => {
     // console.log(categoryname);
     useEffect(() => {
         document.title = `Amazon - ${categoryname}`;
+        window.scrollTo({ top: 0, behavior: "smooth" });
         instance
             .get(`category/${categoryname}`)
             .then((res) => {
@@ -43,21 +43,17 @@ export const Category = () => {
                     <div className='row'>
                         {categoryProducts.map((product, index) => (
                             // return (
-                               <CategoryProduct
-                                    key={index}
-                                    productID={product.id}
-                                    productTitle={product.title}
-                                    productRating={product.rating}
-                                    productDiscount={product.discountPercentage}
-                                    productThumbnail={product.thumbnail}
-                                    productPrice={product.price}
-                                    productDescription={product.description} 
-                                    /> 
-                                 
-                            )
-                        )
-                            
-                        }         
+                            <CategoryProduct
+                                key={index}
+                                productID={product.id}
+                                productTitle={product.title}
+                                productRating={product.rating}
+                                productDiscount={product.discountPercentage}
+                                productThumbnail={product.thumbnail}
+                                productPrice={product.price}
+                                productDescription={product.description}
+                            />
+                        ))}
                     </div>
                 </div>
             </div>

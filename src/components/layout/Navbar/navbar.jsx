@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 
 export const Header = () => {
     const navigate = useNavigate();
-    const cart=useSelector((state)=>state.Cart)
+    const cart = useSelector((state) => state.Cart);
 
     return (
         <>
@@ -283,7 +283,9 @@ export const Header = () => {
                                     }
                                     to='/cart'
                                 >
-                                    <span className='item-count'>{cart.length}</span>
+                                    <span className='item-count'>
+                                        {cart.length}
+                                    </span>
                                     <img className='mb-2' src={cartImage} />
                                     <span className='cart text-decoration-none'>
                                         Cart
@@ -368,12 +370,6 @@ export const Header = () => {
             <div className='menu'>
                 <ul className='list-unstyled d-flex flex-row'>
                     <li>
-                        <a href='#'>All</a>
-                    </li>
-                    <li>
-                        <a href='#'>Deals</a>
-                    </li>
-                    <li>
                         <a
                             onClick={() => {
                                 navigate(`/products/category/smartphones`);
@@ -426,6 +422,12 @@ export const Header = () => {
                     </li>
                     <li>
                         <a href='#'>Toy & Games</a>
+                    </li>
+                    <li>
+                        <a href='#'>All</a>
+                    </li>
+                    <li>
+                        <a href='#'>Deals</a>
                     </li>
                     <li>
                         <a href='../help-page/help.html'>Help</a>

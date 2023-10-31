@@ -306,7 +306,7 @@ const ProductDetails = () => {
                                     className='btn w-75 rounded-pill text-center my-2 '
                                     style={{ backgroundColor: "#FFA41C" }}
                                 >
-                                    <span className='pe-3'>Buy now</span>
+                                    <Link  to="/checkout"className='pe-3'>Buy now</Link>
                                     <i className='fa-solid fa-money-check'></i>
                                 </button>
                             </div>

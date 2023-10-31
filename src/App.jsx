@@ -10,6 +10,8 @@ import Login from "./pages/Login/Login";
 import Applayout from "./components/layout/AppLayout/applayout";
 import { Category } from "./pages/category/category";
 import ProductDetails from "./pages/product-details/ProductDetails";
+import CheckOut from "./pages/CheckOut/CheckOut";
+
 import { store } from "./Store/store";
 import { Provider } from "react-redux";
 import LoginStep2 from "./pages/Login/loginStep2";
@@ -27,6 +29,8 @@ const router = createBrowserRouter([
     { path: "login", element: <Login /> },
     { path: "login/loginStep2", element: <LoginStep2 /> },
     { path: "signup", element: <Register /> },
+    { path: "checkout", element: <CheckOut/> },
+
 ]);
 
 function App() {

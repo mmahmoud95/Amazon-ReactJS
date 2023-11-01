@@ -5,16 +5,23 @@ import { CategoryProduct } from "../../components/category-product/category-prod
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { instance } from "../../services/axios/instance";
-
+// import { instance } from "../../services/axios/instance";
+import { deccreaseCounter, increaseCounter } from '../../Store/Slice/count';
 export const Cart = () => {
     const cartPage = useSelector((state) => state.Cart);
+    const count=useSelector((state)=>state.counter.counter)
     const dispatch = useDispatch();
     var handelRemove = (id) => {
         dispatch(removFromCart(id));
     };
+    var handelincreas = (id) => {
+        dispatch(increaseCounter(id));
+    };
+    var handeldecres = (id) => {
+        dispatch(deccreaseCounter(id));
+    };
     /////right side//
-    const [categoryProductss, setCategoryProductss] = useState([]);
+    const [categoryProducts, setCategoryProducts] = useState([]);
     const { categoryname } = useParams();
     useEffect(() => {
         document.title = `Amazon - Cart`;
@@ -45,7 +52,8 @@ export const Cart = () => {
                         </div>
                         <hr />
 
-                        {cartPage.map((product, index) => (
+                        {cartPage.length>0?(cartPage
+                        .map((product, index) => (
                             <div className='row' key={index}>
                                 <div className='item col-md-3 col-sm-12 d-flex align-items-center'>
                                     <div className='mt-3 mb-3'>
@@ -60,7 +68,7 @@ export const Cart = () => {
                                 <div className='col-md-7 col-sm-12 justify-content-center flex-column mt-3 mb-3'>
                                     <h5>{product.description}</h5>
                                     <p className='price h5'>
-                                        EGP: {product.price}
+                                     EGP: {product.price}
                                     </p>
 
                                     <p className='stock'>
@@ -73,17 +81,25 @@ export const Cart = () => {
                                     <div className='mt-3'>
                                         <ul className='list-unstyled d-flex flex-row list'>
                                             <li className='h-100'>
-                                                <select
-                                                    className='form-select'
-                                                    aria-label='Default select example'
-                                                >
-                                                    <option selected>
-                                                        QTY
-                                                    </option>
-                                                    <option value='1'>1</option>
-                                                    <option value='2'>2</option>
-                                                    <option value='3'>3</option>
-                                                </select>
+
+     <div>
+        <button
+         className="btn btn-dark"
+          aria-label="Increment value"
+          onClick={() => handelincreas(product._id)}
+        >
+          + 
+        </button>
+        <span> QTY:{count} </span>
+        <button
+        className="btn btn-dark"
+          aria-label="Decrement value"
+          onClick={() => handeldecres(product._id)}
+        >
+          -
+        </button>
+</div>
+
                                             </li>
                                             <li>
                                                 <a
@@ -113,12 +129,17 @@ export const Cart = () => {
                                                 </a>
                                             </li>
                                         </ul>
+                                <p className='total-price fw-bold'>
+                                Subtotal : EGP {product.price*count} 
+                               
+                            </p>
                                     </div>
                                 </div>
 
                                 <hr />
                             </div>
-                        ))}
+                        ))):  <p className=" text-center mt-5" style={{fontSize:'22px'}}>Your Amazon cart is empty!</p>} 
+
                     </div>
 
                     {/* right side */}
@@ -130,12 +151,16 @@ export const Cart = () => {
                                 this option at checkout.{" "}
                                 <a href='#'>See details</a>
                             </p>
+                            {/* {cartPage .map((product, index) => ( */}
                             <p className='total-price'>
                                 Subtotal ({cartPage.length}items) :
                                 <span className='price'>
-                                    {cartPage.length}{" "}
+                                    {count*cartPage.map((product)=>(
+                                    product.price
+                                    ))}
                                 </span>
                             </p>
+                            {/* // ))} */}
                             <a
                                 href='#'
                                 className='to-buy d-inline-block text-decoration-none'
@@ -149,25 +174,23 @@ export const Cart = () => {
                                 <strong>Pair with your cart</strong>
                             </h5>
                             <div className='row'>
-                                <h3>{categoryname}</h3>
-                                {categoryProductss.map((product, index) => (
-                                    // return (
-                                    <CategoryProduct
-                                        key={index}
-                                        productID={product.id}
-                                        productTitle={product.title}
-                                        productRating={product.rating}
-                                        productDiscount={
-                                            product.discountPercentage
-                                        }
-                                        productThumbnail={product.thumbnail}
-                                        productPrice={product.price}
-                                        productDescription={product.description}
-                                    />
-                                ))}
-                            </div>
+                        {categoryProducts.map((product, index) => (
+                            // return (
+                            <CategoryProduct
+                                key={index}
+                                productID={product._id}
+                                productTitle={product.title}
+                                productRating={product.rating}
+                                productDiscount={product.discountPercentage}
+                                productThumbnail={product.thumbnail}
+                                productPrice={product.price}
+                                productDescription={product.description}
+                            />
+                        ))}
+                    </div>
                         </div>
                     </div>
+                    
                 </div>
             </section>
         </>

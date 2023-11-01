@@ -9,7 +9,7 @@ state.push(action.payload)
 },
 removFromCart:function(state,action){
    
-        return state.filter((product)=>product._id!=action.payload._id)
+ return state.filter((product)=>product._id!=action.payload._id)
     }
 }
 })

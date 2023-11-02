@@ -13,6 +13,7 @@ import ProductDetails from "./pages/product-details/ProductDetails";
 import { store } from "./Store/store";
 import { Provider } from "react-redux";
 import LoginStep2 from "./pages/Login/loginStep2";
+import { Search } from "./pages/search/search";
 const router = createBrowserRouter([
     { path: "/", element: <Home /> },
     {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
             { path: "cart", element: <Cart /> },
             { path: "products/category/:categoryID", element: <Category /> },
             { path: "products/:id", element: <ProductDetails /> },
+            { path: "products/results/", element: <Search /> },
         ],
     },
     { path: "login", element: <Login /> },

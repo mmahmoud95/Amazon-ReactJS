@@ -3,7 +3,7 @@ import amzonlogo from "../../../assets/nav-images/amzon-logo.png";
 import cartImage from "../../../assets/nav-images/cart.png";
 import egyptFlage from "../../../assets/nav-images/egypt-flag.svg";
 import { IoSearchOutline, IoLocationOutline } from "react-icons/io5";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -11,6 +11,18 @@ import { instance } from "../../../services/axios/instance";
 // import Navbar from 'react-bootstrap/Navbar';
 
 export const Header = () => {
+    const navigate = useNavigate();
+
+    const [searchText, setSearchText] = useState({ text: "" });
+    const handleChange = (e) => {
+        setSearchText({ text: e.target.value });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        navigate(`/products/results?${searchText.text.trim()}`);
+    };
+
     const [catogories, setCatogories] = useState([]);
     useEffect(() => {
         instance
@@ -25,8 +37,8 @@ export const Header = () => {
                 console.log(err);
             });
     }, []);
-    console.log(catogories);
-    const navigate = useNavigate();
+
+    // console.log(catogories);
     const cart = useSelector((state) => state.Cart);
 
     return (
@@ -76,13 +88,31 @@ export const Header = () => {
                             </li>
                             <ul className='navbar-nav search-bar'>
                                 <li className='nav-item'>
-                                    <form role='search'>
+                                    <form
+                                        className='d-flex'
+                                        role='search'
+                                        onSubmit={(e) => {
+                                            handleSubmit(e);
+                                        }}
+                                    >
                                         <input
                                             className='form-control search-input align-items-center'
-                                            type='search'
-                                            placeholder='          Search'
+                                            type='text'
+                                            placeholder='Search'
                                             aria-label='Search'
+                                            value={searchText.text}
+                                            onChange={(e) => {
+                                                handleChange(e);
+                                            }}
                                         />
+                                        <button
+                                            type='submit'
+                                            className='serch-icon border-0'
+                                        >
+                                            {/* <span className='d-block'> */}
+                                            <IoSearchOutline />
+                                            {/* </span> */}
+                                        </button>
                                     </form>
                                 </li>
                                 <li className='nav-item dropdown all-category-search'>
@@ -161,11 +191,6 @@ export const Header = () => {
                                             </a>
                                         </li>
                                     </ul>
-                                </li>
-                                <li className='nav-item'>
-                                    <span className='serch-icon d-block'>
-                                        <IoSearchOutline />
-                                    </span>
                                 </li>
                             </ul>
                             <li className='nav-item dropdown'>

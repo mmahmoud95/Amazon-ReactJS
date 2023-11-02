@@ -1,7 +1,7 @@
 import "./cart.css";
 import { useDispatch, useSelector } from "react-redux";
 import { removFromCart } from "../../Store/Slice/Cart";
-import { CategoryProduct } from "../../components/category-product/category-product";
+import { ProductCard } from "../../components/category-product/productCard";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
@@ -176,7 +176,7 @@ export const Cart = () => {
                             <div className='row'>
                         {categoryProducts.map((product, index) => (
                             // return (
-                            <CategoryProduct
+                            <ProductCard
                                 key={index}
                                 productID={product._id}
                                 productTitle={product.title}

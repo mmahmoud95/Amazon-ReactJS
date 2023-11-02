@@ -1,50 +1,61 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { instance } from "../../services/axios/instance";
-import "./category.css";
 import { ProductCard } from "../../components/category-product/productCard";
 
-export const Category = () => {
+export const Search = () => {
     const [categoryProducts, setCategoryProducts] = useState([]);
-    let { categoryID } = useParams();
+    const [notFound, setNotFound] = useState("");
+    const { search } = useLocation();
+    const result = search.split("?");
     const navigate = useNavigate();
     useEffect(() => {
-        document.title = `Amazon - ${categoryName}`;
+        // document.title = `Amazon - ${categoryName}`;
         window.scrollTo({ top: 0, behavior: "smooth" });
         instance
-            .get(`products/category/${categoryID}`)
+            .get(`products/result?search=${result[1]}`)
             .then((res) => {
                 // console.log(res.data.products);
-                setCategoryProducts(res.data.data);
+                // console.log(rasult[1]);
+                if (res.data.data.length > 0) {
+                    setNotFound("");
+                    setCategoryProducts(res.data.data);
+                    // console.log(res.data.data);
+                } else {
+                    setCategoryProducts([]);
+                    setNotFound(`${result[1]} not found  search again`);
+                    // console.log(res.data.message);
+                }
+
                 // console.log(res.data.data);
             })
             .catch((err) => {
                 navigate("/");
             });
-    }, [categoryID, navigate, categoryName]);
+    }, [result[1]]);
     // console.log(categoryname);
-    const [catogories, setCatogories] = useState([]);
-    useEffect(() => {
-        instance
-            .get("category")
-            .then((res) => {
-                // console.log(res.data);
-                setCatogories(res.data);
-                // setCategoryProducts(res.data.data);
-                // console.log(res.data.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }, []);
+    // const [catogories, setCatogories] = useState([]);
+    // useEffect(() => {
+    //     instance
+    //         .get("category")
+    //         .then((res) => {
+    //             // console.log(res.data);
+    //             setCatogories(res.data);
+    //             // setCategoryProducts(res.data.data);
+    //             // console.log(res.data.data);
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         });
+    // }, []);
 
-    var categoryName;
-    for (const category in catogories) {
-        // console.log(categoriesArr[category].id, categoryID);
-        if (catogories[category]._id === categoryID) {
-            categoryName = catogories[category].name;
-        }
-    }
+    // var categoryName;
+    // for (const category in catogories) {
+    //     // console.log(categoriesArr[category].id, categoryID);
+    //     if (catogories[category]._id === categoryID) {
+    //         categoryName = catogories[category].name;
+    //     }
+    // }
     // console.log(categoryProducts);
     return (
         // <></>
@@ -52,19 +63,19 @@ export const Category = () => {
             <div className='row mt-2 mb-2'>
                 <div className='col-lg-2 filter'></div>
                 <div className='col-lg-10'>
-                    <h3>{categoryName}</h3>
+                    {/* <h3>{categoryName}</h3> */}
                     <div className='row mt-5'>
                         <div className='col-12'>
                             <p>
                                 5-5 of over 5 results for &nbsp;
                                 <span className='text-danger'>
-                                    {categoryName}
+                                    {/* {categoryName} */}
                                 </span>
                             </p>
                         </div>
                     </div>
                     <div className='row'>
-                        {categoryProducts.map((product, index) => (
+                        {categoryProducts?.map((product, index) => (
                             // return (
                             <ProductCard
                                 key={index}
@@ -77,6 +88,7 @@ export const Category = () => {
                                 productDescription={product.description}
                             />
                         ))}
+                        {<h1>{notFound}</h1>}
                     </div>
                 </div>
             </div>

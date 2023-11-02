@@ -4,7 +4,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import { instance } from "../../services/axios/instance";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-
+import { udateQuantity } from "../../Store/Slice/Cart";
 import { Link, useParams } from "react-router-dom";
 import prime from "./1prime.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,13 +13,24 @@ import { addToCart } from "../../Store/Slice/Cart";
 const ProductDetails = () => {
     var { id } = useParams();
     const dispatch = useDispatch();
-    var cart = useSelector((state) => state.Cart);
+    var cartPage = useSelector((state) => state.Cart);
     const handelAdd = (product) => {
-        const isProductIncart = cart.some(
-            (products) => products._id === product._id
+        const isProductIncart = cartPage.some(
+            (items) => items.product._id === product._id
         );
         if (!isProductIncart) {
-            dispatch(addToCart(product));
+            dispatch(addToCart({ product: product, quantity: 1 }));
+        } else {
+            for (const index in cartPage) {
+                const quantity = cartPage.find((items) => {
+                    return items.product._id === product._id;
+                });
+
+                console.log(quantity.quantity);
+                let updatequantity = quantity.quantity;
+                updatequantity = quantity.quantity + 1;
+                dispatch(udateQuantity({ updatequantity, index }));
+            }
         }
     };
 
@@ -306,7 +317,9 @@ const ProductDetails = () => {
                                     className='btn w-75 rounded-pill text-center my-2 '
                                     style={{ backgroundColor: "#FFA41C" }}
                                 >
-                                    <Link  to="/checkout"className='pe-3'>Buy now</Link>
+                                    <Link to='/checkout' className='pe-3'>
+                                        Buy now
+                                    </Link>
                                     <i className='fa-solid fa-money-check'></i>
                                 </button>
                             </div>

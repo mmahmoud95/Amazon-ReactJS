@@ -13,14 +13,15 @@ import { instance } from "../../../services/axios/instance";
 export const Header = () => {
     const navigate = useNavigate();
 
-    const [searchText, setSearchText] = useState({ text: "" });
+    const [searchText, setSearchText] = useState("");
     const handleChange = (e) => {
-        setSearchText({ text: e.target.value });
+        setSearchText(e.target.value);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        navigate(`/products/results?${searchText.text.trim()}`);
+        navigate(`/products/results?${searchText}`);
+        setSearchText("");
     };
 
     const [catogories, setCatogories] = useState([]);
@@ -100,7 +101,7 @@ export const Header = () => {
                                             type='text'
                                             placeholder='Search'
                                             aria-label='Search'
-                                            value={searchText.text}
+                                            value={searchText}
                                             onChange={(e) => {
                                                 handleChange(e);
                                             }}

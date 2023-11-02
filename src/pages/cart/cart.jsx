@@ -1,25 +1,50 @@
 import "./cart.css";
 import { useDispatch, useSelector } from "react-redux";
-import { removFromCart } from "../../Store/Slice/Cart";
+import { removFromCart, udateQuantity } from "../../Store/Slice/Cart";
 import { ProductCard } from "../../components/category-product/productCard";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 // import { instance } from "../../services/axios/instance";
-import { deccreaseCounter, increaseCounter } from '../../Store/Slice/count';
+import { deccreaseCounter, increaseCounter } from "../../Store/Slice/count";
 export const Cart = () => {
     const cartPage = useSelector((state) => state.Cart);
-    const count=useSelector((state)=>state.counter.counter)
+    // console.log(cartPage[0].quantity);
+    // const count = useSelector((state) => state.counter.counter);
+    const [count, setCount] = useState(1);
     const dispatch = useDispatch();
     var handelRemove = (id) => {
+        console.log(id);
         dispatch(removFromCart(id));
     };
-    var handelincreas = (id) => {
-        dispatch(increaseCounter(id));
+    var handelincreas = (index) => {
+        const quantity = cartPage[index].quantity;
+        // console.log(quantity);
+        let updatequantity = quantity + 1;
+        // console.log(updatequantity);
+        dispatch(udateQuantity({ updatequantity, index }));
+        setCount(cartPage[index].quantity);
     };
-    var handeldecres = (id) => {
-        dispatch(deccreaseCounter(id));
+    var handeldecres = (index) => {
+        const quantity = cartPage[index].quantity;
+        // console.log(quantity);
+        let updatequantity = quantity;
+        if (updatequantity > 1) {
+            updatequantity = quantity - 1;
+            dispatch(udateQuantity({ updatequantity, index }));
+            setCount(cartPage[index].quantity);
+        }
+        // console.log(updatequantity);
     };
+    let total = 0;
+    for (const i in cartPage) {
+        let price = cartPage[i].product.price;
+        let quantity = cartPage[i].quantity;
+        total += price * quantity;
+    }
+
+    console.log(total);
+
     /////right side//
     const [categoryProducts, setCategoryProducts] = useState([]);
     const { categoryname } = useParams();
@@ -52,94 +77,117 @@ export const Cart = () => {
                         </div>
                         <hr />
 
-                        {cartPage.length>0?(cartPage
-                        .map((product, index) => (
-                            <div className='row' key={index}>
-                                <div className='item col-md-3 col-sm-12 d-flex align-items-center'>
-                                    <div className='mt-3 mb-3'>
-                                        <img
-                                            className='w-100'
-                                            width='500px'
-                                            src={product.thumbnail}
-                                        />
+                        {cartPage.length > 0 ? (
+                            cartPage.map((item, index) => (
+                                <div className='row' key={index}>
+                                    <div className='item col-md-3 col-sm-12 d-flex align-items-center'>
+                                        <div className='mt-3 mb-3'>
+                                            <img
+                                                className='w-100'
+                                                width='500px'
+                                                src={item.product.thumbnail}
+                                            />
+                                        </div>
                                     </div>
+
+                                    <div className='col-md-7 col-sm-12 justify-content-center flex-column mt-3 mb-3'>
+                                        <h5>{item.product.description}</h5>
+                                        <p className='price h5'>
+                                            EGP: {item.product.price}
+                                        </p>
+
+                                        <p className='stock'>
+                                            DiscountPercentage:
+                                            {item.product.discountPercentage}
+                                        </p>
+                                        <p className='stock'>
+                                            stock:{item.product.quantityInStock}
+                                        </p>
+                                        <div className='mt-3'>
+                                            <ul className='list-unstyled d-flex flex-row list'>
+                                                <li className='h-100'>
+                                                    <div>
+                                                        <button
+                                                            className='btn btn-dark'
+                                                            aria-label='Increment value'
+                                                            onClick={() =>
+                                                                handelincreas(
+                                                                    index
+                                                                )
+                                                            }
+                                                        >
+                                                            +
+                                                        </button>
+                                                        <span>
+                                                            {" "}
+                                                            QTY:
+                                                            {
+                                                                cartPage[index]
+                                                                    .quantity
+                                                            }{" "}
+                                                        </span>
+                                                        <button
+                                                            className='btn btn-dark'
+                                                            aria-label='Decrement value'
+                                                            onClick={() =>
+                                                                handeldecres(
+                                                                    index
+                                                                )
+                                                            }
+                                                        >
+                                                            -
+                                                        </button>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <a
+                                                        href='#'
+                                                        className='text-decoration-none me-2'
+                                                        onClick={() =>
+                                                            handelRemove(
+                                                                item.product
+                                                            )
+                                                        }
+                                                    >
+                                                        Delete
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a
+                                                        href='#'
+                                                        className='text-decoration-none me-2'
+                                                    >
+                                                        Save for later
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a
+                                                        href='#'
+                                                        className='text-decoration-none me-2'
+                                                    >
+                                                        Share
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <p className='total-price fw-bold'>
+                                                Subtotal : EGP{" "}
+                                                {item.product.price *
+                                                    cartPage[index].quantity}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <hr />
                                 </div>
-
-                                <div className='col-md-7 col-sm-12 justify-content-center flex-column mt-3 mb-3'>
-                                    <h5>{product.description}</h5>
-                                    <p className='price h5'>
-                                     EGP: {product.price}
-                                    </p>
-
-                                    <p className='stock'>
-                                        DiscountPercentage:
-                                        {product.discountPercentage}
-                                    </p>
-                                    <p className='stock'>
-                                        stock:{product.quantityInStock}
-                                    </p>
-                                    <div className='mt-3'>
-                                        <ul className='list-unstyled d-flex flex-row list'>
-                                            <li className='h-100'>
-
-     <div>
-        <button
-         className="btn btn-dark"
-          aria-label="Increment value"
-          onClick={() => handelincreas(product._id)}
-        >
-          + 
-        </button>
-        <span> QTY:{count} </span>
-        <button
-        className="btn btn-dark"
-          aria-label="Decrement value"
-          onClick={() => handeldecres(product._id)}
-        >
-          -
-        </button>
-</div>
-
-                                            </li>
-                                            <li>
-                                                <a
-                                                    href='#'
-                                                    className='text-decoration-none me-2'
-                                                    onClick={() =>
-                                                        handelRemove(product)
-                                                    }
-                                                >
-                                                    Delete
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    href='#'
-                                                    className='text-decoration-none me-2'
-                                                >
-                                                    Save for later
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    href='#'
-                                                    className='text-decoration-none me-2'
-                                                >
-                                                    Share
-                                                </a>
-                                            </li>
-                                        </ul>
-                                <p className='total-price fw-bold'>
-                                Subtotal : EGP {product.price*count} 
-                               
+                            ))
+                        ) : (
+                            <p
+                                className=' text-center mt-5'
+                                style={{ fontSize: "22px" }}
+                            >
+                                Your Amazon cart is empty!
                             </p>
-                                    </div>
-                                </div>
-
-                                <hr />
-                            </div>
-                        ))):  <p className=" text-center mt-5" style={{fontSize:'22px'}}>Your Amazon cart is empty!</p>} 
-
+                        )}
                     </div>
 
                     {/* right side */}
@@ -153,12 +201,8 @@ export const Cart = () => {
                             </p>
                             {/* {cartPage .map((product, index) => ( */}
                             <p className='total-price'>
-                                Subtotal ({cartPage.length}items) :
-                                <span className='price'>
-                                    {count*cartPage.map((product)=>(
-                                    product.price
-                                    ))}
-                                </span>
+                                Subtotal ({cartPage.length} items) :
+                                <span className='price'>{total}</span>
                             </p>
                             {/* // ))} */}
                             <a
@@ -174,23 +218,24 @@ export const Cart = () => {
                                 <strong>Pair with your cart</strong>
                             </h5>
                             <div className='row'>
-                        {categoryProducts.map((product, index) => (
-                            // return (
-                            <ProductCard
-                                key={index}
-                                productID={product._id}
-                                productTitle={product.title}
-                                productRating={product.rating}
-                                productDiscount={product.discountPercentage}
-                                productThumbnail={product.thumbnail}
-                                productPrice={product.price}
-                                productDescription={product.description}
-                            />
-                        ))}
-                    </div>
+                                {categoryProducts.map((product, index) => (
+                                    // return (
+                                    <ProductCard
+                                        key={index}
+                                        productID={product._id}
+                                        productTitle={product.title}
+                                        productRating={product.rating}
+                                        productDiscount={
+                                            product.discountPercentage
+                                        }
+                                        productThumbnail={product.thumbnail}
+                                        productPrice={product.price}
+                                        productDescription={product.description}
+                                    />
+                                ))}
+                            </div>
                         </div>
                     </div>
-                    
                 </div>
             </section>
         </>

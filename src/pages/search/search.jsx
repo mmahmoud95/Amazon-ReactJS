@@ -23,7 +23,7 @@ export const Search = () => {
                     // console.log(res.data.data);
                 } else {
                     setCategoryProducts([]);
-                    setNotFound(`${result[1]} not found  search again`);
+                    setNotFound(`product not found  search again`);
                     // console.log(res.data.message);
                 }
 

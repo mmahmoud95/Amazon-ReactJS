@@ -1,15 +1,19 @@
 import amzonlogo from "../../assets/download.png";
 import { useState } from "react";
-
+import toast, { Toaster } from 'react-hot-toast'
 import "./login.css";
 import { NavLink } from "react-router-dom";
+import { login } from "../../services/auth";
 
 const Login = () => {
     const [user, setUser] = useState({
         email: "",
+        password:''
     });
     const [errors, setErrors] = useState({
-        passwordError: "",
+        emailError: "",
+        passwordError:''
+
     });
 
     const handelChange = (eve) => {
@@ -29,8 +33,21 @@ const Login = () => {
         } 
     };
 
-    const handleSubmit = (evt) => {
+    const handleSubmit =async (evt) => {
         evt.preventDefault();
+        if(errors.emailError||errors.passwordError){
+      toast.error("validation error",{position:"top-center"})
+        }
+        else{
+        try{
+            const res=await login(user)
+            // navigate('/')
+            console.log(res);   
+           }catch(err){
+          toast.error("Error registration",{position:"top-center"})
+           }
+      
+       }
     };
 
     return (
@@ -91,13 +108,15 @@ const Login = () => {
                                                 </p>
                                             </div>
                                             <div className='form-outline mb-5'>
-                                                < NavLink to='./loginStep2' state={{ Email: user.email }}><input
+                                                {/* < NavLink to='./loginStep2'> */}
+                                                    <input
                                                     type='submit'
                                                     id='form3Example4cdg'
                                                     className='form-control submit '
                                                     value='Continue'
                                                     
-                                                /></NavLink >
+                                                />
+                                                {/* </NavLink > */}
                                             </div>
                                             <div className='form-check d-flex justify-content-center mb-3 ptn'>
                                                 <p>
@@ -129,7 +148,9 @@ const Login = () => {
                                             >
                                                 Other issues with Sign-In
                                             </a>
+                                           
                                         </form>
+                                         <Toaster/>
                                     </div>
                                 </div>
                                 <h6 id='tex' className='mt-5'>

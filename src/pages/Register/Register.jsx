@@ -1,9 +1,10 @@
 import { useState } from "react";
 import amzonlogo from "../../assets/download.png";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
-import { NavLink } from "react-router-dom";
-
+import { NavLink, useNavigate } from "react-router-dom";
 import "./Register.css";
+import { registerr } from "../../services/auth";
+import toast, { Toaster } from "react-hot-toast";
 const Register = () => {
     const [user, setUser] = useState({
         name: "",
@@ -19,6 +20,7 @@ const Register = () => {
     });
 
     const [visible, setvisible] = useState(false);
+    const navigate=useNavigate()
     const handelChange = (eve) => {
         // console.log(eve.target);
         var regex = /^[a-zA-Z0-9]{2,}(@)(gmail)(.com)$/;
@@ -72,10 +74,21 @@ const Register = () => {
             });
         }
     };
-    const handleSubmit = (evt) => {
+    const handleSubmit =async (evt) => {
         evt.preventDefault();
-    };
-
+        if(errors.emailError||errors.passwordError||errors.nameError||errors.ConfirmPasswordError){
+      toast.error("validation error",{position:"top-center"})
+        }else{
+            try{
+             const res=await registerr(user)
+             navigate('/login')
+            //  console.log(res);   
+            }catch(err){
+           toast.error("Error registration",{position:"top-center"})
+            }
+       
+        }
+    }
     return (
         <>
             <div className='vh-100 '>
@@ -99,9 +112,7 @@ const Register = () => {
                                         <form
                                             form
                                             autoComplete='off'
-                                            onSubmit={(e) => {
-                                                handleSubmit(e);
-                                            }}
+                                            onSubmit={(e) => { handleSubmit(e) }}
                                         >
                                             <div className='form-outline mb-3'>
                                                 <label
@@ -235,12 +246,14 @@ const Register = () => {
                                             </div>
 
                                             <div className='form-outline mb-5'>
-                                           <NavLink to='/'>  <input
+                                           {/* <NavLink to='/'>  */}
+                                            <input
                                                     type='submit'
                                                     id='form3Example4cdg'
                                                     className='form-control submit '
                                                     value='Continue'
-                                                /></NavLink> 
+                                                />
+                                                {/* </NavLink>  */}
                                             </div>
                                             <div className='form-check d-flex justify-content-center mb-3 ptn'>
                                                 <p>
@@ -262,7 +275,9 @@ const Register = () => {
                                                     <u> sign in</u>
                                                 </a>
                                             </p>
-                                        </form>
+                                         
+                                        </form>  
+                                         <Toaster/>
                                     </div>
                                 </div>
                                 <div className='row'>

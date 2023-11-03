@@ -91,7 +91,7 @@ const Login = () => {
                                                 </p>
                                             </div>
                                             <div className='form-outline mb-5'>
-                                                < NavLink to='./loginStep2'><input
+                                                < NavLink to='./loginStep2' state={{ Email: user.email }}><input
                                                     type='submit'
                                                     id='form3Example4cdg'
                                                     className='form-control submit '

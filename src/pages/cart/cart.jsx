@@ -6,7 +6,6 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 // import { instance } from "../../services/axios/instance";
-import { deccreaseCounter, increaseCounter } from "../../Store/Slice/count";
 export const Cart = () => {
     const cartPage = useSelector((state) => state.Cart);
     // console.log(cartPage[0].quantity);

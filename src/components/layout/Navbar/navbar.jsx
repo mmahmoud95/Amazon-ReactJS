@@ -8,11 +8,13 @@ import Nav from "react-bootstrap/Nav";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { instance } from "../../../services/axios/instance";
+import { useContext } from "react";
+import { authContext } from "../../../context/authcontex";
 // import Navbar from 'react-bootstrap/Navbar';
 
 export const Header = () => {
     const navigate = useNavigate();
-
+const {isLogin,setLogin}=useContext(authContext)
     const [searchText, setSearchText] = useState("");
     const handleChange = (e) => {
         setSearchText(e.target.value);
@@ -255,17 +257,23 @@ export const Header = () => {
                                     aria-expanded='false'
                                 >
                                     <span className='account-lists'>
-                                        <span className='hello'>
+                                        {(isLogin)?<span className='hello' >Hello,Elena</span>
+                                        :   <span className='hello'>
                                             Hello, sign in
                                             <br />
-                                        </span>
+                                        </span>}
+                                     
                                         Account & Lists
                                     </span>
                                 </a>
                                 <ul className='dropdown-menu'>
                                     <li>
                                         <a className='dropdown-item drop-account shadow'>
-                                            <Nav className='me-auto '>
+                                            {(isLogin)?<Nav className='me-auto '
+                                            typeof="./login"
+                                            onClick={()=>{localStorage.removeItem('userToken')
+                                        ;setLogin(false)}}>logout</Nav>
+                                            :<Nav className='me-auto '>
                                                 <NavLink
                                                     to='/login'
                                                     className={({ isActive }) =>
@@ -276,7 +284,8 @@ export const Header = () => {
                                                 >
                                                     sign in
                                                 </NavLink>
-                                            </Nav>
+                                            </Nav>}
+                                            
                                         </a>
                                         <p className='register'>
                                             New customer?

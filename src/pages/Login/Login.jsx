@@ -1,6 +1,7 @@
 import amzonlogo from "../../assets/download.png";
 import { useState } from "react";
 import toast, { Toaster } from 'react-hot-toast'
+import {  useNavigate } from "react-router-dom";
 import "./login.css";
 import { NavLink } from "react-router-dom";
 import { login } from "../../services/auth";
@@ -15,7 +16,7 @@ const Login = () => {
         passwordError:''
 
     });
-
+    const navigate=useNavigate()
     const handelChange = (eve) => {
         var regex = /^[a-zA-Z0-9]{2,}(@)(gmail)(.com)$/;
 
@@ -33,23 +34,25 @@ const Login = () => {
         } 
     };
 
-    const handleSubmit =async (evt) => {
+    const handleSubmit = async (evt) => {
         evt.preventDefault();
-        if(errors.emailError||errors.passwordError){
-      toast.error("validation error",{position:"top-center"})
-        }
-        else{
-        try{
-            const res=await login(user)
-            // navigate('/')
-            console.log(res);   
-           }catch(err){
-          toast.error("Error registration",{position:"top-center"})
-           }
+        if (errors.emailError || errors.passwordError) {
+          toast.error("Validation error, try again", { position: "top-center" });
+        } else {
+          try {
+            const res = await login(user);
       
-       }
-    };
-
+            if (res.status === 204) {
+              // Email exists, navigate to 'loginStep2'
+              navigate('./loginStep2', { state: { Email: user.email } });
+              console.log(res);}
+         
+          } catch (err) {
+            toast.error("Error during email check or server crashed", { position: "top-center" });
+          }
+        }
+      };
+        
     return (
         <>
             <div className='vh-100 '>
@@ -108,7 +111,6 @@ const Login = () => {
                                                 </p>
                                             </div>
                                             <div className='form-outline mb-5'>
-                                                {/* < NavLink to='./loginStep2'> */}
                                                     <input
                                                     type='submit'
                                                     id='form3Example4cdg'
@@ -116,7 +118,6 @@ const Login = () => {
                                                     value='Continue'
                                                     
                                                 />
-                                                {/* </NavLink > */}
                                             </div>
                                             <div className='form-check d-flex justify-content-center mb-3 ptn'>
                                                 <p>

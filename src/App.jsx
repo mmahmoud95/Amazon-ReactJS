@@ -16,6 +16,8 @@ import { store } from "./Store/store";
 import { Provider } from "react-redux";
 import LoginStep2 from "./pages/Login/loginStep2";
 import { Search } from "./pages/search/search";
+import { AuthProvider } from "./context/authcontex";
+import { useState } from "react";
 const router = createBrowserRouter([
     { path: "/", element: <Home /> },
     {
@@ -36,11 +38,12 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+   const[isLogin,setLogin] =useState(localStorage.getItem('userToken')?true:false)
     return (
         <>
-            <Provider store={store}>
+        <AuthProvider value={{isLogin,setLogin}}> <Provider store={store}>
                 <RouterProvider router={router} />
-            </Provider>
+            </Provider></AuthProvider>  
         </>
     );
 }

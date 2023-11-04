@@ -1,16 +1,17 @@
 import amzonlogo from "../../assets/download.png";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { instance } from "../../services/axios/instance";
 
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import "./login.css";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { authContext } from "../../context/authcontex";
 
 const LoginStep2 = () => {
     let location = useLocation();
     const navigate = useNavigate();
-
+const {setLogin}=useContext(authContext)
     //   const [loggeduser, setLoggedUser] = useState({})
 
     const [userEmail, setuserEmail] = useState(location.state.Email);
@@ -63,6 +64,7 @@ const LoginStep2 = () => {
             if (data) {
                 console.log(data.yourToken);
                 localStorage.setItem("userToken", data.yourToken);
+                setLogin(true)
                 navigate("/");
             } else {
                 console.log("invalid email or password");

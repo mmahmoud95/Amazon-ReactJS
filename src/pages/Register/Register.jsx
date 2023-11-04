@@ -1,7 +1,7 @@
 import { useState } from "react";
 import amzonlogo from "../../assets/download.png";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
-import { NavLink, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import "./Register.css";
 import { registerr } from "../../services/auth";
 import toast, { Toaster } from "react-hot-toast";
@@ -77,14 +77,14 @@ const Register = () => {
     const handleSubmit =async (evt) => {
         evt.preventDefault();
         if(errors.emailError||errors.passwordError||errors.nameError||errors.ConfirmPasswordError){
-      toast.error("validation error",{position:"top-center"})
+      toast.error("validation error ,try again",{position:"top-center"})
         }else{
             try{
              const res=await registerr(user)
              navigate('/login')
-            //  console.log(res);   
+             console.log(res);   
             }catch(err){
-           toast.error("Error registration",{position:"top-center"})
+           toast.error("Error registration,server crashed",{position:"top-center"})
             }
        
         }

@@ -2,63 +2,119 @@ import "./cart.css";
 import { useDispatch, useSelector } from "react-redux";
 import { removFromCart, udateQuantity } from "../../Store/Slice/Cart";
 import { ProductCard } from "../../components/category-product/productCard";
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useState } from "react";
+import { json, useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { authContext } from "../../context/authcontex";
+import axios from "axios";
+import { instance } from "../../services/axios/instance";
+
 // import { instance } from "../../services/axios/instance";
 export const Cart = () => {
-    const cartPage = useSelector((state) => state.Cart);
-    // console.log(cartPage[0].quantity);
-    // const count = useSelector((state) => state.counter.counter);
+    const { isLogin, setLogin } = useContext(authContext);
+    let cartPage = useSelector((state) => state.Cart);
+    console.log(cartPage);
     const [count, setCount] = useState(1);
     const dispatch = useDispatch();
+
+    if (isLogin) {
+        cartPage;
+        const productId = cartPage[0]?.product._id;
+        var increase = async () => {
+            const { data } = await axios.post(
+                "http://localhost:3333/cart",
+                { productId: productId },
+                {
+                    headers: {
+                        Authorization: localStorage.getItem("userToken"),
+                    },
+                }
+            );
+            console.log(data);
+        };
+
+        var decrease = async () => {
+            const { data } = await axios.delete(
+                "http://localhost:3333/cart",
+                { productId: productId },
+                {
+                    headers: {
+                        Authorization: localStorage.getItem("userToken"),
+                    },
+                }
+            );
+            console.log(data);
+        };
+    }
+
     var handelRemove = (id) => {
-        console.log(id);
         dispatch(removFromCart(id));
+        const cart = localStorage.setItem("cart", JSON.stringify(cartPage));
+        console.log(localStorage.cart);
     };
     var handelincreas = (index) => {
         const quantity = cartPage[index].quantity;
-        // console.log(quantity);
         let updatequantity = quantity + 1;
-        // console.log(updatequantity);
+
         dispatch(udateQuantity({ updatequantity, index }));
         setCount(cartPage[index].quantity);
+        increase();
     };
     var handeldecres = (index) => {
         const quantity = cartPage[index].quantity;
-        // console.log(quantity);
         let updatequantity = quantity;
         if (updatequantity > 1) {
             updatequantity = quantity - 1;
             dispatch(udateQuantity({ updatequantity, index }));
             setCount(cartPage[index].quantity);
+            decrease();
         }
+        // localStorage.setItem("cart", JSON.stringify(cartPage));
+        // console.log(JSON.parse(localStorage.getItem("cart")));
         // console.log(updatequantity);
     };
-    let total = 0;
+    var total = 0;
     for (const i in cartPage) {
         let price = cartPage[i].product.price;
         let quantity = cartPage[i].quantity;
         total += price * quantity;
     }
 
-    console.log(total);
+    // console.log(total);
 
     /////right side//
     const [categoryProducts, setCategoryProducts] = useState([]);
     const { categoryname } = useParams();
     useEffect(() => {
         document.title = `Amazon - Cart`;
-        // instance
-        //     .get(`category/${categoryname}`)
-        //     .then((res) => {
-        //         console.log(res.data.products);
-        //         setCategoryProductss(res.data.products);
-        //     })
-        //     .catch((err) => {
-        //         console.log(err);
-        //     });
-    }, [categoryname]);
+        let priductsitemsid;
+        instance
+            .get("cart", {
+                headers: {
+                    Authorization: localStorage.getItem("userToken"),
+                },
+            })
+            .then((res) => {
+                priductsitemsid = res.data.data[0].items;
+                // console.log(priductsitemsid);
+            })
+            .then(() => {
+                for (const i in priductsitemsid) {
+                    console.log(priductsitemsid[i].productId);
+                    instance
+                        .get(`/products/${priductsitemsid[i].productId}`)
+                        .then((res) => {
+                            // setmyProd(res.data.data);
+                            console.log(res.data.data);
+                            for (const i in res.data.data) {
+                            }
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                }
+            });
+    }, []);
     /////
     return (
         <>

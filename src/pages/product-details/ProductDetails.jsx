@@ -21,16 +21,16 @@ const ProductDetails = () => {
         if (!isProductIncart) {
             dispatch(addToCart({ product: product, quantity: 1 }));
         } else {
-            for (const index in cartPage) {
-                const quantity = cartPage.find((items) => {
-                    return items.product._id === product._id;
-                });
-
-                console.log(quantity.quantity);
-                let updatequantity = quantity.quantity;
-                updatequantity = quantity.quantity + 1;
-                dispatch(udateQuantity({ updatequantity, index }));
-            }
+            const item = cartPage.find((item) => {
+                return item.product._id === product._id;
+            });
+            const index = cartPage.findIndex(
+                (item) => item.product._id === product._id
+            );
+            console.log(item);
+            let updatequantity = item.quantity;
+            updatequantity = item.quantity + 1;
+            dispatch(udateQuantity({ updatequantity, index }));
         }
     };
 

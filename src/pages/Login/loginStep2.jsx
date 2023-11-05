@@ -11,10 +11,10 @@ import { authContext } from "../../context/authcontex";
 const LoginStep2 = () => {
     let location = useLocation();
     const navigate = useNavigate();
-const {setLogin}=useContext(authContext)
+    const { setLogin } = useContext(authContext);
     //   const [loggeduser, setLoggedUser] = useState({})
 
-    const [userEmail, setuserEmail] = useState(location.state.Email);
+    const userEmail = location.state?.Email;
     const [userPassword, setPassword] = useState("");
     const [user, setUser] = useState({
         password: "",
@@ -63,8 +63,10 @@ const {setLogin}=useContext(authContext)
             );
             if (data) {
                 console.log(data.yourToken);
+                console.log(data.name);
                 localStorage.setItem("userToken", data.yourToken);
-                setLogin(true)
+                localStorage.setItem("name", data.name);
+                setLogin(true);
                 navigate("/");
             } else {
                 console.log("invalid email or password");

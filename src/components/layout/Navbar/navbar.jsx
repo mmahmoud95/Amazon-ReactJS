@@ -13,8 +13,9 @@ import { authContext } from "../../../context/authcontex";
 // import Navbar from 'react-bootstrap/Navbar';
 
 export const Header = () => {
+    const name = localStorage.getItem("name");
     const navigate = useNavigate();
-const {isLogin,setLogin}=useContext(authContext)
+    const { isLogin, setLogin } = useContext(authContext);
     const [searchText, setSearchText] = useState("");
     const handleChange = (e) => {
         setSearchText(e.target.value);
@@ -257,35 +258,51 @@ const {isLogin,setLogin}=useContext(authContext)
                                     aria-expanded='false'
                                 >
                                     <span className='account-lists'>
-                                        {(isLogin)?<span className='hello' >Hello,Elena</span>
-                                        :   <span className='hello'>
-                                            Hello, sign in
-                                            <br />
-                                        </span>}
-                                     
+                                        {isLogin ? (
+                                            <span className='hello'>
+                                                Hello, {name}
+                                            </span>
+                                        ) : (
+                                            <span className='hello'>
+                                                Hello, sign in
+                                                <br />
+                                            </span>
+                                        )}
                                         Account & Lists
                                     </span>
                                 </a>
                                 <ul className='dropdown-menu'>
                                     <li>
                                         <a className='dropdown-item drop-account shadow'>
-                                            {(isLogin)?<Nav className='me-auto '
-                                            typeof="./login"
-                                            onClick={()=>{localStorage.removeItem('userToken')
-                                        ;setLogin(false)}}>logout</Nav>
-                                            :<Nav className='me-auto '>
-                                                <NavLink
-                                                    to='/login'
-                                                    className={({ isActive }) =>
-                                                        isActive
-                                                            ? "act"
-                                                            : "test"
-                                                    }
+                                            {isLogin ? (
+                                                <Nav
+                                                    className='me-auto '
+                                                    typeof='./login'
+                                                    onClick={() => {
+                                                        localStorage.removeItem(
+                                                            "userToken"
+                                                        );
+                                                        setLogin(false);
+                                                    }}
                                                 >
-                                                    sign in
-                                                </NavLink>
-                                            </Nav>}
-                                            
+                                                    logout
+                                                </Nav>
+                                            ) : (
+                                                <Nav className='me-auto '>
+                                                    <NavLink
+                                                        to='/login'
+                                                        className={({
+                                                            isActive,
+                                                        }) =>
+                                                            isActive
+                                                                ? "act"
+                                                                : "test"
+                                                        }
+                                                    >
+                                                        sign in
+                                                    </NavLink>
+                                                </Nav>
+                                            )}
                                         </a>
                                         <p className='register'>
                                             New customer?

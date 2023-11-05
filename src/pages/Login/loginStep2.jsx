@@ -63,7 +63,9 @@ const LoginStep2 = () => {
         );
         if (data.message == "welcome to our site ") {
           console.log(data.yourToken);
-          localStorage.setItem("userToken", data.yourToken);
+          localStorage.setItem("userToken", data.yourToken); 
+          localStorage.setItem("name", data.name);
+
           setLogin(true);
           navigate("/");
         } else if(data.message == "please enter your email and password "){
@@ -73,45 +75,11 @@ const LoginStep2 = () => {
       } catch (err) {
         navigate("/login");
 
-<<<<<<< HEAD
-    const handleSubmit = async (evt) => {
-        evt.preventDefault();
-    };
-    const logIn = async (e) => {
-        try {
-            console.log(userEmail);
-            console.log("here eeeeeee");
-            let setLog = {
-                email: userEmail,
-                password: userPassword,
-            };
-            console.log(setLog);
-            const { data } = await axios.post(
-                "http://localhost:3333/api/user/login",
-                setLog
-            );
-            if (data) {
-                console.log(data.yourToken);
-                console.log(data.name);
-                localStorage.setItem("userToken", data.yourToken);
-                localStorage.setItem("name", data.name);
-                setLogin(true);
-                navigate("/");
-            } else {
-                console.log("invalid email or password");
-            }
-        } catch (err) {
-            // useNavigate('/login')
-            console.log(err);
-        }
-    };
-=======
         console.log(err);
       }
     } else {
       console.log("provide email first");
       navigate("/login");
->>>>>>> main
 
     }
   };

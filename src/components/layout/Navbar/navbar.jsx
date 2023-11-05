@@ -13,6 +13,7 @@ import { authContext } from "../../../context/authcontex";
 // import Navbar from 'react-bootstrap/Navbar';
 
 export const Header = () => {
+    const name = localStorage.getItem("name");
     const navigate = useNavigate();
 const {isLogin,setLogin}=useContext(authContext)
     const [searchText, setSearchText] = useState("");
@@ -257,7 +258,7 @@ const {isLogin,setLogin}=useContext(authContext)
                                     aria-expanded='false'
                                 >
                                     <span className='account-lists'>
-                                        {(isLogin)?<span className='hello' >Hello,Elena</span>
+                                        {(isLogin)?<span className='hello' >Hello,{name}</span>
                                         :   <span className='hello'>
                                             Hello, sign in
                                             <br />

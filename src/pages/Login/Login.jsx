@@ -4,9 +4,9 @@ import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 import { NavLink } from "react-router-dom";
+// import { login } from "../../services/auth";
+// import { instance } from "../../services/axios/instance";
 import { login } from "../../services/auth";
-import { instance } from "../../services/axios/instance";
-import axios from "axios";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -41,7 +41,7 @@ const Login = () => {
       toast.error("Validation error, try again", { position: "top-center" });
     } else {
       try {
-        const res = await axios.post('http://localhost:3333/api/user/checkEmail', {email:user.email});
+        const res = await login(user, {email:user.email})
 
         if (res.data.message==="valid Email") {
           // Email exists, navigate to 'loginStep2'
@@ -53,9 +53,9 @@ const Login = () => {
         }
 
       } catch (err) {
-        toast.error("Error during email check or server crashed", {
-          position: "top-center",
-        });
+        // toast.error("Error during email check or server crashed", {
+        //   position: "top-center",
+        // });
       }
     }
   };

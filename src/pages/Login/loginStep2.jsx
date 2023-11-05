@@ -14,7 +14,7 @@ const LoginStep2 = () => {
     const { setLogin } = useContext(authContext);
     //   const [loggeduser, setLoggedUser] = useState({})
 
-    const userEmail = location.state?.Email;
+    const [userEmail, setuserEmail] = useState(location.state?.Email);
     const [userPassword, setPassword] = useState("");
     const [user, setUser] = useState({
         password: "",
@@ -49,31 +49,38 @@ const LoginStep2 = () => {
         evt.preventDefault();
     };
     const logIn = async (e) => {
-        try {
-            console.log(userEmail);
-            console.log("here eeeeeee");
-            let setLog = {
-                email: userEmail,
-                password: userPassword,
-            };
-            console.log(setLog);
-            const { data } = await axios.post(
-                "http://localhost:3333/api/user/login",
-                setLog
-            );
-            if (data) {
-                console.log(data.yourToken);
-                console.log(data.name);
-                localStorage.setItem("userToken", data.yourToken);
-                localStorage.setItem("name", data.name);
-                setLogin(true);
-                navigate("/");
-            } else {
-                console.log("invalid email or password");
+        if (userEmail) {
+            try {
+                console.log(userEmail);
+                let setLog = {
+                    email: userEmail,
+                    password: userPassword,
+                };
+                console.log(setLog);
+                const { data } = await axios.post(
+                    "http://localhost:3333/api/user/login",
+                    setLog
+                );
+                if (data.message == "welcome to our site ") {
+                    console.log(data.yourToken);
+                    localStorage.setItem("userToken", data.yourToken);
+                    localStorage.setItem("name", data.name);
+                    setLogin(true);
+                    navigate("/");
+                } else if (
+                    data.message == "please enter your email and password "
+                ) {
+                    console.log("invalid email or password");
+                    navigate("/login");
+                }
+            } catch (err) {
+                navigate("/login");
+
+                console.log(err);
             }
-        } catch (err) {
-            // useNavigate('/login')
-            console.log(err);
+        } else {
+            console.log("provide email first");
+            navigate("/login");
         }
     };
 
@@ -83,7 +90,7 @@ const LoginStep2 = () => {
                 <div className='mask d-flex align-items-center gradient-custom-3'>
                     <div className='container '>
                         <div className='row d-flex justify-content-center '>
-                            <a href='/'>
+                            <a href='/' target='_blank'>
                                 <div className='text-center'>
                                     <img src={amzonlogo} className='rounded' />
                                 </div>

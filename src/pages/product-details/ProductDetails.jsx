@@ -9,6 +9,7 @@ import { Link, useParams } from "react-router-dom";
 import prime from "./1prime.png";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../Store/Slice/Cart";
+import { addToCartWithAPI } from "../../services/auth";
 
 const ProductDetails = () => {
     var { id } = useParams();
@@ -19,7 +20,7 @@ const ProductDetails = () => {
             (items) => items.product._id === product._id
         );
         if (!isProductIncart) {
-            dispatch(addToCart({ product: product, quantity: 1 }));
+            dispatch(addToCartWithAPI({ product: product, quantity: 1 }));
         } else {
             for (const index in cartPage) {
                 const quantity = cartPage.find((items) => {

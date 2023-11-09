@@ -258,16 +258,12 @@ export const Header = () => {
                                     aria-expanded='false'
                                 >
                                     <span className='account-lists'>
-                                        {isLogin ? (
-                                            <span className='hello'>
-                                                Hello, {name}
-                                            </span>
-                                        ) : (
-                                            <span className='hello'>
-                                                Hello, sign in
-                                                <br />
-                                            </span>
-                                        )}
+                                        {(isLogin)?<span className='hello' >Hello,{name}</span>
+                                        :   <span className='hello'>
+                                            Hello, sign in
+                                            <br />
+                                        </span>}
+                                     
                                         Account & Lists
                                     </span>
                                 </a>

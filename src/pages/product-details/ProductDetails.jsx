@@ -150,7 +150,7 @@ const ProductDetails = () => {
                                     Category:
                                 </li>
                                 <li className='list-group-item border-0'>
-                                    {myProd?.category.name}
+                                    {myProd?.category?.name}
                                 </li>
                             </ul>
 

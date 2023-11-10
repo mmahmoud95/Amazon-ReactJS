@@ -4,16 +4,22 @@ import { instance } from "../../services/axios/instance";
 import { ProductCard } from "../../components/category-product/productCard";
 
 export const Search = () => {
+    let location = useLocation();
+
     const [categoryProducts, setCategoryProducts] = useState([]);
     const [notFound, setNotFound] = useState("");
+    const [Scategory, setScategory] = useState(location.state?.Category);
+
     const { search } = useLocation();
     const result = search.split("?");
     const navigate = useNavigate();
     useEffect(() => {
+        console.log("ccccc",Scategory);
+        
         // document.title = `Amazon - ${categoryName}`;
         window.scrollTo({ top: 0, behavior: "smooth" });
         instance
-            .get(`products/result?search=${result[1]}`)
+            .post(`products/result?search=${result[1]}`,{category:Scategory})
             .then((res) => {
                 // console.log(res.data.products);
                 // console.log(rasult[1]);
@@ -32,7 +38,7 @@ export const Search = () => {
             .catch((err) => {
                 navigate("/");
             });
-    }, [result[1]]);
+    }, [Scategory,result[1]]);
     // console.log(categoryname);
     // const [catogories, setCatogories] = useState([]);
     // useEffect(() => {

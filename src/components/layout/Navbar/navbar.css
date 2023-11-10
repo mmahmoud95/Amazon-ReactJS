@@ -71,7 +71,7 @@
 }
 .all-category-search {
     background-color: #e6e6e6;
-    position: absolute;
+    /* position: absolute; */
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
     /* left: 16px; */
@@ -295,3 +295,12 @@
 /* .active-link {
     border: 0.5px solid #b3b2b2;
 } */
+/* 
+<select
+onChange={searchSubmit}
+className="nav-link dropdown-toggle dropdown-menu"
+>
+<option value="-1">Select Brand</option>
+<option value="0">ALL</option>
+<option value="">phones</option>
+</select> */

@@ -8,7 +8,7 @@ import { udateQuantity } from "../../Store/Slice/Cart";
 import { Link, useParams } from "react-router-dom";
 import prime from "./1prime.png";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../Store/Slice/Cart";
+// import { addToCart } from "../../Store/Slice/Cart";
 import { addToCartWithAPI } from "../../services/auth";
 
 const ProductDetails = () => {

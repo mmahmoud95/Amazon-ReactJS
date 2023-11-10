@@ -8,24 +8,25 @@ export const Search = () => {
 
     const [categoryProducts, setCategoryProducts] = useState([]);
     const [notFound, setNotFound] = useState("");
-    const [Scategory, setScategory] = useState(location.state?.Category);
+    const [Scategory, setScategory] = useState(localStorage.getItem('category'));
 
     const { search } = useLocation();
     const result = search.split("?");
     const navigate = useNavigate();
     useEffect(() => {
-        console.log("ccccc",Scategory);
-        
+   
         // document.title = `Amazon - ${categoryName}`;
         window.scrollTo({ top: 0, behavior: "smooth" });
         instance
-            .post(`products/result?search=${result[1]}`,{category:Scategory})
+            .post(`products/result?search=${result[1]}`,{category:localStorage?.getItem('category')})
             .then((res) => {
                 // console.log(res.data.products);
                 // console.log(rasult[1]);
                 if (res.data.data.length > 0) {
                     setNotFound("");
                     setCategoryProducts(res.data.data);
+                    // localStorage.setItem('category',"All")
+
                     // console.log(res.data.data);
                 } else {
                     setCategoryProducts([]);
@@ -38,7 +39,21 @@ export const Search = () => {
             .catch((err) => {
                 navigate("/");
             });
-    }, [Scategory,result[1]]);
+  
+    }, [localStorage.getItem('category'),result[1]]);
+//  useEffect(() => {
+//         return () => {
+//             // Anything in here is fired on component unmount.
+//           localStorage.setItem('category',"All")
+
+//         }
+//     }, [])
+
+    // useEffect(() => {
+    //     console.log(categoryProducts);
+    //     // localStorage.setItem('category',searchCategory)
+    
+    //   }, [categoryProducts]);
     // console.log(categoryname);
     // const [catogories, setCatogories] = useState([]);
     // useEffect(() => {

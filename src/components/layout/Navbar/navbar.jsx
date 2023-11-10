@@ -20,18 +20,28 @@ export const Header = () => {
   const [searchCategory, setSearchCategory] = useState("All");
   //   for category
   const searchSubmit = (e) => {
-    if (e.target.value === "All") {
-      const { value } = e.target;
+    const { value } = e.target;
+    if (value === "All") {
       setSearchCategory(value);
+      localStorage.setItem("category", "All");
+    } else if (value === "groceries") {
+      localStorage.setItem("category", "653c2a48c6676875dde642fc");
+
+      setSearchCategory("653c2a48c6676875dde642fc");
+    } else if (value === "laptops") {
+      localStorage.setItem("category", "653c2a4cc6676875dde642fe");
+
+      setSearchCategory("653c2a4cc6676875dde642fe");
     } else {
-      if (e.target.value === "groceries") {
-        setSearchCategory("653c2a48c6676875dde642fc");
-      }
-      if (e.target.value === "laptops") {
-        setSearchCategory("653c2a4cc6676875dde642fe");
-      }
+      setSearchCategory("All");
+      localStorage.setItem("category", "All");
     }
   };
+
+  useEffect(() => {
+    console.log(searchCategory);
+    // localStorage.setItem('category',searchCategory)
+  }, [searchCategory]);
   //   for text
   const handleChange = (e) => {
     setSearchText(e.target.value);
@@ -40,9 +50,11 @@ export const Header = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate(`/products/results?${searchText}`, {
-      state: { Category: searchCategory },
-    });
+    navigate(`/products/results?${searchText}`);
+    // ,
+    //  {
+    //   state: { Category: searchCategory },
+    // });
     setSearchText("");
     setSearchCategory("");
   };
@@ -60,7 +72,7 @@ export const Header = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [searchCategory]);
+  }, [catogories]);
 
   // console.log(catogories);
   const cart = useSelector((state) => state.Cart);
@@ -105,31 +117,6 @@ export const Header = () => {
                 </div>
               </li>
               <ul className="navbar-nav search-bar">
-                <li className="nav-item dropdown all-category-search">
-                  <select
-                    onChange={(e) => {
-                      searchSubmit(e);
-                    }}
-                    className="nav-item dropdown all-category-search py-2  "
-                    defaultValue="All"
-                  >
-                    <option className="dropdown-item" value="All">
-                      Select category
-                    </option>
-                    <option className="dropdown-item" value="All">
-                      All Category
-                    </option>
-                    <option className="dropdown-item" value="groceries">
-                      Amazon groceries
-                    </option>
-                    <option className="dropdown-item" value="laptops">
-                      Amazon laptops
-                    </option>
-                    <option className="dropdown-item">Books</option>
-                    <option className="dropdown-item">Sports</option>
-                    <option className="dropdown-item">Software</option>
-                  </select>
-                </li>
                 <li className="nav-item">
                   <form
                     className="d-flex"
@@ -138,8 +125,35 @@ export const Header = () => {
                       handleSubmit(e);
                     }}
                   >
+                    <li className="nav-item dropdown all-category-search">
+                      <select
+                        onChange={(e) => {
+                          searchSubmit(e);
+                        }}
+                        className="nav-item dropdown all-category-search py-2  "
+                        defaultValue={"All"}
+                      >
+                        <option className="dropdown-item" value="All">
+                          Select category
+                        </option>
+                        <option className="dropdown-item" value="All">
+                          All Category
+                        </option>
+                        <option className="dropdown-item" value="groceries">
+                          Amazon groceries
+                        </option>
+                        <option className="dropdown-item" value="laptops">
+                          Amazon laptops
+                        </option>
+                        <option className="dropdown-item">Books</option>
+                        <option className="dropdown-item">Sports</option>
+                        <option className="dropdown-item">Software</option>
+                      </select>
+                    </li>
+
                     <input
-                      className="form-control search-input align-items-center"
+                      className="form-control  align-items-center"
+                      style={{ width: "400px" }}
                       type="text"
                       placeholder="Search"
                       aria-label="Search"

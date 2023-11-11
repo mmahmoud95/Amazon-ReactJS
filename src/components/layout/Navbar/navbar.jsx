@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 import { instance } from "../../../services/axios/instance";
 import { useContext } from "react";
 import { authContext } from "../../../context/authcontex";
+import { useTranslation } from "react-i18next";
+import i18n from "../../../i18n";
 import { clearCart } from "../../../Store/Slice/Cart";
 
 // import Navbar from 'react-bootstrap/Navbar';
@@ -88,7 +90,12 @@ export const Header = () => {
         setSearchText("");
         setSearchCategory("");
     };
-
+//
+   const {t,i18nKey}=useTranslation()
+   const changeLanguage=(language)=>{
+    i18n.changeLanguage(language)
+    }
+//
     const [catogories, setCatogories] = useState([]);
     useEffect(() => {
         instance
@@ -141,13 +148,13 @@ export const Header = () => {
                                         </span>
                                     </div>
                                     <div className='d-flex flex-column'>
-                                        <p className='deliver'>Deliver to</p>
+                                        <p className='deliver'>{t("navTop.part1")}</p>
                                         <a
                                             className='nav-link active address'
                                             aria-current='page'
                                             href='#'
                                         >
-                                            Egypt
+                                         {t("navTop.part6")}
                                         </a>
                                     </div>
                                 </div>
@@ -209,7 +216,7 @@ export const Header = () => {
                                             className='form-control  align-items-center'
                                             style={{ width: "400px" }}
                                             type='text'
-                                            placeholder='Search'
+                                            placeholder= {t("navTop.part11")}
                                             aria-label='Search'
                                             value={searchText}
                                             onChange={(e) => {
@@ -226,6 +233,85 @@ export const Header = () => {
                                         </button>
                                     </form>
                                 </li>
+                                <li className='nav-item dropdown all-category-search'>
+                                    <a
+                                        className='nav-link dropdown-toggle'
+                                        href='#'
+                                        role='button'
+                                        data-bs-toggle='dropdown'
+                                        aria-expanded='false'
+                                    >
+                                        {t("navTop.part8")}
+                                    </a>
+                                    <ul className='dropdown-menu'>
+                                        <li>
+                                            <a
+                                                className='dropdown-item'
+                                                href='#'
+                                            >
+                                              {t("navTop.part9")}
+ 
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                className='dropdown-item'
+                                                href='#'
+                                            >
+                                                 {t("navTop.part10")}
+
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                className='dropdown-item'
+                                                href='#'
+                                            >
+                                                Amazon Fashion
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                className='dropdown-item'
+                                                href='#'
+                                            >
+                                                Amazon Warehouse
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                className='dropdown-item'
+                                                href='#'
+                                            >
+                                                Baby
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                className='dropdown-item'
+                                                href='#'
+                                            >
+                                                Books
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                className='dropdown-item'
+                                                href='#'
+                                            >
+                                                Sports
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a
+                                                className='dropdown-item'
+                                                href='#'
+                                            >
+                                                Software
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                             </ul>
                             <li className='nav-item dropdown'>
                                 <a
@@ -239,7 +325,7 @@ export const Header = () => {
                                         src={egyptFlage}
                                         style={{ width: "25px" }}
                                     />
-                                    EN
+                                  {t("navTop.part5")}
                                 </a>
                                 <ul className='dropdown-menu p-2'>
                                     <li>
@@ -247,6 +333,7 @@ export const Header = () => {
                                             type='radio'
                                             id='arabic'
                                             name='languge'
+                                            onClick={()=>changeLanguage("ar")}
                                         />
                                         <label htmlFor='arabic'>
                                             العربية- AR
@@ -258,6 +345,8 @@ export const Header = () => {
                                             type='radio'
                                             id='english'
                                             name='languge'
+                                            onClick={()=>changeLanguage("en")}
+
                                         />
                                         <label htmlFor='english'>
                                             English - EN
@@ -288,17 +377,13 @@ export const Header = () => {
                                     aria-expanded='false'
                                 >
                                     <span className='account-lists'>
-                                        {isLogin ? (
-                                            <span className='hello'>
-                                                Hello, {name}
-                                            </span>
-                                        ) : (
-                                            <span className='hello'>
-                                                Hello, sign in
-                                                <br />
-                                            </span>
-                                        )}
-                                        Account & Lists
+                                        {(isLogin)?<span className='hello' >{t("navTop.part2")},{name}</span>
+                                        :   <span className='hello'>
+                                            Hello, sign in
+                                            <br />
+                                        </span>}
+                                     
+                                        {t("navTop.part7")}
                                     </span>
                                 </a>
                                 <ul className='dropdown-menu'>
@@ -365,7 +450,7 @@ export const Header = () => {
                                     className='nav-link order'
                                     href='../orders/order.html'
                                 >
-                                    Orders
+                              {t("navTop.part3")}
                                 </a>
                             </li>
                             <li className=''>
@@ -382,7 +467,7 @@ export const Header = () => {
                                     </span>
                                     <img className='mb-2' src={cartImage} />
                                     <span className='cart text-decoration-none'>
-                                        Cart
+                                        {t("navTop.part4")}
                                     </span>
                                 </NavLink>
                             </li>
@@ -464,10 +549,10 @@ export const Header = () => {
             <div className='menu'>
                 <ul className='list-unstyled d-flex flex-row'>
                     <li>
-                        <a href='#'>All</a>
+                        <a href='#'>{t("description.part1")}</a>
                     </li>
                     <li>
-                        <a href='#'>Deals</a>
+                        <a href='#'>{t("description.part2")}</a>
                     </li>
 
                     {catogories.map((category, index) => {
@@ -484,16 +569,16 @@ export const Header = () => {
                     })}
 
                     <li>
-                        <a href='#'>Home</a>
+                        <a href='#'>{t("description.part3")}</a>
                     </li>
                     <li>
-                        <a href='#'>Video Games</a>
+                        <a href='#'>{t("description.part4")}</a>
                     </li>
                     <li>
-                        <a href='#'>Toy & Games</a>
+                        <a href='#'>{t("description.part5")}</a>
                     </li>
                     <li>
-                        <a href='../help-page/help.html'>Help</a>
+                        <a href='../help-page/help.html'>{t("description.part6")}</a>
                     </li>
                 </ul>
             </div>

@@ -16,7 +16,7 @@ import { store } from "./Store/store";
 import { Provider } from "react-redux";
 import LoginStep2 from "./pages/Login/loginStep2";
 import { Search } from "./pages/search/search";
-import { AuthProvider } from "./context/authcontex";
+import { AuthProvider, CartProvider } from "./context/authcontex";
 import { useState } from "react";
 const router = createBrowserRouter([
     { path: "/", element: <Home /> },
@@ -33,17 +33,23 @@ const router = createBrowserRouter([
     { path: "login", element: <Login /> },
     { path: "login/loginStep2", element: <LoginStep2 /> },
     { path: "signup", element: <Register /> },
-    { path: "checkout", element: <CheckOut/> },
-
+    { path: "checkout", element: <CheckOut /> },
 ]);
 
 function App() {
-   const[isLogin,setLogin] =useState(localStorage.getItem('userToken')?true:false)
+    const [isLogin, setLogin] = useState(
+        localStorage.getItem("userToken") ? true : false
+    );
+    const [cartNum, setCartNum] = useState(0);
     return (
         <>
-        <AuthProvider value={{isLogin,setLogin}}> <Provider store={store}>
-                <RouterProvider router={router} />
-            </Provider></AuthProvider>  
+            <CartProvider value={{ cartNum, setCartNum }}>
+                <AuthProvider value={{ isLogin, setLogin }}>
+                    <Provider store={store}>
+                        <RouterProvider router={router} />
+                    </Provider>
+                </AuthProvider>
+            </CartProvider>
         </>
     );
 }

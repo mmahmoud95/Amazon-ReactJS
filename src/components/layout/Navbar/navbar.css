@@ -28,6 +28,7 @@
     border-radius: 9px;
     padding-bottom: 0;
     overflow: hidden;
+    width: 600px;
     margin: 0 10px 0;
     transition: all 0.5s ease-in-out;
 }
@@ -43,7 +44,7 @@
     padding-left: 56px;
     /* margin: 0; */
     border-radius: 0;
-    width: 600px;
+    width: 400px;
 }
 .search input::placeholder {
     font-size: 18px;
@@ -71,7 +72,7 @@
 }
 .all-category-search {
     background-color: #e6e6e6;
-    position: absolute;
+    /* position: absolute; */
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
     /* left: 16px; */
@@ -295,3 +296,12 @@
 /* .active-link {
     border: 0.5px solid #b3b2b2;
 } */
+/* 
+<select
+onChange={searchSubmit}
+className="nav-link dropdown-toggle dropdown-menu"
+>
+<option value="-1">Select Brand</option>
+<option value="0">ALL</option>
+<option value="">phones</option>
+</select> */

@@ -2,17 +2,23 @@ import "./navbar.css";
 import amzonlogo from "../../../assets/nav-images/amzon-logo.png";
 import cartImage from "../../../assets/nav-images/cart.png";
 import egyptFlage from "../../../assets/nav-images/egypt-flag.svg";
-import { IoSearchOutline, IoLocationOutline } from "react-icons/io5";
+import { IoSearchOutline, IoLocationOutline, IoLogOut } from "react-icons/io5";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { instance } from "../../../services/axios/instance";
 import { useContext } from "react";
 import { authContext } from "../../../context/authcontex";
+import { clearCart } from "../../../Store/Slice/Cart";
+
 // import Navbar from 'react-bootstrap/Navbar';
 
 export const Header = () => {
+    let cartPageRedux = useSelector((state) => state.Cart);
+    const dispatch = useDispatch();
+
+    const [numberItems, setNumberItems] = useState(0);
     const name = localStorage.getItem("name");
     const navigate = useNavigate();
     const { isLogin, setLogin } = useContext(authContext);
@@ -20,7 +26,14 @@ export const Header = () => {
     const handleChange = (e) => {
         setSearchText(e.target.value);
     };
+    const logOut = () => {
+        localStorage.removeItem("userToken");
+        localStorage.removeItem("cart");
+        localStorage.removeItem("name");
 
+        dispatch(clearCart(cartPageRedux));
+        setLogin(false);
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
         navigate(`/products/results?${searchText}`);
@@ -41,8 +54,24 @@ export const Header = () => {
                 console.log(err);
             });
     }, []);
-
-    // console.log(catogories);
+    useEffect(() => {
+        if (isLogin) {
+            instance
+                .get("cart", {
+                    headers: {
+                        Authorization: localStorage.getItem("userToken"),
+                    },
+                })
+                .then((res) => {
+                    // priductsitemsid = res.data.data[0].items;
+                    // console.log(res.data.data.items);
+                    // setCartPage(res.data.data.items);
+                    console.log();
+                    // localStorage.setItem("cartItems", res.data.numOfCartItems);
+                    setNumberItems(res.data.numOfCartItems);
+                });
+        }
+    }, [numberItems]); // console.log(catogories);
     const cart = useSelector((state) => state.Cart);
 
     return (
@@ -258,12 +287,16 @@ export const Header = () => {
                                     aria-expanded='false'
                                 >
                                     <span className='account-lists'>
-                                        {(isLogin)?<span className='hello' >Hello,{name}</span>
-                                        :   <span className='hello'>
-                                            Hello, sign in
-                                            <br />
-                                        </span>}
-                                     
+                                        {isLogin ? (
+                                            <span className='hello'>
+                                                Hello,{name}
+                                            </span>
+                                        ) : (
+                                            <span className='hello'>
+                                                Hello, sign in
+                                                <br />
+                                            </span>
+                                        )}
                                         Account & Lists
                                     </span>
                                 </a>
@@ -274,12 +307,7 @@ export const Header = () => {
                                                 <Nav
                                                     className='me-auto '
                                                     typeof='./login'
-                                                    onClick={() => {
-                                                        localStorage.removeItem(
-                                                            "userToken"
-                                                        );
-                                                        setLogin(false);
-                                                    }}
+                                                    onClick={logOut}
                                                 >
                                                     logout
                                                 </Nav>
@@ -349,7 +377,7 @@ export const Header = () => {
                                     to='/cart'
                                 >
                                     <span className='item-count'>
-                                        {cart.length}
+                                        {isLogin ? numberItems : cart.length}
                                     </span>
                                     <img className='mb-2' src={cartImage} />
                                     <span className='cart text-decoration-none'>

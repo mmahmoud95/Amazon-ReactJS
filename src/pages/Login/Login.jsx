@@ -42,7 +42,6 @@ const Login = () => {
     } else {
       try {
         const res = await login(user, {email:user.email})
-
         if (res.data.message==="valid Email") {
           // Email exists, navigate to 'loginStep2'
           navigate("./loginStep2", { state: { Email: user.email } });

@@ -10,31 +10,52 @@ import prime from "./1prime.png";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../Store/Slice/Cart";
 import { addToCartWithAPI } from "../../services/auth";
+import { authContext } from "../../context/authcontex";
+import { useContext } from "react";
 
 const ProductDetails = () => {
+    const { isLogin, setLogin } = useContext(authContext);
+
     var { id } = useParams();
     const dispatch = useDispatch();
     var cartPage = useSelector((state) => state.Cart);
     const handelAdd = (product) => {
         const isProductIncart = cartPage.some(
-            (items) => items.product._id === product._id
+            (item) => item.product._id === product._id
         );
+
+        console.log(isProductIncart);
         if (!isProductIncart) {
-            dispatch(addToCartWithAPI({ product: product, quantity: 1 }));
+            dispatch(addToCart({ product: product, quantity: 1 }));
         } else {
-            for (const index in cartPage) {
-                const quantity = cartPage.find((items) => {
+            for (const i in cartPage) {
+                const product1 = cartPage.find((items) => {
                     return items.product._id === product._id;
                 });
-
-                console.log(quantity.quantity);
-                let updatequantity = quantity.quantity;
-                updatequantity = quantity.quantity + 1;
-                dispatch(udateQuantity({ updatequantity, index }));
+                let index = cartPage.findIndex(
+                    (item) => item.product._id === product._id
+                );
+                // console.log(quantity);
+                let updatequantity = product1.quantity + 1;
+                // updatequantity = product1.quantity + 1;
+                dispatch(udateQuantity({ updatequantity, index: index }));
             }
         }
     };
-
+    const hanleAddWithAp = (myProd) => {
+        console.log(myProd);
+        instance.post(
+            `cart/`,
+            {
+                productId: myProd._id,
+            },
+            {
+                headers: {
+                    Authorization: localStorage.getItem("userToken"),
+                },
+            }
+        );
+    };
     const [myProd, setmyProd] = useState();
 
     useEffect(() => {
@@ -307,7 +328,11 @@ const ProductDetails = () => {
                                     id='add-to-cart-button '
                                     type='button'
                                     className='btn rounded-pill bg-warning w-75'
-                                    onClick={() => handelAdd(myProd)}
+                                    onClick={() =>
+                                        isLogin
+                                            ? hanleAddWithAp(myProd)
+                                            : handelAdd(myProd)
+                                    }
                                 >
                                     <span className='pe-2'>Add to Cart</span>
 

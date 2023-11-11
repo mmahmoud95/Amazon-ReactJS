@@ -42,7 +42,7 @@ export const Cart = () => {
     };
     let total = 0;
     for (const i in cartPageRedux) {
-        let price = cartPageRedux[i].product.price;
+        let price = cartPageRedux[i].product?.price;
         let quantity = cartPageRedux[i].quantity;
         total += price * quantity;
     }
@@ -434,27 +434,27 @@ export const Cart = () => {
                                                 <img
                                                     className='w-100'
                                                     width='500px'
-                                                    src={item.product.thumbnail}
+                                                    src={item.product?.thumbnail}
                                                 />
                                             </div>
                                         </div>
 
                                         <div className='col-md-7 col-sm-12 justify-content-center flex-column mt-3 mb-3'>
-                                            <h5>{item.product.description}</h5>
+                                            <h5>{item.product?.description}</h5>
                                             <p className='price h5'>
-                                                EGP: {item.product.price}
+                                                EGP: {item.product?.price}
                                             </p>
 
                                             <p className='stock'>
                                                 DiscountPercentage:
                                                 {
                                                     item.product
-                                                        .discountPercentage
+                                                        ?.discountPercentage
                                                 }
                                             </p>
                                             <p className='stock'>
                                                 stock:
-                                                {item.product.quantityInStock}
+                                                {item.product?.quantityInStock}
                                             </p>
                                             <div className='mt-3'>
                                                 <ul className='list-unstyled d-flex flex-row list'>
@@ -525,7 +525,7 @@ export const Cart = () => {
                                                 </ul>
                                                 <p className='total-price fw-bold'>
                                                     Subtotal : EGP{" "}
-                                                    {item.product.price *
+                                                    {item.product?.price *
                                                         cartPageRedux[index]
                                                             .quantity}
                                                 </p>

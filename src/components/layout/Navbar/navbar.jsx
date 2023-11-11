@@ -109,7 +109,7 @@ export const Header = () => {
                                         <input
                                             className='form-control search-input align-items-center'
                                             type='text'
-                                            placeholder='Search'
+                                            placeholder= {t("navTop.part11")}
                                             aria-label='Search'
                                             value={searchText}
                                             onChange={(e) => {
@@ -134,7 +134,7 @@ export const Header = () => {
                                         data-bs-toggle='dropdown'
                                         aria-expanded='false'
                                     >
-                                        All
+                                        {t("navTop.part8")}
                                     </a>
                                     <ul className='dropdown-menu'>
                                         <li>
@@ -142,7 +142,8 @@ export const Header = () => {
                                                 className='dropdown-item'
                                                 href='#'
                                             >
-                                                All Category
+                                              {t("navTop.part9")}
+ 
                                             </a>
                                         </li>
                                         <li>
@@ -150,7 +151,8 @@ export const Header = () => {
                                                 className='dropdown-item'
                                                 href='#'
                                             >
-                                                Amazon Devices
+                                                 {t("navTop.part10")}
+
                                             </a>
                                         </li>
                                         <li>

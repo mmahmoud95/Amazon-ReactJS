@@ -14,12 +14,19 @@
         "part3":"Order",
         "part4":"Cart",
         "part5":"En",
-        "part6":   "Egypt",
+        "part6": "Egypt",
         "part7":"Account & Lists",
         "part8":"All",
        "part9":"All Category",
        "part10":"Amazon Devices",
        "part11":"Seacrch",
-       "part12":"جميع الاقسام"
+       "part12":" all categories",
+       "part13":"logout",
+       "part14":"Amazon Fashion",
+       "part15":"Books",
+       "part16":"Sports",
+       "part17":"Baby",
+       "part18":"software",
+       "part19":"Amazon warehouse "
     }
 }

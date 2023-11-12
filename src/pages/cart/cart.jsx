@@ -10,6 +10,7 @@ import { useContext, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { authContext } from "../../context/authcontex";
+import { removeToCartWithAPI } from "../../services/auth";
 // import { instance } from "../../services/axios/instance";
 import { instance } from "../../services/axios/instance";
 
@@ -23,7 +24,7 @@ export const Cart = () => {
     const dispatch = useDispatch();
     var handelRemoveRedux = (id) => {
         console.log(id);
-        dispatch(removFromCart(id));
+        dispatch(removeToCartWithAPI(id));
     };
     var handelincreasRedux = (index) => {
         const quantity = cartPageRedux[index].quantity;

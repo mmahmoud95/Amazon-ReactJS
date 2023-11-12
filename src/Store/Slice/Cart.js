@@ -33,8 +33,10 @@ export const cartSlice = createSlice({
             const newState = state.cart.filter(
                 (product) => product.product._id !== action.payload._id
             );
+            console.log(newState);
             // Save the updated state to localStorage
             localStorage.setItem("cart", JSON.stringify(newState));
+
             // Update the state using Immer's draft
             state.cart.splice(0, state.cart.length, ...newState);
         },

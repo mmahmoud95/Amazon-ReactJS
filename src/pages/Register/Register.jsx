@@ -5,6 +5,8 @@ import {  useNavigate } from "react-router-dom";
 import "./Register.css";
 import { registerr } from "../../services/auth";
 import toast, { Toaster } from "react-hot-toast";
+import { useTranslation } from "react-i18next";
+import i18n from "../../i18n";
 const Register = () => {
     const [user, setUser] = useState({
         name: "",
@@ -89,6 +91,13 @@ const Register = () => {
        
         }
     }
+    //
+   const {t,i18nKey}=useTranslation()
+   const changeLanguage=(language)=>{
+    i18n.changeLanguage(language)
+    document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+    }
+//
     return (
         <>
             <div className='vh-100 '>
@@ -108,7 +117,7 @@ const Register = () => {
                                     style={{ borderRadius: "15px" }}
                                 >
                                     <div className='card-body'>
-                                        <h2>Create account</h2>
+                                        <h2>{t("signUp.part1")}</h2>
                                         <form
                                             form
                                             autoComplete='off'
@@ -119,7 +128,7 @@ const Register = () => {
                                                     className='form-label'
                                                     htmlFor='form3Example1cg'
                                                 >
-                                                    Your name
+                                                    {t("signUp.part2")}
                                                 </label>
                                                 <input
                                                     type='text'
@@ -127,7 +136,7 @@ const Register = () => {
                                                     className={`form-control
               ${errors.nameError ? "border-danger shadow-none" : ""}`}
                                                     name='name'
-                                                    placeholder='Please Enter Name'
+                                                    placeholder={t("signUp.part16")}
                                                     value={user.name}
                                                     onChange={(e) => {
                                                         handelChange(e);
@@ -143,7 +152,7 @@ const Register = () => {
                                                     className='form-label'
                                                     htmlFor='form3Example3cg'
                                                 >
-                                                    Mobile number or email
+                                                    {t("signUp.part3")}
                                                 </label>
                                                 <input
                                                     type='text'
@@ -155,7 +164,6 @@ const Register = () => {
                                                     id='formGroupExampleInput2'
                                                     name='email'
                                                     required
-                                                    placeholder='Please Enter Email'
                                                     value={user.email}
                                                     onChange={(e) => {
                                                         handelChange(e);
@@ -171,7 +179,7 @@ const Register = () => {
                                                     className='form-label'
                                                     htmlFor='form3Example4cg'
                                                 >
-                                                    Password
+                                                    {t("signUp.part4")}
                                                 </label>
                                                 <input
                                                     type={
@@ -184,7 +192,6 @@ const Register = () => {
                                                     className={`form-control
               ${errors.passwordError ? "border-danger shadow-none" : ""}`}
                                                     name='password'
-                                                    placeholder='Please Enter password'
                                                     value={user.password}
                                                     onChange={(e) => {
                                                         handelChange(e);
@@ -210,7 +217,7 @@ const Register = () => {
                                                     className='form-label'
                                                     htmlFor='form3Example4cg'
                                                 >
-                                                    Re-enter password
+                                                    {t("signUp.part5")}
                                                 </label>
                                                 <input
                                                     type={
@@ -223,7 +230,6 @@ const Register = () => {
                                                     className={`form-control
               ${errors.ConfirmPasswordError ? "border-danger shadow-none" : ""}`}
                                                     name='ConfirmPassword'
-                                                    placeholder='Please confirm password'
                                                     value={user.ConfirmPassword}
                                                     onChange={(e) => {
                                                         handelChange(e);
@@ -251,28 +257,27 @@ const Register = () => {
                                                     type='submit'
                                                     id='form3Example4cdg'
                                                     className='form-control submit '
-                                                    value='Continue'
+                                                    value={t("signUp.part6")}
                                                 />
                                                 {/* </NavLink>  */}
                                             </div>
                                             <div className='form-check d-flex justify-content-center mb-3 ptn'>
                                                 <p>
-                                                    By creating an account, you
-                                                    agree to Amazons
+                                                {t("signUp.part7")}
                                                     <a href=''>
-                                                        Conditions of Use
+                                                    {t("signUp.part8")}
                                                     </a>
-                                                    and
+                                                    
                                                     <a href=''>
-                                                        Privacy Notice
+                                                    {t("signUp.part9")}
                                                     </a>
                                                     .
                                                 </p>
                                             </div>
                                             <p className=' text-muted mt-3 mb-0'>
-                                                Already have an account?
+                                            {t("signUp.part10")}
                                                 <a href='./Login'>
-                                                    <u> sign in</u>
+                                                    <u> {t("signUp.part11")}</u>
                                                 </a>
                                             </p>
                                          
@@ -283,13 +288,13 @@ const Register = () => {
                                 <div className='row'>
                                     <div className='foot mt-5 d-flex pt-3 col-12'>
                                         <a href='../help-page/help.html'>
-                                            Conditions of Use
+                                        {t("signUp.part12")}
                                         </a>
                                         <a href='../help-page/help.html'>
-                                            Privacy Notice
+                                        {t("signUp.part13")}
                                         </a>
                                         <a href='../help-page/help.html'>
-                                            Help
+                                        {t("signUp.part14")}
                                         </a>
                                     </div>
                                 </div>
@@ -300,8 +305,7 @@ const Register = () => {
                                     }}
                                     className='text-center mt-4'
                                 >
-                                    ©1996–2023, Amazon.com, Inc. or its
-                                    affiliates
+                                   {t("signUp.part15")}
                                 </p>
                             </div>
                         </div>

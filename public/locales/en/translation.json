@@ -1,0 +1,50 @@
+{
+    "title":"ay zeft1",
+    "description":{
+        "part1":"All",
+        "part2":"Deals",
+        "part3":"Home",
+        "part4":"Video Games",
+        "part5":"Toy & Games",
+        "part6":"Help"
+    } ,
+    "navTop":{
+        "part1":"Deliver to",
+        "part2":"Hello",
+        "part3":"Order",
+        "part4":"Cart",
+        "part5":"En",
+        "part6": "Egypt",
+        "part7":"Account & Lists",
+        "part8":"All",
+       "part9":"All Category",
+       "part10":"Amazon Devices",
+       "part11":"Seacrch",
+       "part12":" all categories",
+       "part13":"logout",
+       "part14":"Amazon Fashion",
+       "part15":"Books",
+       "part16":"Sports",
+       "part17":"Baby",
+       "part18":"software",
+       "part19":"Amazon warehouse "
+    },
+    "signUp":{
+        "part1":"Create account",
+        "part2":"Your name",
+        "part3":"email",
+        "part4":"Password",
+        "part5":"Re-enter password",
+        "part6":"Continue",
+        "part7":"By creating an account, you agree to Amazon's",
+        "part8":"Conditions of Use",
+        "part9":" and Privacy Notice.",
+        "part10":" Already have an account?",
+        "part11":"Sign in",
+        "part12":" Conditions of Use ",
+        "part13":" Privacy Notice ",
+        "part14":"  Help  ",
+        "part15":"©1996–2023, Amazon.com, Inc. or its affiliates",
+        "part16":"Enter your name"
+    }
+}

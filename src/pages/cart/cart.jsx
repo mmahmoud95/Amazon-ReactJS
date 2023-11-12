@@ -11,6 +11,7 @@ import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { authContext } from "../../context/authcontex";
 import { removeToCartWithAPI } from "../../services/auth";
+import { useTranslation } from "react-i18next";
 // import { instance } from "../../services/axios/instance";
 import { instance } from "../../services/axios/instance";
 
@@ -188,6 +189,7 @@ export const Cart = () => {
     // console.log(cartProducts);
 
     /////
+    const {t}=useTranslation()
     return (
         <>
             {isLogin ? (

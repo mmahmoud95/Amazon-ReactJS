@@ -3,7 +3,7 @@ import amzonlogo from "../../../assets/nav-images/amzon-logo.png";
 import cartImage from "../../../assets/nav-images/cart.png";
 import egyptFlage from "../../../assets/nav-images/egypt-flag.svg";
 import { IoSearchOutline, IoLocationOutline, IoLogOut } from "react-icons/io5";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -90,13 +90,13 @@ export const Header = () => {
         setSearchText("");
         setSearchCategory("");
     };
-    //
-    const { t, i18nKey } = useTranslation();
-    const changeLanguage = (language) => {
-        i18n.changeLanguage(language);
-        document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
-    };
-    //
+//
+   const {t}=useTranslation()
+   const changeLanguage=(language)=>{
+    i18n.changeLanguage(language)
+    document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+    }
+//
     const [catogories, setCatogories] = useState([]);
     useEffect(() => {
         instance
@@ -352,7 +352,7 @@ export const Header = () => {
                                         </label>
                                     </li>
                                     <p>
-                                        <a href='#'>Learn more</a>
+                                        <a href='#'>{t("navTop.part25")}</a>
                                     </p>
                                     <hr />
                                     <p>
@@ -360,10 +360,10 @@ export const Header = () => {
                                             src={egyptFlage}
                                             style={{ width: "25px" }}
                                         />
-                                        You are shopping on Amazon.eg
+                                        {t("navTop.part26")}
                                     </p>
                                     <p>
-                                        <a href='#'>Change country/ region.</a>
+                                        <a href='#'>{t("navTop.part27")}</a>
                                     </p>
                                 </ul>
                             </li>
@@ -376,17 +376,12 @@ export const Header = () => {
                                     aria-expanded='false'
                                 >
                                     <span className='account-lists'>
-                                        {isLogin ? (
-                                            <span className='hello'>
-                                                {t("navTop.part2")},{name}
-                                            </span>
-                                        ) : (
-                                            <span className='hello'>
-                                                Hello, sign in
-                                                <br />
-                                            </span>
-                                        )}
-
+                                        {(isLogin)?<span className='hello' >{t("navTop.part2")},{name}</span>
+                                        :   <span className='hello'>
+                                           {t("navTop.part2")},{t("SignIn.part1")} 
+                                            <br />
+                                        </span>}
+                                     
                                         {t("navTop.part7")}
                                     </span>
                                 </a>
@@ -413,38 +408,38 @@ export const Header = () => {
                                                                 : "test"
                                                         }
                                                     >
-                                                        sign in
+                                                        {t("SignIn.part1")} 
                                                     </NavLink>
                                                 </Nav>
                                             )}
                                         </a>
                                         <p className='register'>
-                                            New customer?
+                                        {t("navTop.part20")}
                                             <a href='../register-page/register.html'>
-                                                Start here.
+                                            {t("navTop.part21")}
                                             </a>
                                         </p>
                                         <hr />
                                     </li>
                                     <li>
                                         <p className='border-3 fw-bold d-inline-block'>
-                                            Your Lists
+                                        {t("navTop.part22")}
                                         </p>
                                         <p className='fw-bold mb-0'>
-                                            Your Account
+                                        {t("navTop.part23")}
                                         </p>
                                         <a
                                             href='../account-page/account.html'
                                             className='text-decoration-none text-dark'
                                         >
-                                            Your Account
+                                          {t("navTop.part23")}
                                         </a>
                                         <br />
                                         <a
                                             href='../orders/order.html'
                                             className='text-decoration-none text-dark'
                                         >
-                                            Your Orders
+                                            {t("navTop.part24")}
                                         </a>
                                     </li>
                                 </ul>
@@ -553,10 +548,10 @@ export const Header = () => {
             <div className='menu'>
                 <ul className='list-unstyled d-flex flex-row'>
                     <li>
-                        <a href='#'>{t("description.part1")}</a>
+                        <a href='#'>{t("nav2.part1")}</a>
                     </li>
                     <li>
-                        <a href='#'>{t("description.part2")}</a>
+                        <a href='#'>{t("nav2.part2")}</a>
                     </li>
 
                     {catogories.map((category, index) => {
@@ -573,18 +568,16 @@ export const Header = () => {
                     })}
 
                     <li>
-                        <a href='#'>{t("description.part3")}</a>
+                        <a href='#'>{t("nav2.part3")}</a>
                     </li>
                     <li>
-                        <a href='#'>{t("description.part4")}</a>
+                        <a href='#'>{t("nav2.part4")}</a>
                     </li>
                     <li>
-                        <a href='#'>{t("description.part5")}</a>
+                        <a href='#'>{t("nav2.part5")}</a>
                     </li>
                     <li>
-                        <a href='../help-page/help.html'>
-                            {t("description.part6")}
-                        </a>
+                        <a href='../help-page/help.html'>{t("nav2.part6")}</a>
                     </li>
                 </ul>
             </div>

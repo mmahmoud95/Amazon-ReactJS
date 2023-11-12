@@ -7,6 +7,7 @@ import { NavLink } from "react-router-dom";
 // import { login } from "../../services/auth";
 // import { instance } from "../../services/axios/instance";
 import { login } from "../../services/auth";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -58,6 +59,7 @@ const Login = () => {
       }
     }
   };
+  const {t}=useTranslation()
 
   return (
     <>
@@ -75,7 +77,7 @@ const Login = () => {
               <div className="col-sm-6 col-md-6 col-lg-4 col-xl-4 ">
                 <div className="card" style={{ borderRadius: " 15px" }}>
                   <div className="card-body">
-                    <h2>Sign in</h2>
+                    <h2>{t("SignIn.part1")}</h2>
 
                     <form
                       autoComplete="off"
@@ -84,8 +86,8 @@ const Login = () => {
                       }}
                     >
                       <div className="form-outline mb-3">
-                        <label className="form-label" htmlFor="form3Example3cg">
-                          Mobile number or email
+                        <label className="form-label " htmlFor="form3Example3cg" style={{fontSize:"16px"}}>
+                        {t("SignIn.part2")}
                         </label>
                         <input
                           type="email"
@@ -95,7 +97,7 @@ const Login = () => {
                           id="formGroupExampleInput2"
                           name="email"
                           required
-                          placeholder="Please Enter Email"
+                          placeholder={t("SignIn.part3")}
                           value={user.email}
                           onChange={(e) => {
                             handelChange(e);
@@ -110,20 +112,20 @@ const Login = () => {
                           type="submit"
                           id="form3Example4cdg"
                           className="form-control submit "
-                          value="Continue"
+                          value={t("signUp.part6")}
                         />
                       </div>
                       <div className="form-check d-flex justify-content-center mb-3 ptn">
                         <p>
-                          By creating an account, you agree to
-                          <a href="">Conditions of Use</a>
-                          and
-                          <a href="">Privacy Notice</a>.
+                        {t("SignIn.part4")} 
+                          <a href="">{t("signUp.part8")}</a>
+                         
+                          <a href="">{t("signUp.part9")}</a>.
                         </p>
                       </div>
                       <a id="lab">
                         <i className="fa-solid fa-arrow-right"></i>
-                        Need help?
+                        {t("SignIn.part5")}
                       </a>
                       <a id="para" style={{ display: "none" }}>
                         Forgot your password?
@@ -136,18 +138,18 @@ const Login = () => {
                   </div>
                 </div>
                 <h6 id="tex" className="mt-5">
-                  <span>New to Amazon?</span>
+                  <span>{t("SignIn.part6")}</span>
                 </h6>
-                <NavLink to="/signup">
+                <NavLink to="/signUp">
                   <button className="sub p-2 col-12 " type="submit">
-                    Create your Amazon account
+                  {t("SignIn.part7")}
                   </button>
                 </NavLink>
                 <div className="row">
                   <div className="foot mt-5 d-flex pt-3 col-12">
-                    <a href="../help-page/help.html"> Conditions of Use </a>
-                    <a href="../help-page/help.html"> Privacy Notice </a>
-                    <a href="../help-page/help.html"> Help </a>
+                    <a href="../help-page/help.html"> {t("signUp.part12")}</a>
+                    <a href="../help-page/help.html"> {t("signUp.part13")} </a>
+                    <a href="../help-page/help.html"> {t("signUp.part14")} </a>
                   </div>
                 </div>
                 <p
@@ -157,7 +159,7 @@ const Login = () => {
                   }}
                   className="text-center mt-4"
                 >
-                  ©1996–2023, Amazon.com, Inc. or its affiliates
+                {t("signUp.part15")}
                 </p>
               </div>
             </div>

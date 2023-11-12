@@ -1,6 +1,6 @@
 import amzonlogo from "../../assets/download.png";
 import { useContext, useState } from "react";
-import { instance } from "../../services/axios/instance";
+// import { instance } from "../../services/axios/instance";
 
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import "./login.css";
@@ -9,6 +9,7 @@ import axios from "axios";
 import { authContext } from "../../context/authcontex";
 import { totalPriceAction } from "../../Store/Slice/Cart";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const LoginStep2 = () => {
     let location = useLocation();
@@ -107,152 +108,113 @@ const LoginStep2 = () => {
             } catch (err) {
                 navigate("/login");
 
-                console.log(err);
-            }
-        } else {
-            console.log("provide email first");
-            navigate("/login");
-        }
+        console.log(err);
+      }
+    } else {
+      console.log("provide email first");
+      navigate("/login");
 
-        
-    };
+    }
+  };
+const {t}= useTranslation()
 
-    return (
-        <>
-            <div className='vh-100 '>
-                <div className='mask d-flex align-items-center gradient-custom-3'>
-                    <div className='container '>
-                        <div className='row d-flex justify-content-center '>
-                            <a href='/' target='_blank'>
-                                <div className='text-center'>
-                                    <img src={amzonlogo} className='rounded' />
-                                </div>
-                            </a>
-                        </div>
-                        <div className='row d-flex justify-content-center align-items-center'>
-                            <div className='col-sm-6 col-md-6 col-lg-4 col-xl-4 '>
-                                <div
-                                    className='card'
-                                    style={{ borderRadius: " 15px" }}
-                                >
-                                    <div className='card-body'>
-                                        <h2>Sign in</h2>
-
-                                        <form
-                                            autoComplete='off'
-                                            onSubmit={(e) => {
-                                                handleSubmit(e);
-                                            }}
-                                        >
-                                            <div className='form-outline mb-3'>
-                                                <label
-                                                    className='form-label'
-                                                    htmlFor='form3Example3cg'
-                                                >
-                                                    Password
-                                                </label>
-                                                <input
-                                                    type={
-                                                        visible
-                                                            ? "text"
-                                                            : "password"
-                                                    }
-                                                    required
-                                                    id='formGroupExampleInput'
-                                                    className={`form-control
-              ${errors.passwordError ? "border-danger shadow-none" : ""}`}
-                                                    name='password'
-                                                    placeholder='Please Enter password'
-                                                    value={user.password}
-                                                    onChange={(e) => {
-                                                        handelChange(e);
-                                                    }}
-                                                />
-                                                <div
-                                                    onClick={() =>
-                                                        setvisible(!visible)
-                                                    }
-                                                >
-                                                    {visible ? (
-                                                        <FaRegEye />
-                                                    ) : (
-                                                        <FaRegEyeSlash />
-                                                    )}
-                                                    <p className='text-danger'>
-                                                        {errors.passwordError}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div className='form-outline mb-2'>
-                                                <NavLink>
-                                                    <input
-                                                        type='submit'
-                                                        id='form3Example4cdg'
-                                                        className='form-control submit '
-                                                        value='sign in'
-                                                        onClick={logIn}
-                                                    />
-                                                </NavLink>
-                                            </div>
-                                            <div className='form-check d-flex  mb-3 ptn'>
-                                                <p>
-                                                    <a href=''>
-                                                        Forgot your password?
-                                                    </a>
-                                                </p>
-                                            </div>
-                                            <a id='lab'>
-                                                <i className='fa-solid fa-arrow-right'></i>
-                                                Need help?
-                                            </a>
-                                            <a
-                                                id='para'
-                                                style={{ display: "none" }}
-                                            >
-                                                Forgot your password?
-                                            </a>
-                                            <a
-                                                id='par2'
-                                                style={{ display: "none" }}
-                                            >
-                                                Other issues with Sign-In
-                                            </a>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div className='row'>
-                                    <div className='foot mt-5 d-flex pt-3 col-12'>
-                                        <a href='../help-page/help.html'>
-                                            {" "}
-                                            Conditions of Use{" "}
-                                        </a>
-                                        <a href='../help-page/help.html'>
-                                            {" "}
-                                            Privacy Notice{" "}
-                                        </a>
-                                        <a href='../help-page/help.html'>
-                                            {" "}
-                                            Help{" "}
-                                        </a>
-                                    </div>
-                                </div>
-                                <p
-                                    style={{
-                                        fontWeight: " lighter",
-                                        fontSize: "12px",
-                                    }}
-                                    className='text-center mt-4'
-                                >
-                                    ©1996–2023, Amazon.com, Inc. or its
-                                    affiliates
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+  return (
+    <>
+      <div className="vh-100 ">
+        <div className="mask d-flex align-items-center gradient-custom-3">
+          <div className="container ">
+            <div className="row d-flex justify-content-center ">
+              <a href="/" target="_blank">
+                <div className="text-center">
+                  <img src={amzonlogo} className="rounded" />
                 </div>
+              </a>
             </div>
-        </>
-    );
+            <div className="row d-flex justify-content-center align-items-center">
+              <div className="col-sm-6 col-md-6 col-lg-4 col-xl-4 ">
+                <div className="card" style={{ borderRadius: " 15px" }}>
+                  <div className="card-body">
+                    <h2>{t("SignIn.part1")}</h2>
+
+                    <form
+                      autoComplete="off"
+                      onSubmit={(e) => {
+                        handleSubmit(e);
+                      }}
+                    >
+                      <div className="form-outline mb-3">
+                        <label className="form-label" htmlFor="form3Example3cg" style={{fontSize:"16px"}}>
+                        {t("SignIn.part8")}
+                        </label>
+                        <input
+                          type={visible ? "text" : "password"}
+                          required
+                          id="formGroupExampleInput"
+                          className={`form-control
+              ${errors.passwordError ? "border-danger shadow-none" : ""}`}
+                          name="password"
+                          value={user.password}
+                          onChange={(e) => {
+                            handelChange(e);
+                          }}
+                        />
+                        <div onClick={() => setvisible(!visible)}>
+                          {visible ? <FaRegEye /> : <FaRegEyeSlash />}
+                          <p className="text-danger">{errors.passwordError}</p>
+                        </div>
+                      </div>
+                      <div className="form-outline mb-2">
+                        <NavLink>
+                          <input
+                            type="submit"
+                            id="form3Example4cdg"
+                            className="form-control submit "
+                            value={t("SignIn.part1")}
+                            onClick={logIn}
+                          />
+                        </NavLink>
+                      </div>
+                      <div className="form-check d-flex  mb-3 ptn">
+                        <p>
+                          <a href="">{t("SignIn.part9")}</a>
+                        </p>
+                      </div>
+                      <a id="lab">
+                        <i className="fa-solid fa-arrow-right"></i>
+                        {t("SignIn.part8")}
+                      </a>
+                      <a id="para" style={{ display: "none" }}>
+                      {t("SignIn.part9")}
+                      </a>
+                      <a id="par2" style={{ display: "none" }}>
+                        Other issues with Sign-In
+                      </a>
+                    </form>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="foot mt-5 d-flex pt-3 col-12">
+                    <a href="../help-page/help.html"> {t("signUp.part12")} </a>
+                    <a href="../help-page/help.html">{t("signUp.part13")} </a>
+                    <a href="../help-page/help.html"> {t("signUp.part14")} </a>
+                  </div>
+                </div>
+                <p
+                  style={{
+                    fontWeight: " lighter",
+                    fontSize: "12px",
+                  }}
+                  className="text-center mt-4"
+                >
+                  {t("signUp.part15")}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default LoginStep2;

@@ -94,6 +94,7 @@ export const Header = () => {
    const {t,i18nKey}=useTranslation()
    const changeLanguage=(language)=>{
     i18n.changeLanguage(language)
+    document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
     }
 //
     const [catogories, setCatogories] = useState([]);
@@ -267,7 +268,7 @@ export const Header = () => {
                                                 className='dropdown-item'
                                                 href='#'
                                             >
-                                                Amazon Fashion
+                                                {t("navTop.part14")}
                                             </a>
                                         </li>
                                         <li>
@@ -275,7 +276,8 @@ export const Header = () => {
                                                 className='dropdown-item'
                                                 href='#'
                                             >
-                                                Amazon Warehouse
+                                                {t("navTop.part19")}
+
                                             </a>
                                         </li>
                                         <li>
@@ -283,7 +285,7 @@ export const Header = () => {
                                                 className='dropdown-item'
                                                 href='#'
                                             >
-                                                Baby
+                                                 {t("navTop.part17")}
                                             </a>
                                         </li>
                                         <li>
@@ -291,7 +293,7 @@ export const Header = () => {
                                                 className='dropdown-item'
                                                 href='#'
                                             >
-                                                Books
+                                                {t("navTop.part15")}
                                             </a>
                                         </li>
                                         <li>
@@ -299,7 +301,7 @@ export const Header = () => {
                                                 className='dropdown-item'
                                                 href='#'
                                             >
-                                                Sports
+                                                 {t("navTop.part16")}
                                             </a>
                                         </li>
                                         <li>
@@ -307,7 +309,7 @@ export const Header = () => {
                                                 className='dropdown-item'
                                                 href='#'
                                             >
-                                                Software
+                                                 {t("navTop.part18")}
                                             </a>
                                         </li>
                                     </ul>
@@ -395,7 +397,7 @@ export const Header = () => {
                                                     typeof='./login'
                                                     onClick={logOut}
                                                 >
-                                                    logout
+                                                    {t("navTop.part13")}
                                                 </Nav>
                                             ) : (
                                                 <Nav className='me-auto '>

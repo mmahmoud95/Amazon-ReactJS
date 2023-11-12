@@ -6,9 +6,9 @@ import { useEffect } from "react";
 import { totalPriceAction } from "../../../Store/Slice/Cart";
 
 const Applayout = () => {
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     useEffect(() => {
-        // dispatch(totalPriceAction());
+        dispatch(totalPriceAction());
     }, []);
     return (
         <>

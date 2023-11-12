@@ -50,6 +50,8 @@ const LoginStep2 = () => {
     const handleSubmit = async (evt) => {
         evt.preventDefault();
     };
+
+    
     const logIn = async (e) => {
         if (userEmail) {
             try {
@@ -111,6 +113,8 @@ const LoginStep2 = () => {
             console.log("provide email first");
             navigate("/login");
         }
+
+        
     };
 
     return (

@@ -111,7 +111,6 @@ export const Header = () => {
                 console.log(err);
             });
     }, [catogories]);
-
     // console.log(catogories);
     const cart = useSelector((state) => state.Cart.cart);
 

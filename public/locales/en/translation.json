@@ -27,7 +27,15 @@
        "part16":"Sports",
        "part17":"Baby",
        "part18":"software",
-       "part19":"Amazon warehouse "
+       "part19":"Amazon warehouse ",
+       "part20":" New customer?",
+       "part21":"Start here.",
+       "part22":"Your Lists",
+       "part23":"Your Account ",
+       "part24":"Your Orders",
+       "part25":"learn more",
+       "part26":"You are shopping on Amazon.eg",
+       "part27":"Change country/ region."
     },
     "signUp":{
         "part1":"Create account",
@@ -58,4 +66,22 @@
         "part8":" Password",
         "part9":" Forgot your password?"
     }
+    ,
+"cart":{
+    "part1":"Your Amazon Cart is empty.",
+    "part2":"Shopping Cart",
+    "part3":" Deselect all items",
+    "part4":" Delete",
+    "part5":" QTY:",
+    "part6":"Save for later",
+    "part7":"Share",
+    "part8":"Subtotal ",
+    "part9":"Sign in to your account",
+    "part10":"Sign up now",
+    "part11":"Your order qualifies for FREE Shipping Choose this option at checkout.",
+    "part12":"See details",
+    "part13":"items",
+    "part14":"Proced to buy",
+    "part15":"Pair with your cart"
+}
 }

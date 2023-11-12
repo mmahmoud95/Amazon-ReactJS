@@ -6,7 +6,6 @@ import "./Register.css";
 import { registerr } from "../../services/auth";
 import toast, { Toaster } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
-import i18n from "../../i18n";
 const Register = () => {
     const [user, setUser] = useState({
         name: "",
@@ -92,11 +91,8 @@ const Register = () => {
         }
     }
     //
-   const {t,i18nKey}=useTranslation()
-   const changeLanguage=(language)=>{
-    i18n.changeLanguage(language)
-    document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
-    }
+   const {t}=useTranslation()
+ 
 //
     return (
         <>

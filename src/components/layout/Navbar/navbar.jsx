@@ -449,10 +449,10 @@ export const Header = () => {
             <div className='menu'>
                 <ul className='list-unstyled d-flex flex-row'>
                     <li>
-                        <a href='#'>{t("description.part1")}</a>
+                        <a href='#'>{t("nav2.part1")}</a>
                     </li>
                     <li>
-                        <a href='#'>{t("description.part2")}</a>
+                        <a href='#'>{t("nav2.part2")}</a>
                     </li>
 
                     {catogories.map((category, index) => {
@@ -469,16 +469,16 @@ export const Header = () => {
                     })}
 
                     <li>
-                        <a href='#'>{t("description.part3")}</a>
+                        <a href='#'>{t("nav2.part3")}</a>
                     </li>
                     <li>
-                        <a href='#'>{t("description.part4")}</a>
+                        <a href='#'>{t("nav2.part4")}</a>
                     </li>
                     <li>
-                        <a href='#'>{t("description.part5")}</a>
+                        <a href='#'>{t("nav2.part5")}</a>
                     </li>
                     <li>
-                        <a href='../help-page/help.html'>{t("description.part6")}</a>
+                        <a href='../help-page/help.html'>{t("nav2.part6")}</a>
                     </li>
                 </ul>
             </div>

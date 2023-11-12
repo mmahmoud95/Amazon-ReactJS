@@ -1,6 +1,6 @@
 {
-    "title":"ay zeft1",
-    "description":{
+    "title":"Translate to ar",
+    "nav2":{
         "part1":"All",
         "part2":"Deals",
         "part3":"Home",
@@ -44,7 +44,18 @@
         "part12":" Conditions of Use ",
         "part13":" Privacy Notice ",
         "part14":"  Help  ",
-        "part15":"©1996–2023, Amazon.com, Inc. or its affiliates",
+        "part15":"©1996-2023, Amazon.com, Inc. or its affiliates",
         "part16":"Enter your name"
+    },
+    "SignIn":{
+        "part1":"Sign in",
+        "part2":"Email",
+        "part3":"Enter your email",
+        "part4":"By signing in, you agree to Amazon's",
+        "part5":"Need help?",
+        "part6":"New to Amazon?",
+        "part7":"Create your Amazon account ",
+        "part8":" Password",
+        "part9":" Forgot your password?"
     }
 }

@@ -1,12 +1,13 @@
 import amzonlogo from "../../assets/download.png";
 import { useContext, useState } from "react";
-import { instance } from "../../services/axios/instance";
+// import { instance } from "../../services/axios/instance";
 
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import "./login.css";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { authContext } from "../../context/authcontex";
+import { useTranslation } from "react-i18next";
 
 const LoginStep2 = () => {
   let location = useLocation();
@@ -83,6 +84,7 @@ const LoginStep2 = () => {
 
     }
   };
+const {t}= useTranslation()
 
   return (
     <>
@@ -100,7 +102,7 @@ const LoginStep2 = () => {
               <div className="col-sm-6 col-md-6 col-lg-4 col-xl-4 ">
                 <div className="card" style={{ borderRadius: " 15px" }}>
                   <div className="card-body">
-                    <h2>Sign in</h2>
+                    <h2>{t("SignIn.part1")}</h2>
 
                     <form
                       autoComplete="off"
@@ -109,8 +111,8 @@ const LoginStep2 = () => {
                       }}
                     >
                       <div className="form-outline mb-3">
-                        <label className="form-label" htmlFor="form3Example3cg">
-                          Password
+                        <label className="form-label" htmlFor="form3Example3cg" style={{fontSize:"16px"}}>
+                        {t("SignIn.part8")}
                         </label>
                         <input
                           type={visible ? "text" : "password"}
@@ -119,7 +121,6 @@ const LoginStep2 = () => {
                           className={`form-control
               ${errors.passwordError ? "border-danger shadow-none" : ""}`}
                           name="password"
-                          placeholder="Please Enter password"
                           value={user.password}
                           onChange={(e) => {
                             handelChange(e);
@@ -136,22 +137,22 @@ const LoginStep2 = () => {
                             type="submit"
                             id="form3Example4cdg"
                             className="form-control submit "
-                            value="sign in"
+                            value={t("SignIn.part1")}
                             onClick={logIn}
                           />
                         </NavLink>
                       </div>
                       <div className="form-check d-flex  mb-3 ptn">
                         <p>
-                          <a href="">Forgot your password?</a>
+                          <a href="">{t("SignIn.part9")}</a>
                         </p>
                       </div>
                       <a id="lab">
                         <i className="fa-solid fa-arrow-right"></i>
-                        Need help?
+                        {t("SignIn.part8")}
                       </a>
                       <a id="para" style={{ display: "none" }}>
-                        Forgot your password?
+                      {t("SignIn.part9")}
                       </a>
                       <a id="par2" style={{ display: "none" }}>
                         Other issues with Sign-In
@@ -161,9 +162,9 @@ const LoginStep2 = () => {
                 </div>
                 <div className="row">
                   <div className="foot mt-5 d-flex pt-3 col-12">
-                    <a href="../help-page/help.html"> Conditions of Use </a>
-                    <a href="../help-page/help.html"> Privacy Notice </a>
-                    <a href="../help-page/help.html"> Help </a>
+                    <a href="../help-page/help.html"> {t("signUp.part12")} </a>
+                    <a href="../help-page/help.html">{t("signUp.part13")} </a>
+                    <a href="../help-page/help.html"> {t("signUp.part14")} </a>
                   </div>
                 </div>
                 <p
@@ -173,7 +174,7 @@ const LoginStep2 = () => {
                   }}
                   className="text-center mt-4"
                 >
-                  ©1996–2023, Amazon.com, Inc. or its affiliates
+                  {t("signUp.part15")}
                 </p>
               </div>
             </div>

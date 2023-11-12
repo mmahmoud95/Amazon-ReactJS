@@ -166,6 +166,7 @@ export const Cart = () => {
                     },
                 })
                 .then((res) => {
+                    dispatch(totalPriceAction());
                     // Assuming res.data.data.items is the updated cart after removal
                     const updatedCart = res.data.data.items;
                     setTotalPrice(res.data.data.totalPrice);
@@ -177,7 +178,6 @@ export const Cart = () => {
 
                     // Optional: You can log the updated cart for debugging
                     // console.log(updatedCart);
-                    dispatch(totalPriceAction());
                 })
                 .catch((error) => {
                     console.error("Error removing product:", error);
@@ -189,7 +189,7 @@ export const Cart = () => {
     // console.log(cartProducts);
 
     /////
-    const {t}=useTranslation()
+    const { t } = useTranslation();
     return (
         <>
             {isLogin ? (

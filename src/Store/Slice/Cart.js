@@ -49,7 +49,7 @@ export const cartSlice = createSlice({
         },
 
         clearCart: function (state, action) {
-            state.cart.pop(action.payload);
+            state.cart = [];
         },
     },
 });

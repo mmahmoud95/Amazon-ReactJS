@@ -1,158 +1,157 @@
 {
-    "title":"Translate to ar",
-    "nav2":{
-        "part1":"All",
-        "part2":"Deals",
-        "part3":"Home",
-        "part4":"Video Games",
-        "part5":"Toy & Games",
-        "part6":"Help"
-    } ,
-    "navTop":{
-        "part1":"Deliver to",
-        "part2":"Hello",
-        "part3":"Order",
-        "part4":"Cart",
-        "part5":"En",
+    "title": "Translate to ar",
+    "nav2": {
+        "part1": "All",
+        "part2": "Deals",
+        "part3": "Home",
+        "part4": "Video Games",
+        "part5": "Toy & Games",
+        "part6": "Help"
+    },
+    "navTop": {
+        "part1": "Deliver to",
+        "part2": "Hello",
+        "part3": "Order",
+        "part4": "Cart",
+        "part5": "En",
         "part6": "Egypt",
-        "part7":"Account & Lists",
-        "part8":"All",
-       "part9":"All Category",
-       "part10":"Amazon Devices",
-       "part11":"Seacrch",
-       "part12":" all categories",
-       "part13":"logout",
-       "part14":"Amazon Fashion",
-       "part15":"Books",
-       "part16":"Sports",
-       "part17":"Baby",
-       "part18":"software",
-       "part19":"Amazon warehouse ",
-       "part20":" New customer?",
-       "part21":"Start here.",
-       "part22":"Your Lists",
-       "part23":"Your Account ",
-       "part24":"Your Orders",
-       "part25":"learn more",
-       "part26":"You are shopping on Amazon.eg",
-       "part27":"Change country/ region."
+        "part7": "Account & Lists",
+        "part8": "All",
+        "part9": "All Category",
+        "part10": "Amazon Devices",
+        "part11": "Seacrch",
+        "part12": " all categories",
+        "part13": "logout",
+        "part14": "Amazon Fashion",
+        "part15": "Books",
+        "part16": "Sports",
+        "part17": "Baby",
+        "part18": "software",
+        "part19": "Amazon warehouse ",
+        "part20": " New customer?",
+        "part21": "Start here.",
+        "part22": "Your Lists",
+        "part23": "Your Account ",
+        "part24": "Your Orders",
+        "part25": "learn more",
+        "part26": "You are shopping on Amazon.eg",
+        "part27": "Change country/ region."
     },
-    "signUp":{
-        "part1":"Create account",
-        "part2":"Your name",
-        "part3":"email",
-        "part4":"Password",
-        "part5":"Re-enter password",
-        "part6":"Continue",
-        "part7":"By creating an account, you agree to Amazon's",
-        "part8":"Conditions of Use",
-        "part9":" and Privacy Notice.",
-        "part10":" Already have an account?",
-        "part11":"Sign in",
-        "part12":" Conditions of Use ",
-        "part13":" Privacy Notice ",
-        "part14":"  Help  ",
-        "part15":"©1996-2023, Amazon.com, Inc. or its affiliates",
-        "part16":"Enter your name"
+    "signUp": {
+        "part1": "Create account",
+        "part2": "Your name",
+        "part3": "email",
+        "part4": "Password",
+        "part5": "Re-enter password",
+        "part6": "Continue",
+        "part7": "By creating an account, you agree to Amazon's",
+        "part8": "Conditions of Use",
+        "part9": " and Privacy Notice.",
+        "part10": " Already have an account?",
+        "part11": "Sign in",
+        "part12": " Conditions of Use ",
+        "part13": " Privacy Notice ",
+        "part14": "  Help  ",
+        "part15": "©1996-2023, Amazon.com, Inc. or its affiliates",
+        "part16": "Enter your name"
     },
-    "SignIn":{
-        "part1":"Sign in",
-        "part2":"Email",
-        "part3":"Enter your email",
-        "part4":"By signing in, you agree to Amazon's",
-        "part5":"Need help?",
-        "part6":"New to Amazon?",
-        "part7":"Create your Amazon account ",
-        "part8":" Password",
-        "part9":" Forgot your password?"
-    }
-    ,
-"cart":{
-    "part1":"Your Amazon Cart is empty.",
-    "part2":"Shopping Cart",
-    "part3":" Deselect all items",
-    "part4":" Delete",
-    "part5":" QTY:",
-    "part6":"Save for later",
-    "part7":"Share",
-    "part8":"Subtotal ",
-    "part9":"Sign in to your account",
-    "part10":"Sign up now",
-    "part11":"Your order qualifies for FREE Shipping Choose this option at checkout.",
-    "part12":"See details",
-    "part13":"items",
-    "part14":"Proced to buy",
-    "part15":"Pair with your cart"
-},,
-"titleFooter": "footer",
-"back": {
-    "part1": "Back To Top"
-},
-"know": {
-    "part1": "Get to Know Us",
-    "part2": "about amazon",
-    "part3": "careers",
-    "part4": "amazon science"
-},
-"shop": {
-    "part1": "Shop with Us",
-    "part2": "Your Account",
-    "part3": "Your Orders",
-    "part4": "Your Addresses",
-    "part5": "Your Lists"
-},
-"money": {
-    "part1": "Make Money with Us",
-    "part2": "Protect and build your brand",
-    "part3": "Advertise Your Products",
-    "part4": "Sell on Amazon",
-    "part5": "Fulfillment by Amazon"
-},
-"help": {
-    "part1": "Let Us Help You",
-    "part2": "Help",
-    "part3": "Shipping & Delivery",
-    "part4": "Returns & Replacements",
-    "part5": "Amazon App Download"
-},
-"changer": {
-    "country": "Egypt",
-    "language": "English - EN",
-    "info": "You are shopping on Amazon.eg",
-    "cr": "Change country/ region."
-},
-"adver": {
-    "span1": "Amazon Advertising",
-    "span2": "Find, attract, and",
-    "span3": "engage customers",
-    "span4": "Sell on Amazon.ae",
-    "span5": "Sell globally, start with UAE",
-    "span55": "",
-    "span6": "Sell on Amazon.ae ",
-    "span7": "Sell globally, start with Saudi Arabia",
-    "span77": "",
-    "span8": "Amazon Web Services",
-    "span9": "Scalable Cloud",
-    "span10": "Computing Services",
-    "span11": "Goodreads",
-    "span12": "Book reviews",
-    "span13": "& recommendations"
-},
-"adver2": {
-    "span1": "Download",
-    "span2": "Audio Books",
-    "span3": "Movies, TV",
-    "span4": " & Celebrities",
-    "span5": "Actionable Analytics",
-    "span6": "for the Web",
-    "span7": "Designer",
-    "span8": "Fashion Brands"
-},
+    "SignIn": {
+        "part1": "Sign in",
+        "part2": "Email",
+        "part3": "Enter your email",
+        "part4": "By signing in, you agree to Amazon's",
+        "part5": "Need help?",
+        "part6": "New to Amazon?",
+        "part7": "Create your Amazon account ",
+        "part8": " Password",
+        "part9": " Forgot your password?"
+    },
+    "cart": {
+        "part1": "Your Amazon Cart is empty.",
+        "part2": "Shopping Cart",
+        "part3": " Deselect all items",
+        "part4": " Delete",
+        "part5": " QTY:",
+        "part6": "Save for later",
+        "part7": "Share",
+        "part8": "Subtotal ",
+        "part9": "Sign in to your account",
+        "part10": "Sign up now",
+        "part11": "Your order qualifies for FREE Shipping Choose this option at checkout.",
+        "part12": "See details",
+        "part13": "items",
+        "part14": "Proced to buy",
+        "part15": "Pair with your cart"
+    },
+    "titleFooter": "footer",
+    "back": {
+        "part1": "Back To Top"
+    },
+    "know": {
+        "part1": "Get to Know Us",
+        "part2": "about amazon",
+        "part3": "careers",
+        "part4": "amazon science"
+    },
+    "shop": {
+        "part1": "Shop with Us",
+        "part2": "Your Account",
+        "part3": "Your Orders",
+        "part4": "Your Addresses",
+        "part5": "Your Lists"
+    },
+    "money": {
+        "part1": "Make Money with Us",
+        "part2": "Protect and build your brand",
+        "part3": "Advertise Your Products",
+        "part4": "Sell on Amazon",
+        "part5": "Fulfillment by Amazon"
+    },
+    "help": {
+        "part1": "Let Us Help You",
+        "part2": "Help",
+        "part3": "Shipping & Delivery",
+        "part4": "Returns & Replacements",
+        "part5": "Amazon App Download"
+    },
+    "changer": {
+        "country": "Egypt",
+        "language": "English - EN",
+        "info": "You are shopping on Amazon.eg",
+        "cr": "Change country/ region."
+    },
+    "adver": {
+        "span1": "Amazon Advertising",
+        "span2": "Find, attract, and",
+        "span3": "engage customers",
+        "span4": "Sell on Amazon.ae",
+        "span5": "Sell globally, start with UAE",
+        "span55": "",
+        "span6": "Sell on Amazon.ae ",
+        "span7": "Sell globally, start with Saudi Arabia",
+        "span77": "",
+        "span8": "Amazon Web Services",
+        "span9": "Scalable Cloud",
+        "span10": "Computing Services",
+        "span11": "Goodreads",
+        "span12": "Book reviews",
+        "span13": "& recommendations"
+    },
+    "adver2": {
+        "span1": "Download",
+        "span2": "Audio Books",
+        "span3": "Movies, TV",
+        "span4": " & Celebrities",
+        "span5": "Actionable Analytics",
+        "span6": "for the Web",
+        "span7": "Designer",
+        "span8": "Fashion Brands"
+    },
 
-"copyR": {
-    "part1": "Conditions of Use & Sale",
-    "part2": "Privacy Notice",
-    "part3": "Interest-Based Ads",
-    "part4": "©1996–2023, Amazon.com, Inc. or its affiliates"
-}
+    "copyR": {
+        "part1": "Conditions of Use & Sale",
+        "part2": "Privacy Notice",
+        "part3": "Interest-Based Ads",
+        "part4": "©1996–2023, Amazon.com, Inc. or its affiliates"
+    }
 }

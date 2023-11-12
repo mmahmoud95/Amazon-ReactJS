@@ -189,8 +189,8 @@ export const Cart = () => {
     // console.log(cartProducts);
 
     /////
-    const {t}=useTranslation()
-    return (
+    const {t}=useTranslation()  
+      return (
         <>
             {isLogin ? (
                 <section className='container-fluid bg-light p-4'>
@@ -199,12 +199,12 @@ export const Cart = () => {
                             {isLogin ? (
                                 <span>
                                     <div className='head-cart mb-0'>
-                                        <h3>Shopping Cart</h3>
+                                        <h3>{t("cart.part2")}</h3>
                                         <a
                                             href='#'
                                             className='deselect text-decoration-none'
                                         >
-                                            Deselect all items
+                                           {t("cart.part3")}
                                         </a>
                                     </div>
                                     <hr />
@@ -259,7 +259,7 @@ export const Cart = () => {
                                                                     +
                                                                 </button>
                                                                 <span>
-                                                                    QTY:
+                                                                {t("cart.part5")}
                                                                     {cartPage?.length >
                                                                     0
                                                                         ? cartPage[
@@ -294,7 +294,7 @@ export const Cart = () => {
                                                                     )
                                                                 }
                                                             >
-                                                                Delete
+                                                               {t("cart.part4")}
                                                             </a>
                                                         </li>
                                                         <li>
@@ -302,7 +302,7 @@ export const Cart = () => {
                                                                 href='#'
                                                                 className='text-decoration-none me-2'
                                                             >
-                                                                Save for later
+                                                               {t("cart.part6")}
                                                             </a>
                                                         </li>
                                                         <li>
@@ -310,12 +310,12 @@ export const Cart = () => {
                                                                 href='#'
                                                                 className='text-decoration-none me-2'
                                                             >
-                                                                Share
+                                                                {t("cart.part7")}
                                                             </a>
                                                         </li>
                                                     </ul>
                                                     <p className='total-price fw-bold'>
-                                                        Subtotal : EGP{" "}
+                                                    {t("cart.part8")} : EGP{" "}
                                                     </p>
                                                 </div>
                                             </div>
@@ -328,18 +328,18 @@ export const Cart = () => {
                                         className='text-center mt-5'
                                         style={{ fontSize: "22px" }}
                                     >
-                                        Your Amazon cart is empty!
+                                       {t("cart.part1")}
                                     </p>
                                 )
                             ) : (
                                 <div className='text-center mt-5'>
-                                    <h4>Your Amazon cart is empty </h4>
+                                    <h4>{t("cart.part1")}</h4>
                                     <Link
                                         to='/login'
                                         className='btn rounded-pill bg-warning'
                                     >
                                         <span className='pe-2'>
-                                            Sign in to your account
+                                        {t("cart.part9")}
                                         </span>
                                     </Link>
                                     <Link
@@ -347,7 +347,7 @@ export const Cart = () => {
                                         className='btn rounded-pill bg-light'
                                     >
                                         <span className='pe-2'>
-                                            Sign up now
+                                        {t("cart.part10")}
                                         </span>
                                     </Link>
                                 </div>
@@ -361,14 +361,12 @@ export const Cart = () => {
                                     <div className='shadow p-3 bg-white mb-2'>
                                         <p className='total-cart'>
                                             <ion-icon name='checkmark-circle'></ion-icon>{" "}
-                                            Your order qualifies for FREE
-                                            Shipping Choose this option at
-                                            checkout.{" "}
-                                            <a href='#'>See details</a>
+                                            {t("cart.part11")}{" "}
+                                            <a href='#'>{t("cart.part12")}</a>
                                         </p>
                                         {/* {cartPage .map((product, index) => ( */}
                                         <p className='total-price'>
-                                            Subtotal ({cartPage.length} items) :
+                                        {t("cart.part8")} ({cartPage.length} {t("cart.part13")}) :
                                             <span className='price'>
                                                 {totalPrice}
                                             </span>
@@ -378,7 +376,7 @@ export const Cart = () => {
                                             to='/checkout'
                                             className='to-buy d-inline-block text-decoration-none'
                                         >
-                                            Proced to buy
+                                           {t("cart.part14")}
                                         </Link>
                                     </div>
                                 ) : null
@@ -387,7 +385,7 @@ export const Cart = () => {
                             {isLogin ? (
                                 <div className='shadow p-3 bg-white'>
                                     <h5>
-                                        <strong>Pair with your cart</strong>
+                                        <strong>{t("cart.part15")}</strong>
                                     </h5>
                                     <div className='row'>
                                         {categoryProducts?.map(
@@ -425,12 +423,12 @@ export const Cart = () => {
                         <div className='col-md-8 bg-white p-5 pt-3 shadow'>
                             <span>
                                 <div className='head-cart mb-0'>
-                                    <h3>Shopping Cart</h3>
+                                    <h3>{t("cart.part2")}</h3>
                                     <a
                                         href='#'
                                         className='deselect text-decoration-none'
                                     >
-                                        Deselect all items
+                                       {t("cart.part3")}
                                     </a>
                                 </div>
                                 <hr />
@@ -484,7 +482,7 @@ export const Cart = () => {
                                                             </button>
                                                             <span>
                                                                 {" "}
-                                                                QTY:
+                                                                {t("cart.part5")}
                                                                 {
                                                                     cartPageRedux[
                                                                         index
@@ -514,7 +512,7 @@ export const Cart = () => {
                                                                 )
                                                             }
                                                         >
-                                                            Delete
+                                                           {t("cart.part4")}
                                                         </a>
                                                     </li>
                                                     <li>
@@ -522,7 +520,7 @@ export const Cart = () => {
                                                             href='#'
                                                             className='text-decoration-none me-2'
                                                         >
-                                                            Save for later
+                                                           {t("cart.part6")}
                                                         </a>
                                                     </li>
                                                     <li>
@@ -530,12 +528,12 @@ export const Cart = () => {
                                                             href='#'
                                                             className='text-decoration-none me-2'
                                                         >
-                                                            Share
+                                                           {t("cart.part7")}
                                                         </a>
                                                     </li>
                                                 </ul>
                                                 <p className='total-price fw-bold'>
-                                                    Subtotal : EGP{" "}
+                                                {t("cart.part8")}: EGP{" "}
                                                     {item.product?.price *
                                                         cartPageRedux[index]
                                                             .quantity}
@@ -551,7 +549,7 @@ export const Cart = () => {
                                     className='text-center mt-5'
                                     style={{ fontSize: "22px" }}
                                 >
-                                    Your Amazon cart is empty!
+                                    {t("cart.part1")}
                                 </p>
                             )}
                         </div>
@@ -562,13 +560,12 @@ export const Cart = () => {
                                 <div className='shadow p-3 bg-white mb-2'>
                                     <p className='total-cart'>
                                         <ion-icon name='checkmark-circle'></ion-icon>{" "}
-                                        Your order qualifies for FREE Shipping
-                                        Choose this option at checkout.{" "}
-                                        <a href='#'>See details</a>
+                                        {t("cart.part11")}{" "}
+                                        <a href='#'>{t("cart.part12")}</a>
                                     </p>
                                     {/* {cartPage .map((product, index) => ( */}
                                     <p className='total-price'>
-                                        Subtotal ({cartPageRedux.length} items)
+                                    {t("cart.part8")} ({cartPageRedux.length} {t("cart.part13")})
                                         :<span className='price'>{total}</span>
                                     </p>
                                     {/* // ))} */}
@@ -576,14 +573,14 @@ export const Cart = () => {
                                         to='/login'
                                         className='to-buy d-inline-block text-decoration-none'
                                     >
-                                        Proced to buy
+                                       {t("cart.part14")}
                                     </Link>
                                 </div>
                             ) : null}
                             {
                                 <div className='shadow p-3 bg-white'>
                                     <h5>
-                                        <strong>Pair with your cart</strong>
+                                        <strong>{t("cart.part15")}</strong>
                                     </h5>
                                     <div className='row'>
                                         {categoryProducts.map(

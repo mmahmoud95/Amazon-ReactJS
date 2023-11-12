@@ -181,7 +181,7 @@ const {t}= useTranslation()
                       </div>
                       <a id="lab">
                         <i className="fa-solid fa-arrow-right"></i>
-                        {t("SignIn.part8")}
+                        {t("SignIn.part5")}
                       </a>
                       <a id="para" style={{ display: "none" }}>
                       {t("SignIn.part9")}

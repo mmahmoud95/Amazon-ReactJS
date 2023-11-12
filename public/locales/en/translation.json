@@ -20,12 +20,12 @@
        "part9":"All Category",
        "part10":"Amazon Devices",
        "part11":"Seacrch",
-       "part12":" all categories",
+       "part12":"Select category",
        "part13":"logout",
-       "part14":"Amazon Fashion",
+       "part14":"Amazon groceries",
        "part15":"Books",
        "part16":"Sports",
-       "part17":"Baby",
+       "part17":" Amazon laptops",
        "part18":"software",
        "part19":"Amazon warehouse ",
        "part20":" New customer?",
@@ -83,7 +83,7 @@
     "part13":"items",
     "part14":"Proced to buy",
     "part15":"Pair with your cart"
-},,
+},
 "titleFooter": "footer",
 "back": {
     "part1": "Back To Top"

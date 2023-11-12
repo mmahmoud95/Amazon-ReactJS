@@ -378,7 +378,7 @@ export const Header = () => {
                                     to='/cart'
                                 >
                                     <span className='item-count'>
-                                        {isLogin ? totalPrice : cart.length}
+                                        {isLogin ? totalPrice : cart?.length}
                                     </span>
                                     <img className='mb-2' src={cartImage} />
                                     <span className='cart text-decoration-none'>

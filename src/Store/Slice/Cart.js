@@ -19,7 +19,6 @@ export const totalPriceAction = createAsyncThunk(
 export const cartSlice = createSlice({
     name: "cart",
     initialState: { cart: [], totalPrice: 0 },
-
     extraReducers: (builder) => {
         builder.addCase(totalPriceAction.fulfilled, (state, action) => {
             state.totalPrice = action.payload;
@@ -32,13 +31,12 @@ export const cartSlice = createSlice({
         },
         removFromCart: function (state, action) {
             const newState = state.cart.filter(
-                (product) => product.product._id != action.payload._id
+                (product) => product.product._id !== action.payload._id
             );
-
             // Save the updated state to localStorage
             localStorage.setItem("cart", JSON.stringify(newState));
-
-            return newState;
+            // Update the state using Immer's draft
+            state.cart.splice(0, state.cart.length, ...newState);
         },
         udateQuantity: function (state, action) {
             // console.log(action);

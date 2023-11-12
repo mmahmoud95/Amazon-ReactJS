@@ -432,7 +432,7 @@ export const Cart = () => {
                                 </div>
                                 <hr />
                             </span>
-                            {cartPageRedux.length > 0 ? (
+                            {cartPageRedux?.length > 0 ? (
                                 cartPageRedux.map((item, index) => (
                                     <div className='row' key={index}>
                                         <div className='item col-md-3 col-sm-12 d-flex align-items-center'>
@@ -555,7 +555,7 @@ export const Cart = () => {
 
                         {/* right side */}
                         <div className='col-md-3 p-0 mx-md-4 my-2 my-md-0'>
-                            {cartPageRedux.length > 0 ? (
+                            {cartPageRedux?.length > 0 ? (
                                 <div className='shadow p-3 bg-white mb-2'>
                                     <p className='total-cart'>
                                         <ion-icon name='checkmark-circle'></ion-icon>{" "}

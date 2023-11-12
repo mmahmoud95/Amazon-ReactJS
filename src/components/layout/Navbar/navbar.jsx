@@ -386,7 +386,7 @@ export const Header = () => {
                     >
                         All
                     </a>
-                    <ul className='dropdown-menu'>
+                    {/* <ul className='dropdown-menu'>
                         <li>
                             <a className='dropdown-item' href='#'>
                                 All Category
@@ -427,7 +427,7 @@ export const Header = () => {
                                 Software
                             </a>
                         </li>
-                    </ul>
+                    </ul> */}
                 </div>
                 <div className='flex-grow-1 h-100'>
                     <form role='search'>

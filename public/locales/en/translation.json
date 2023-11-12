@@ -28,5 +28,23 @@
        "part17":"Baby",
        "part18":"software",
        "part19":"Amazon warehouse "
+    },
+    "signUp":{
+        "part1":"Create account",
+        "part2":"Your name",
+        "part3":"email",
+        "part4":"Password",
+        "part5":"Re-enter password",
+        "part6":"Continue",
+        "part7":"By creating an account, you agree to Amazon's",
+        "part8":"Conditions of Use",
+        "part9":" and Privacy Notice.",
+        "part10":" Already have an account?",
+        "part11":"Sign in",
+        "part12":" Conditions of Use ",
+        "part13":" Privacy Notice ",
+        "part14":"  Help  ",
+        "part15":"©1996–2023, Amazon.com, Inc. or its affiliates",
+        "part16":"Enter your name"
     }
 }

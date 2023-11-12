@@ -1,15 +1,37 @@
-import { createSlice } from "@reduxjs/toolkit";
-
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+export const totalPriceAction = createAsyncThunk(
+    "totalPriceAction",
+    async () => {
+        try {
+            const res = await axios.get("http://localhost:3333/cart", {
+                headers: {
+                    Authorization: localStorage.getItem("userToken"),
+                },
+            });
+            console.log(res.data.numOfCartItems);
+            return res.data.numOfCartItems;
+        } catch {
+            return 1;
+        }
+    }
+);
 export const cartSlice = createSlice({
     name: "cart",
-    initialState: [],
+    initialState: { cart: [], totalPrice: 0 },
+
+    extraReducers: (builder) => {
+        builder.addCase(totalPriceAction.fulfilled, (state, action) => {
+            state.totalPrice = action.payload;
+        });
+    },
     reducers: {
         addToCart: function (state, action) {
-            state.push(action.payload);
-            localStorage.setItem("cart", JSON.stringify(state));
+            state.cart.push(action.payload);
+            localStorage.setItem("cart", JSON.stringify(state.cart));
         },
         removFromCart: function (state, action) {
-            const newState = state.filter(
+            const newState = state.cart.filter(
                 (product) => product.product._id != action.payload._id
             );
 
@@ -20,14 +42,14 @@ export const cartSlice = createSlice({
         },
         udateQuantity: function (state, action) {
             // console.log(action);
-            state[action.payload.index].quantity =
+            state.cart[action.payload.index].quantity =
                 action.payload.updatequantity;
             // console.log(state.length);
-            localStorage.setItem("cart", JSON.stringify(state));
+            localStorage.setItem("cart", JSON.stringify(state.cart));
         },
 
         clearCart: function (state, action) {
-            state.pop(action.payload);
+            state.cart.pop(action.payload);
         },
     },
 });

@@ -15,7 +15,8 @@ import { clearCart } from "../../../Store/Slice/Cart";
 // import Navbar from 'react-bootstrap/Navbar';
 
 export const Header = () => {
-    let cartPageRedux = useSelector((state) => state.Cart);
+    let cartPageRedux = useSelector((state) => state.Cart.cart);
+    const totalPrice = useSelector((state) => state.Cart.totalPrice);
     const dispatch = useDispatch();
 
     const [numberItems, setNumberItems] = useState(0);
@@ -43,24 +44,24 @@ export const Header = () => {
             localStorage.setItem("category", "All");
         }
     };
-    useEffect(() => {
-        if (isLogin) {
-            instance
-                .get("cart", {
-                    headers: {
-                        Authorization: localStorage.getItem("userToken"),
-                    },
-                })
-                .then((res) => {
-                    // priductsitemsid = res.data.data[0].items;
-                    // console.log(res.data.data.items);
-                    // setCartPage(res.data.data.items);
-                    console.log();
-                    // localStorage.setItem("cartItems", res.data.numOfCartItems);
-                    setNumberItems(res.data.numOfCartItems);
-                });
-        }
-    }, [numberItems]); // console.log(catogories);
+    // useEffect(() => {
+    //     if (isLogin) {
+    //         instance
+    //             .get("cart", {
+    //                 headers: {
+    //                     Authorization: localStorage.getItem("userToken"),
+    //                 },
+    //             })
+    //             .then((res) => {
+    //                 // priductsitemsid = res.data.data[0].items;
+    //                 // console.log(res.data.data.items);
+    //                 // setCartPage(res.data.data.items);
+    //                 console.log();
+    //                 // localStorage.setItem("cartItems", res.data.numOfCartItems);
+    //                 setNumberItems(res.data.numOfCartItems);
+    //             });
+    //     }
+    // }, []); // console.log(catogories);
     useEffect(() => {
         console.log(searchCategory);
         // localStorage.setItem('category',searchCategory)
@@ -74,7 +75,6 @@ export const Header = () => {
         localStorage.removeItem("userToken");
         localStorage.removeItem("cart");
         localStorage.removeItem("name");
-
         dispatch(clearCart(cartPageRedux));
         setLogin(false);
     };
@@ -105,7 +105,7 @@ export const Header = () => {
     }, [catogories]);
 
     // console.log(catogories);
-    const cart = useSelector((state) => state.Cart);
+    const cart = useSelector((state) => state.Cart.cart);
 
     return (
         <>
@@ -378,7 +378,7 @@ export const Header = () => {
                                     to='/cart'
                                 >
                                     <span className='item-count'>
-                                        {isLogin ? numberItems : cart.length}
+                                        {isLogin ? totalPrice : cart.length}
                                     </span>
                                     <img className='mb-2' src={cartImage} />
                                     <span className='cart text-decoration-none'>

@@ -1,6 +1,10 @@
 import "./cart.css";
 import { useDispatch, useSelector } from "react-redux";
-import { removFromCart, udateQuantity } from "../../Store/Slice/Cart";
+import {
+    removFromCart,
+    totalPriceAction,
+    udateQuantity,
+} from "../../Store/Slice/Cart";
 import { ProductCard } from "../../components/category-product/productCard";
 import { useContext, useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -11,7 +15,7 @@ import { instance } from "../../services/axios/instance";
 
 export const Cart = () => {
     const [totalPrice, setTotalPrice] = useState(0);
-    let cartPageRedux = useSelector((state) => state.Cart);
+    let cartPageRedux = useSelector((state) => state.Cart.cart);
     // console.log(cartPageRedux[0].quantity);
     // const countRed = useSelector((state) => state.counter.counter);
     const [count, setCount] = useState(1);
@@ -171,10 +175,12 @@ export const Cart = () => {
 
                     // Optional: You can log the updated cart for debugging
                     // console.log(updatedCart);
+                    dispatch(totalPriceAction());
                 })
                 .catch((error) => {
                     console.error("Error removing product:", error);
                 });
+            dispatch(totalPriceAction());
         }
     };
 
@@ -434,7 +440,9 @@ export const Cart = () => {
                                                 <img
                                                     className='w-100'
                                                     width='500px'
-                                                    src={item.product?.thumbnail}
+                                                    src={
+                                                        item.product?.thumbnail
+                                                    }
                                                 />
                                             </div>
                                         </div>

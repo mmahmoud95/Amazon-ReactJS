@@ -4,7 +4,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import { instance } from "../../services/axios/instance";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import { udateQuantity } from "../../Store/Slice/Cart";
+import { totalPriceAction, udateQuantity } from "../../Store/Slice/Cart";
 import { Link, useParams } from "react-router-dom";
 import prime from "./1prime.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,12 +18,12 @@ const ProductDetails = () => {
 
     var { id } = useParams();
     const dispatch = useDispatch();
-    var cartPage = useSelector((state) => state.Cart);
+    var cartPage = useSelector((state) => state.Cart.cart);
     const handelAdd = (product) => {
         const isProductIncart = cartPage.some(
             (item) => item.product._id === product._id
         );
-
+        console.log(cartPage);
         console.log(isProductIncart);
         if (!isProductIncart) {
             dispatch(addToCart({ product: product, quantity: 1 }));
@@ -42,19 +42,25 @@ const ProductDetails = () => {
             }
         }
     };
+    // const dispatch = useDispatch();
+
     const hanleAddWithAp = (myProd) => {
         console.log(myProd);
-        instance.post(
-            `cart/`,
-            {
-                productId: myProd._id,
-            },
-            {
-                headers: {
-                    Authorization: localStorage.getItem("userToken"),
+        instance
+            .post(
+                `cart/`,
+                {
+                    productId: myProd._id,
                 },
-            }
-        );
+                {
+                    headers: {
+                        Authorization: localStorage.getItem("userToken"),
+                    },
+                }
+            )
+            .then(() => {
+                dispatch(totalPriceAction());
+            });
     };
     const [myProd, setmyProd] = useState();
 

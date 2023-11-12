@@ -7,13 +7,15 @@ import "./login.css";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { authContext } from "../../context/authcontex";
+import { totalPriceAction } from "../../Store/Slice/Cart";
+import { useDispatch } from "react-redux";
 
 const LoginStep2 = () => {
     let location = useLocation();
     const navigate = useNavigate();
     const { setLogin } = useContext(authContext);
     //   const [loggeduser, setLoggedUser] = useState({})
-
+    const dispatch = useDispatch();
     const [userEmail, setuserEmail] = useState(location.state?.Email);
     const [userPassword, setPassword] = useState("");
     const [user, setUser] = useState({
@@ -67,7 +69,7 @@ const LoginStep2 = () => {
                     localStorage.setItem("name", data.name);
                     setLogin(true);
                     const cartstring = localStorage.getItem("cart");
-                    const cart =JSON.parse(cartstring);
+                    const cart = JSON.parse(cartstring);
                     console.log(cart);
                     for (let i = 0; i < cart?.length; i++) {
                         let productId = cart[i].product._id;
@@ -84,7 +86,8 @@ const LoginStep2 = () => {
                                     },
                                 }
                             )
-                            .then((res) => {
+                            .then(() => {
+                                dispatch(totalPriceAction());
                                 // priductsitemsid = res.data.data[0].items;
                                 // console.log(res.data.data.items);
                                 // setCartPage(res.data.data.items);

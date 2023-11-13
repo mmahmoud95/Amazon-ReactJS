@@ -1,11 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { instance } from "../../services/axios/instance";
 import "./category.css";
 import { ProductCard } from "../../components/category-product/productCard";
+import { authContext } from "../../context/authcontex";
 
 export const Category = () => {
     const [categoryProducts, setCategoryProducts] = useState([]);
+
+    const { lang, setLang } = useContext(authContext);
+
     let { categoryID } = useParams();
     const navigate = useNavigate();
     useEffect(() => {
@@ -69,12 +73,20 @@ export const Category = () => {
                             <ProductCard
                                 key={index}
                                 productID={product._id}
-                                productTitle={product.title}
+                                productTitle={
+                                    lang === "en"
+                                        ? product.en?.title
+                                        : product.ar?.title
+                                }
                                 productRating={product.rating}
                                 productDiscount={product.discountPercentage}
                                 productThumbnail={product.thumbnail}
                                 productPrice={product.price}
-                                productDescription={product.description}
+                                productDescription={
+                                    lang === "en"
+                                        ? product.en?.description
+                                        : product.ar?.description
+                                }
                             />
                         ))}
                     </div>

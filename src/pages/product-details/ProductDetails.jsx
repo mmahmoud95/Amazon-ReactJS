@@ -4,36 +4,66 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import { instance } from "../../services/axios/instance";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import { udateQuantity } from "../../Store/Slice/Cart";
+import { totalPriceAction, udateQuantity } from "../../Store/Slice/Cart";
 import { Link, useParams } from "react-router-dom";
 import prime from "./1prime.png";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../Store/Slice/Cart";
+import { addToCartWithAPI } from "../../services/auth";
+import { authContext } from "../../context/authcontex";
+import { useContext } from "react";
 
 const ProductDetails = () => {
+    const { isLogin, setLogin } = useContext(authContext);
+    const { lang, setLang } = useContext(authContext);
+
     var { id } = useParams();
     const dispatch = useDispatch();
-    var cartPage = useSelector((state) => state.Cart);
+    var cartPage = useSelector((state) => state.Cart.cart);
     const handelAdd = (product) => {
         const isProductIncart = cartPage.some(
-            (items) => items.product._id === product._id
+            (item) => item.product._id === product._id
         );
+        console.log(cartPage);
+        console.log(isProductIncart);
         if (!isProductIncart) {
             dispatch(addToCart({ product: product, quantity: 1 }));
         } else {
-            const item = cartPage.find((item) => {
-                return item.product._id === product._id;
-            });
-            const index = cartPage.findIndex(
-                (item) => item.product._id === product._id
-            );
-            console.log(item);
-            let updatequantity = item.quantity;
-            updatequantity = item.quantity + 1;
-            dispatch(udateQuantity({ updatequantity, index }));
+            for (const i in cartPage) {
+                const product1 = cartPage.find((items) => {
+                    return items.product._id === product._id;
+                });
+                let index = cartPage.findIndex(
+                    (item) => item.product._id === product._id
+                );
+                // console.log(quantity);
+                let updatequantity = product1.quantity + 1;
+                // updatequantity = product1.quantity + 1;
+                dispatch(udateQuantity({ updatequantity, index: index }));
+            }
         }
     };
+    // const dispatch = useDispatch();
 
+    const hanleAddWithAp = (myProd) => {
+        console.log(myProd);
+        instance
+            .post(
+                `cart/`,
+                {
+                    productId: myProd._id,
+                    quantity: 1,
+                },
+                {
+                    headers: {
+                        Authorization: localStorage.getItem("userToken"),
+                    },
+                }
+            )
+            .then(() => {
+                dispatch(totalPriceAction());
+            });
+    };
     const [myProd, setmyProd] = useState();
 
     useEffect(() => {
@@ -69,7 +99,7 @@ const ProductDetails = () => {
                             verticalSwipe='natural'
                             selectedItem={myProd?.images[currentIndex]}
                             onChange={handleChange}
-                            className='carousel-container bg-dark h-100 '
+                            className='carousel-container bg-dark h-50'
                         >
                             {myProd?.images.map((image, index) => (
                                 <div
@@ -89,7 +119,9 @@ const ProductDetails = () => {
                     {/* product details */}
                     <div className='col-lg-4  '>
                         <h2 className='product-title fw-normal'>
-                            {myProd?.description}
+                            {lang === "en"
+                                ? myProd?.en.description
+                                : myProd?.ar.description}
                         </h2>
                         <Link className='product-link text-decoration-none'>
                             visit amazon store
@@ -122,7 +154,9 @@ const ProductDetails = () => {
                                     Brand Name :
                                 </li>
                                 <li className='list-group-item border-0'>
-                                    {myProd?.brand}
+                                    {lang === "en"
+                                        ? myProd?.en.brand
+                                        : myProd?.ar.brand}
                                 </li>
                             </ul>
 
@@ -132,7 +166,10 @@ const ProductDetails = () => {
                                     Model Name:
                                 </li>
                                 <li className='list-group-item border-0'>
-                                    {myProd?.title}
+                                    {" "}
+                                    {lang === "en"
+                                        ? myProd?.en.title
+                                        : myProd?.ar.title}
                                 </li>
                             </ul>
 
@@ -150,7 +187,9 @@ const ProductDetails = () => {
                                     Category:
                                 </li>
                                 <li className='list-group-item border-0'>
-                                    {myProd?.category.name}
+                                    {lang === "en"
+                                        ? myProd?.category?.en.name
+                                        : myProd?.category?.ar.name}
                                 </li>
                             </ul>
 
@@ -306,7 +345,11 @@ const ProductDetails = () => {
                                     id='add-to-cart-button '
                                     type='button'
                                     className='btn rounded-pill bg-warning w-75'
-                                    onClick={() => handelAdd(myProd)}
+                                    onClick={() =>
+                                        isLogin
+                                            ? hanleAddWithAp(myProd)
+                                            : handelAdd(myProd)
+                                    }
                                 >
                                     <span className='pe-2'>Add to Cart</span>
 

@@ -4,22 +4,29 @@ import { instance } from "../../services/axios/instance";
 import { ProductCard } from "../../components/category-product/productCard";
 
 export const Search = () => {
+    let location = useLocation();
+
     const [categoryProducts, setCategoryProducts] = useState([]);
     const [notFound, setNotFound] = useState("");
+    const [Scategory, setScategory] = useState(localStorage.getItem('category'));
+
     const { search } = useLocation();
     const result = search.split("?");
     const navigate = useNavigate();
     useEffect(() => {
+   
         // document.title = `Amazon - ${categoryName}`;
         window.scrollTo({ top: 0, behavior: "smooth" });
         instance
-            .get(`products/result?search=${result[1]}`)
+            .post(`products/result?search=${result[1]}`,{category:localStorage?.getItem('category')})
             .then((res) => {
                 // console.log(res.data.products);
                 // console.log(rasult[1]);
                 if (res.data.data.length > 0) {
                     setNotFound("");
                     setCategoryProducts(res.data.data);
+                    // localStorage.setItem('category',"All")
+
                     // console.log(res.data.data);
                 } else {
                     setCategoryProducts([]);
@@ -32,7 +39,21 @@ export const Search = () => {
             .catch((err) => {
                 navigate("/");
             });
-    }, [result[1]]);
+  
+    }, [localStorage.getItem('category'),result[1]]);
+//  useEffect(() => {
+//         return () => {
+//             // Anything in here is fired on component unmount.
+//           localStorage.setItem('category',"All")
+
+//         }
+//     }, [])
+
+    // useEffect(() => {
+    //     console.log(categoryProducts);
+    //     // localStorage.setItem('category',searchCategory)
+    
+    //   }, [categoryProducts]);
     // console.log(categoryname);
     // const [catogories, setCatogories] = useState([]);
     // useEffect(() => {

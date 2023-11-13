@@ -1,19 +1,21 @@
 import amzonlogo from "../../assets/download.png";
 import { useContext, useState } from "react";
 import { instance } from "../../services/axios/instance";
-
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import "./login.css";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { authContext } from "../../context/authcontex";
+import { totalPriceAction } from "../../Store/Slice/Cart";
+import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const LoginStep2 = () => {
     let location = useLocation();
     const navigate = useNavigate();
     const { setLogin } = useContext(authContext);
     //   const [loggeduser, setLoggedUser] = useState({})
-
+    const dispatch = useDispatch();
     const [userEmail, setuserEmail] = useState(location.state?.Email);
     const [userPassword, setPassword] = useState("");
     const [user, setUser] = useState({
@@ -48,6 +50,7 @@ const LoginStep2 = () => {
     const handleSubmit = async (evt) => {
         evt.preventDefault();
     };
+
     const logIn = async (e) => {
         if (userEmail) {
             try {
@@ -62,10 +65,38 @@ const LoginStep2 = () => {
                     setLog
                 );
                 if (data.message == "welcome to our site ") {
-                    console.log(data.yourToken);
+                    // console.log(data.yourToken);
                     localStorage.setItem("userToken", data.yourToken);
                     localStorage.setItem("name", data.name);
                     setLogin(true);
+                    const cart = JSON.parse(localStorage.getItem("cart"));
+                    console.log(cart);
+                    for (const i in cart) {
+                        let productId = cart[i].product._id;
+                        let quantity = cart[i].quantity;
+                        instance
+                            .post(
+                                `cart/`,
+                                {
+                                    productId: productId,
+                                    quantity: quantity,
+                                },
+                                {
+                                    headers: {
+                                        Authorization:
+                                            localStorage.getItem("userToken"),
+                                    },
+                                }
+                            )
+                            .then(() => {
+                                dispatch(totalPriceAction());
+                                // priductsitemsid = res.data.data[0].items;
+                                // console.log(res.data.data.items);
+                                // setCartPage(res.data.data.items);
+                                // console.log(cartPage);
+                            });
+                    }
+
                     navigate("/");
                 } else if (
                     data.message == "please enter your email and password "
@@ -83,6 +114,7 @@ const LoginStep2 = () => {
             navigate("/login");
         }
     };
+    const { t } = useTranslation();
 
     return (
         <>
@@ -103,7 +135,7 @@ const LoginStep2 = () => {
                                     style={{ borderRadius: " 15px" }}
                                 >
                                     <div className='card-body'>
-                                        <h2>Sign in</h2>
+                                        <h2>{t("SignIn.part1")}</h2>
 
                                         <form
                                             autoComplete='off'
@@ -115,8 +147,9 @@ const LoginStep2 = () => {
                                                 <label
                                                     className='form-label'
                                                     htmlFor='form3Example3cg'
+                                                    style={{ fontSize: "16px" }}
                                                 >
-                                                    Password
+                                                    {t("SignIn.part8")}
                                                 </label>
                                                 <input
                                                     type={
@@ -129,7 +162,6 @@ const LoginStep2 = () => {
                                                     className={`form-control
               ${errors.passwordError ? "border-danger shadow-none" : ""}`}
                                                     name='password'
-                                                    placeholder='Please Enter password'
                                                     value={user.password}
                                                     onChange={(e) => {
                                                         handelChange(e);
@@ -156,7 +188,9 @@ const LoginStep2 = () => {
                                                         type='submit'
                                                         id='form3Example4cdg'
                                                         className='form-control submit '
-                                                        value='sign in'
+                                                        value={t(
+                                                            "SignIn.part1"
+                                                        )}
                                                         onClick={logIn}
                                                     />
                                                 </NavLink>
@@ -164,19 +198,19 @@ const LoginStep2 = () => {
                                             <div className='form-check d-flex  mb-3 ptn'>
                                                 <p>
                                                     <a href=''>
-                                                        Forgot your password?
+                                                        {t("SignIn.part9")}
                                                     </a>
                                                 </p>
                                             </div>
                                             <a id='lab'>
                                                 <i className='fa-solid fa-arrow-right'></i>
-                                                Need help?
+                                                {t("SignIn.part8")}
                                             </a>
                                             <a
                                                 id='para'
                                                 style={{ display: "none" }}
                                             >
-                                                Forgot your password?
+                                                {t("SignIn.part9")}
                                             </a>
                                             <a
                                                 id='par2'
@@ -191,15 +225,14 @@ const LoginStep2 = () => {
                                     <div className='foot mt-5 d-flex pt-3 col-12'>
                                         <a href='../help-page/help.html'>
                                             {" "}
-                                            Conditions of Use{" "}
+                                            {t("signUp.part12")}{" "}
+                                        </a>
+                                        <a href='../help-page/help.html'>
+                                            {t("signUp.part13")}{" "}
                                         </a>
                                         <a href='../help-page/help.html'>
                                             {" "}
-                                            Privacy Notice{" "}
-                                        </a>
-                                        <a href='../help-page/help.html'>
-                                            {" "}
-                                            Help{" "}
+                                            {t("signUp.part14")}{" "}
                                         </a>
                                     </div>
                                 </div>
@@ -210,8 +243,7 @@ const LoginStep2 = () => {
                                     }}
                                     className='text-center mt-4'
                                 >
-                                    ©1996–2023, Amazon.com, Inc. or its
-                                    affiliates
+                                    {t("signUp.part15")}
                                 </p>
                             </div>
                         </div>

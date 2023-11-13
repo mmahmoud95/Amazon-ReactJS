@@ -2,31 +2,108 @@ import "./navbar.css";
 import amzonlogo from "../../../assets/nav-images/amzon-logo.png";
 import cartImage from "../../../assets/nav-images/cart.png";
 import egyptFlage from "../../../assets/nav-images/egypt-flag.svg";
-import { IoSearchOutline, IoLocationOutline } from "react-icons/io5";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { IoSearchOutline, IoLocationOutline, IoLogOut } from "react-icons/io5";
+import { NavLink, useNavigate } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { instance } from "../../../services/axios/instance";
 import { useContext } from "react";
 import { authContext } from "../../../context/authcontex";
+import { useTranslation } from "react-i18next";
+import i18n from "../../../i18n";
+import { clearCart } from "../../../Store/Slice/Cart";
+
 // import Navbar from 'react-bootstrap/Navbar';
 
 export const Header = () => {
+    let cartPageRedux = useSelector((state) => state.Cart.cart);
+    const totalPrice = useSelector((state) => state.Cart.totalPrice);
+    const dispatch = useDispatch();
+
+    // const [numberItems, setNumberItems] = useState(0);
     const name = localStorage.getItem("name");
     const navigate = useNavigate();
     const { isLogin, setLogin } = useContext(authContext);
+    const { lang, setLang } = useContext(authContext);
+
     const [searchText, setSearchText] = useState("");
+    const [searchCategory, setSearchCategory] = useState("All");
+    //   for category
+    const searchSubmit = (e) => {
+        const { value } = e.target;
+        if (value === "All") {
+            setSearchCategory(value);
+            localStorage.setItem("category", "All");
+        } else if (value === "groceries") {
+            localStorage.setItem("category", "653c2a48c6676875dde642fc");
+
+            setSearchCategory("653c2a48c6676875dde642fc");
+        } else if (value === "laptops") {
+            localStorage.setItem("category", "653c2a4cc6676875dde642fe");
+
+            setSearchCategory("653c2a4cc6676875dde642fe");
+        } else {
+            setSearchCategory("All");
+            localStorage.setItem("category", "All");
+        }
+    };
+    // useEffect(() => {
+    //     if (isLogin) {
+    //         instance
+    //             .get("cart", {
+    //                 headers: {
+    //                     Authorization: localStorage.getItem("userToken"),
+    //                 },
+    //             })
+    //             .then((res) => {
+    //                 // priductsitemsid = res.data.data[0].items;
+    //                 // console.log(res.data.data.items);
+    //                 // setCartPage(res.data.data.items);
+    //                 console.log();
+    //                 // localStorage.setItem("cartItems", res.data.numOfCartItems);
+    //                 setNumberItems(res.data.numOfCartItems);
+    //             });
+    //     }
+    // }, []); // console.log(catogories);
+    useEffect(() => {
+        console.log(searchCategory);
+        // localStorage.setItem('category',searchCategory)
+    }, [searchCategory]);
+    //   for text
     const handleChange = (e) => {
         setSearchText(e.target.value);
+        console.log(searchCategory);
     };
-
+    const logOut = () => {
+        localStorage.removeItem("userToken");
+        localStorage.removeItem("cart");
+        localStorage.removeItem("name");
+        dispatch(clearCart(cartPageRedux));
+        setLogin(false);
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
         navigate(`/products/results?${searchText}`);
+        // ,
+        //  {
+        //   state: { Category: searchCategory },
+        // });
         setSearchText("");
+        setSearchCategory("");
     };
-
+//
+   const {t}=useTranslation()
+   const changeLanguage=(language)=>{
+    i18n.changeLanguage(language)
+    if(language==="ar"){
+        setLang("ar")
+      }else{
+        setLang("en")
+      }
+    document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+    }
+//
     const [catogories, setCatogories] = useState([]);
     useEffect(() => {
         instance
@@ -40,10 +117,9 @@ export const Header = () => {
             .catch((err) => {
                 console.log(err);
             });
-    }, []);
-
+    }, [catogories]);
     // console.log(catogories);
-    const cart = useSelector((state) => state.Cart);
+    const cart = useSelector((state) => state.Cart.cart);
 
     return (
         <>
@@ -79,13 +155,15 @@ export const Header = () => {
                                         </span>
                                     </div>
                                     <div className='d-flex flex-column'>
-                                        <p className='deliver'>Deliver to</p>
+                                        <p className='deliver'>
+                                            {t("navTop.part1")}
+                                        </p>
                                         <a
                                             className='nav-link active address'
                                             aria-current='page'
                                             href='#'
                                         >
-                                            Egypt
+                                            {t("navTop.part6")}
                                         </a>
                                     </div>
                                 </div>
@@ -99,10 +177,55 @@ export const Header = () => {
                                             handleSubmit(e);
                                         }}
                                     >
+                                        <li className='nav-item dropdown all-category-search'>
+                                            <select
+                                                onChange={(e) => {
+                                                    searchSubmit(e);
+                                                }}
+                                                className='nav-item dropdown all-category-search py-2  '
+                                                defaultValue={"All"}
+                                            >
+                                                <option
+                                                    className='dropdown-item'
+                                                    value='All'
+                                                >
+                                                     {t("navTop.part12")} 
+                                                </option>
+                                                <option
+                                                    className='dropdown-item'
+                                                    value='All'
+                                                >
+                                                    {t("navTop.part9")}
+                                                </option>
+                                                <option
+                                                    className='dropdown-item'
+                                                    value='groceries'
+                                                >
+                                                     {t("navTop.part14")}
+                                                </option>
+                                                <option
+                                                    className='dropdown-item'
+                                                    value='laptops'
+                                                >
+                                                     {t("navTop.part17")}
+                                                </option>
+                                                <option className='dropdown-item'>
+                                                {t("navTop.part15")}
+                                                </option>
+                                                <option className='dropdown-item'>
+                                                {t("navTop.part16")}
+                                                </option>
+                                                <option className='dropdown-item'>
+                                                {t("navTop.part18")}
+                                                </option>
+                                            </select>
+                                        </li>
+
                                         <input
-                                            className='form-control search-input align-items-center'
+                                            className='form-control  align-items-center'
+                                            style={{ width: "400px" }}
                                             type='text'
-                                            placeholder='Search'
+                                            placeholder={t("navTop.part11")}
                                             aria-label='Search'
                                             value={searchText}
                                             onChange={(e) => {
@@ -127,7 +250,7 @@ export const Header = () => {
                                         data-bs-toggle='dropdown'
                                         aria-expanded='false'
                                     >
-                                        All
+                                        {t("navTop.part8")}
                                     </a>
                                     <ul className='dropdown-menu'>
                                         <li>
@@ -135,7 +258,7 @@ export const Header = () => {
                                                 className='dropdown-item'
                                                 href='#'
                                             >
-                                                All Category
+                                                {t("navTop.part9")}
                                             </a>
                                         </li>
                                         <li>
@@ -143,7 +266,7 @@ export const Header = () => {
                                                 className='dropdown-item'
                                                 href='#'
                                             >
-                                                Amazon Devices
+                                                {t("navTop.part10")}
                                             </a>
                                         </li>
                                         <li>
@@ -151,7 +274,7 @@ export const Header = () => {
                                                 className='dropdown-item'
                                                 href='#'
                                             >
-                                                Amazon Fashion
+                                                {t("navTop.part14")}
                                             </a>
                                         </li>
                                         <li>
@@ -159,7 +282,7 @@ export const Header = () => {
                                                 className='dropdown-item'
                                                 href='#'
                                             >
-                                                Amazon Warehouse
+                                                {t("navTop.part19")}
                                             </a>
                                         </li>
                                         <li>
@@ -167,7 +290,7 @@ export const Header = () => {
                                                 className='dropdown-item'
                                                 href='#'
                                             >
-                                                Baby
+                                                {t("navTop.part17")}
                                             </a>
                                         </li>
                                         <li>
@@ -175,7 +298,7 @@ export const Header = () => {
                                                 className='dropdown-item'
                                                 href='#'
                                             >
-                                                Books
+                                                {t("navTop.part15")}
                                             </a>
                                         </li>
                                         <li>
@@ -183,7 +306,7 @@ export const Header = () => {
                                                 className='dropdown-item'
                                                 href='#'
                                             >
-                                                Sports
+                                                {t("navTop.part16")}
                                             </a>
                                         </li>
                                         <li>
@@ -191,7 +314,7 @@ export const Header = () => {
                                                 className='dropdown-item'
                                                 href='#'
                                             >
-                                                Software
+                                                {t("navTop.part18")}
                                             </a>
                                         </li>
                                     </ul>
@@ -209,7 +332,7 @@ export const Header = () => {
                                         src={egyptFlage}
                                         style={{ width: "25px" }}
                                     />
-                                    EN
+                                    {t("navTop.part5")}
                                 </a>
                                 <ul className='dropdown-menu p-2'>
                                     <li>
@@ -217,6 +340,7 @@ export const Header = () => {
                                             type='radio'
                                             id='arabic'
                                             name='languge'
+                                            onClick={() => changeLanguage("ar")}
                                         />
                                         <label htmlFor='arabic'>
                                             العربية- AR
@@ -228,13 +352,14 @@ export const Header = () => {
                                             type='radio'
                                             id='english'
                                             name='languge'
+                                            onClick={() => changeLanguage("en")}
                                         />
                                         <label htmlFor='english'>
                                             English - EN
                                         </label>
                                     </li>
                                     <p>
-                                        <a href='#'>Learn more</a>
+                                        <a href='#'>{t("navTop.part25")}</a>
                                     </p>
                                     <hr />
                                     <p>
@@ -242,10 +367,10 @@ export const Header = () => {
                                             src={egyptFlage}
                                             style={{ width: "25px" }}
                                         />
-                                        You are shopping on Amazon.eg
+                                        {t("navTop.part26")}
                                     </p>
                                     <p>
-                                        <a href='#'>Change country/ region.</a>
+                                        <a href='#'>{t("navTop.part27")}</a>
                                     </p>
                                 </ul>
                             </li>
@@ -258,17 +383,13 @@ export const Header = () => {
                                     aria-expanded='false'
                                 >
                                     <span className='account-lists'>
-                                        {isLogin ? (
-                                            <span className='hello'>
-                                                Hello, {name}
-                                            </span>
-                                        ) : (
-                                            <span className='hello'>
-                                                Hello, sign in
-                                                <br />
-                                            </span>
-                                        )}
-                                        Account & Lists
+                                        {(isLogin)?<span className='hello' >{t("navTop.part2")},{name}</span>
+                                        :   <span className='hello'>
+                                           {t("navTop.part2")},{t("SignIn.part1")} 
+                                            <br />
+                                        </span>}
+                                     
+                                        {t("navTop.part7")}
                                     </span>
                                 </a>
                                 <ul className='dropdown-menu'>
@@ -277,15 +398,10 @@ export const Header = () => {
                                             {isLogin ? (
                                                 <NavLink
                                                     className='me-auto '
-                                                    to='/login'
-                                                    onClick={() => {
-                                                        localStorage.removeItem(
-                                                            "userToken"
-                                                        );
-                                                        setLogin(false);
-                                                    }}
+                                                    to='./login'
+                                                    onClick={logOut}
                                                 >
-                                                    logout
+                                                    {t("navTop.part13")}
                                                 </NavLink>
                                             ) : (
                                                 <Nav className='me-auto '>
@@ -299,38 +415,38 @@ export const Header = () => {
                                                                 : "test"
                                                         }
                                                     >
-                                                        sign in
+                                                        {t("SignIn.part1")} 
                                                     </NavLink>
                                                 </Nav>
                                             )}
                                         </a>
                                         <p className='register'>
-                                            New customer?
+                                        {t("navTop.part20")}
                                             <a href='../register-page/register.html'>
-                                                Start here.
+                                            {t("navTop.part21")}
                                             </a>
                                         </p>
                                         <hr />
                                     </li>
                                     <li>
                                         <p className='border-3 fw-bold d-inline-block'>
-                                            Your Lists
+                                        {t("navTop.part22")}
                                         </p>
                                         <p className='fw-bold mb-0'>
-                                            Your Account
+                                        {t("navTop.part23")}
                                         </p>
                                         <a
                                             href='../account-page/account.html'
                                             className='text-decoration-none text-dark'
                                         >
-                                            Your Account
+                                          {t("navTop.part23")}
                                         </a>
                                         <br />
                                         <a
                                             href='../orders/order.html'
                                             className='text-decoration-none text-dark'
                                         >
-                                            Your Orders
+                                            {t("navTop.part24")}
                                         </a>
                                     </li>
                                 </ul>
@@ -340,7 +456,7 @@ export const Header = () => {
                                     className='nav-link order'
                                     href='../orders/order.html'
                                 >
-                                    Orders
+                                    {t("navTop.part3")}
                                 </a>
                             </li>
                             <li className=''>
@@ -353,11 +469,11 @@ export const Header = () => {
                                     to='/cart'
                                 >
                                     <span className='item-count'>
-                                        {cart.length}
+                                        {isLogin ? totalPrice : cart?.length}
                                     </span>
                                     <img className='mb-2' src={cartImage} />
                                     <span className='cart text-decoration-none'>
-                                        Cart
+                                        {t("navTop.part4")}
                                     </span>
                                 </NavLink>
                             </li>
@@ -376,7 +492,7 @@ export const Header = () => {
                     >
                         All
                     </a>
-                    <ul className='dropdown-menu'>
+                    {/* <ul className='dropdown-menu'>
                         <li>
                             <a className='dropdown-item' href='#'>
                                 All Category
@@ -417,7 +533,7 @@ export const Header = () => {
                                 Software
                             </a>
                         </li>
-                    </ul>
+                    </ul> */}
                 </div>
                 <div className='flex-grow-1 h-100'>
                     <form role='search'>
@@ -439,10 +555,10 @@ export const Header = () => {
             <div className='menu'>
                 <ul className='list-unstyled d-flex flex-row'>
                     <li>
-                        <a href='#'>All</a>
+                        <a href='#'>{t("nav2.part1")}</a>
                     </li>
                     <li>
-                        <a href='#'>Deals</a>
+                        <a href='#'>{t("nav2.part2")}</a>
                     </li>
 
                     {catogories.map((category, index) => {
@@ -459,16 +575,16 @@ export const Header = () => {
                     })}
 
                     <li>
-                        <a href='#'>Home</a>
+                        <a href='#'>{t("nav2.part3")}</a>
                     </li>
                     <li>
-                        <a href='#'>Video Games</a>
+                        <a href='#'>{t("nav2.part4")}</a>
                     </li>
                     <li>
-                        <a href='#'>Toy & Games</a>
+                        <a href='#'>{t("nav2.part5")}</a>
                     </li>
                     <li>
-                        <a href='../help-page/help.html'>Help</a>
+                        <a href='../help-page/help.html'>{t("nav2.part6")}</a>
                     </li>
                 </ul>
             </div>

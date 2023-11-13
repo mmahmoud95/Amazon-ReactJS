@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
+import { authContext } from "../../../context/authcontex";
+
 import { Link, NavLink } from "react-router-dom";
 import "./footerStyle.css";
 import logo from "./amazon-logo.png";
@@ -7,10 +9,18 @@ import i18n from "../../../i18n";
 import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+  const { lang, setLang } = useContext(authContext);
+
   const { t } = useTranslation();
 
   const changeLanguage = (language) => {
+    
     i18n.changeLanguage(language);
+    if(language==="ar"){
+      setLang("ar")
+    }else{
+      setLang("en")
+    }
     document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
   };
 

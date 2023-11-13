@@ -25,6 +25,8 @@ export const Header = () => {
     const name = localStorage.getItem("name");
     const navigate = useNavigate();
     const { isLogin, setLogin } = useContext(authContext);
+    const { lang, setLang } = useContext(authContext);
+
     const [searchText, setSearchText] = useState("");
     const [searchCategory, setSearchCategory] = useState("All");
     //   for category
@@ -94,6 +96,11 @@ export const Header = () => {
    const {t}=useTranslation()
    const changeLanguage=(language)=>{
     i18n.changeLanguage(language)
+    if(language==="ar"){
+        setLang("ar")
+      }else{
+        setLang("en")
+      }
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
     }
 //

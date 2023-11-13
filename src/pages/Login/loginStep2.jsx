@@ -74,29 +74,29 @@ const LoginStep2 = () => {
                     const cartstring = localStorage.getItem("cart");
                     const cart = JSON.parse(cartstring);
                     console.log(cart);
-                    for (let i = 0; i < cart?.length; i++) {
-                        let productId = cart[i].product._id;
-                        instance
-                            .post(
-                                `cart/`,
-                                {
-                                    productId: productId,
-                                },
-                                {
-                                    headers: {
-                                        Authorization:
-                                            localStorage.getItem("userToken"),
-                                    },
-                                }
-                            )
-                            .then(() => {
-                                dispatch(totalPriceAction());
-                                // priductsitemsid = res.data.data[0].items;
-                                // console.log(res.data.data.items);
-                                // setCartPage(res.data.data.items);
-                                // console.log(cartPage);
-                            });
-                    }
+                    // for (let i = 0; i < cart?.length; i++) {
+                    //     let productId = cart[i].product._id;
+                    //     instance
+                    //         .post(
+                    //             `cart/`,
+                    //             {
+                    //                 productId: productId,
+                    //             },
+                    //             {
+                    //                 headers: {
+                    //                     Authorization:
+                    //                         localStorage.getItem("userToken"),
+                    //                 },
+                    //             }
+                    //         )
+                    //         .then(() => {
+                    //             dispatch(totalPriceAction());
+                    //             // priductsitemsid = res.data.data[0].items;
+                    //             // console.log(res.data.data.items);
+                    //             // setCartPage(res.data.data.items);
+                    //             // console.log(cartPage);
+                    //         });
+                    // }
 
                     navigate("/");
                 } else if (

@@ -4,3 +4,4 @@ export const AuthProvider = authContext.Provider;
 
 export const cartContext = React.createContext();
 export const CartProvider = cartContext.Provider;
+

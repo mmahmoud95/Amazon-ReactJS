@@ -40,6 +40,8 @@ const router = createBrowserRouter([
 
 function App() {
    const[isLogin,setLogin] =useState(localStorage.getItem('userToken')?true:false)
+   const[lang,setLang] =useState("en")
+
 //    const {t,i18nKey}=useTranslation()
 //    const changeLanguage=(language)=>{
 //     i18n.changeLanguage(language)
@@ -52,7 +54,7 @@ function App() {
          <Trans i18nKey="description.part1">
              hi <div>{t("description.part1")}</div>
          </Trans> */}
-        <AuthProvider value={{isLogin,setLogin}}> <Provider store={store}>
+        <AuthProvider value={{isLogin,setLogin,lang,setLang}}> <Provider store={store}>
 
           
                 <RouterProvider router={router} />

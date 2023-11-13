@@ -1,7 +1,10 @@
 /* eslint-disable react/prop-types */
 import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export const ProductCard = (props) => {
+    const { t } = useTranslation();
+
     const navigate = useNavigate();
     return (
         <div
@@ -27,7 +30,7 @@ export const ProductCard = (props) => {
                             {props.productTitle}
                         </h5>
                         <div className='product-rating'>
-                            Rating : &nbsp;
+                            {t("categoryPage.part1")}: &nbsp;
                             <span>
                                 <strong>{props.productRating}</strong>
                             </span>

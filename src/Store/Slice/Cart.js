@@ -12,7 +12,7 @@ export const totalPriceAction = createAsyncThunk(
             console.log(res.data.numOfCartItems);
             return res.data.numOfCartItems;
         } catch {
-            return 1;
+            return 0;
         }
     }
 );

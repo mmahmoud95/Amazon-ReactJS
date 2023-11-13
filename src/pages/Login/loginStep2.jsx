@@ -73,11 +73,12 @@ const LoginStep2 = () => {
                     console.log(cart);
                     for (const i in cart) {
                         let productId = cart[i].product._id;
+                        let quantity = cart[i].quantity;
                         instance
                             .post(
                                 `cart/`,
                                 {
-                                    productId: productId,
+                                    cart,
                                 },
                                 {
                                     headers: {

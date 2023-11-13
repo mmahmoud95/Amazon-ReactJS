@@ -182,34 +182,34 @@ export const Header = () => {
                                                     className='dropdown-item'
                                                     value='All'
                                                 >
-                                                    Select category
+                                                     {t("navTop.part12")} 
                                                 </option>
                                                 <option
                                                     className='dropdown-item'
                                                     value='All'
                                                 >
-                                                    All Category
+                                                    {t("navTop.part9")}
                                                 </option>
                                                 <option
                                                     className='dropdown-item'
                                                     value='groceries'
                                                 >
-                                                    Amazon groceries
+                                                     {t("navTop.part14")}
                                                 </option>
                                                 <option
                                                     className='dropdown-item'
                                                     value='laptops'
                                                 >
-                                                    Amazon laptops
+                                                     {t("navTop.part17")}
                                                 </option>
                                                 <option className='dropdown-item'>
-                                                    Books
+                                                {t("navTop.part15")}
                                                 </option>
                                                 <option className='dropdown-item'>
-                                                    Sports
+                                                {t("navTop.part16")}
                                                 </option>
                                                 <option className='dropdown-item'>
-                                                    Software
+                                                {t("navTop.part18")}
                                                 </option>
                                             </select>
                                         </li>

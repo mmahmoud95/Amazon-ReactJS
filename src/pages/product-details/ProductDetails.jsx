@@ -21,7 +21,7 @@ const ProductDetails = () => {
     var cartPage = useSelector((state) => state.Cart.cart);
     const handelAdd = (product) => {
         const isProductIncart = cartPage.some(
-            (item) => item.product._id === +product._id
+            (item) => item.product._id === product._id
         );
         console.log(cartPage);
         console.log(isProductIncart);
@@ -51,6 +51,7 @@ const ProductDetails = () => {
                 `cart/`,
                 {
                     productId: myProd._id,
+                    quantity: 1,
                 },
                 {
                     headers: {

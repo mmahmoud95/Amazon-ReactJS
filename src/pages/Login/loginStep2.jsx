@@ -78,7 +78,8 @@ const LoginStep2 = () => {
                             .post(
                                 `cart/`,
                                 {
-                                    cart,
+                                    productId: productId,
+                                    quantity: quantity,
                                 },
                                 {
                                     headers: {

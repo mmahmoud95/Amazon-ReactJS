@@ -12,10 +12,13 @@ import { addToCart } from "../../Store/Slice/Cart";
 import { addToCartWithAPI } from "../../services/auth";
 import { authContext } from "../../context/authcontex";
 import { useContext } from "react";
+import { useTranslation } from "react-i18next";
 
 const ProductDetails = () => {
   const { isLogin, setLogin } = useContext(authContext);
   const { lang, setLang } = useContext(authContext);
+  const { t } = useTranslation();
+
 
   var { id } = useParams();
   const dispatch = useDispatch();
@@ -90,14 +93,14 @@ const ProductDetails = () => {
       <div className="container-fluid">
         <div className="row m-0 py-2 border-bottom ">
           {/* carousel for product images */}
-          <div className="col-lg-5 p-2">
+          <div className="col-lg-5 p-2" dir="ltr">
             <Carousel
               animation={true}
-              showArrows={false}
+              showArrows={true}
               autoPlay={false}
               infiniteLoop={true}
               verticalSwipe="natural"
-              selectedItem={myProd?.images[currentIndex]}
+              selectedItem={myProd?.images[2]}
               onChange={handleChange}
               className="carousel-container bg-dark h-100 "
             >
@@ -114,7 +117,7 @@ const ProductDetails = () => {
               {lang === "en" ? myProd?.en.description : myProd?.ar.description}
             </h2>
             <Link className="product-link text-decoration-none">
-              visit amazon store
+              {t("prodInfo.part1")}
             </Link>
             <div className="border-bottom pb-2">
               <span className="px-1">{myProd?.rating}</span>
@@ -123,11 +126,11 @@ const ProductDetails = () => {
               <i className="fa-solid fa-star text-warning"></i>
               <i className="fa-solid fa-star text-warning"></i>
               <i className="fa-solid fa-star-half-stroke text-warning"></i>
-              <span className="text-primary"> 40 ratings</span>
+              <span className="text-primary"> 40 {t("prodInfo.part2")}</span>
             </div>
 
             <div className="product-price d-flex p-2">
-              <span className="new-price text-muted pt-2 fs-3">Price:</span>
+              <span className="new-price text-muted pt-2 fs-3">{t("prodInfo.part3")}:</span>
               <span className=" text-muted px-1 ">EGP</span>
 
               <span className="text-dark fw-bold fs-3 ">{myProd?.price}</span>
@@ -137,7 +140,7 @@ const ProductDetails = () => {
             <div className="product-detail border-bottom">
               <ul className="list-group list-group-horizontal ">
                 <li className="list-group-item w-50 border-0 fw-bold">
-                  Brand Name :
+                {t("prodInfo.part4")}:
                 </li>
                 <li className="list-group-item border-0">
                   {lang === "en" ? myProd?.en.brand : myProd?.ar.brand}
@@ -146,8 +149,8 @@ const ProductDetails = () => {
 
               <ul className=" list-unstyled list-group list-group-horizontal ">
                 <li className="list-group-item w-50 border-0 fw-bold">
-                  {" "}
-                  Model Name:
+                  
+                  {t("prodInfo.part5")}:
                 </li>
                 <li className="list-group-item border-0">
                   {" "}
@@ -159,14 +162,14 @@ const ProductDetails = () => {
 
               <ul className="list-group list-group-horizontal">
                 <li className="list-group-item w-50 border-0 fw-bold">
-                  Color:{" "}
+                {t("prodInfo.part6")}:
                 </li>
                 <li className="list-group-item border-0">Black</li>
               </ul>
 
               <ul className="list-group list-group-horizontal">
                 <li className="list-group-item border-0 w-50  fw-bold">
-                  Category:
+                  {t("prodInfo.part7")}:
                 </li>
                 <li className="list-group-item border-0">
                   {myProd?.category?.name}
@@ -175,13 +178,13 @@ const ProductDetails = () => {
 
               <ul className="list-group list-group-horizontal">
                 <li className="list-group-item border-0 w-50 fw-bold small">
-                  Connectivity Technology:
+                {t("prodInfo.part8")}:
                 </li>
-                <li className="list-group-item border-0">SODO SD 1004</li>
+                <li className="list-group-item border-0">.......</li>
               </ul>
               <ul className="list-group list-group-horizontal">
                 <li className="list-group-item w-50 border-0 fw-bold">
-                  Stock:{" "}
+                  {t("prodInfo.part9")}:
                 </li>
                 <li className="list-group-item border-0">
                   {myProd?.quantityInStock}
@@ -190,25 +193,25 @@ const ProductDetails = () => {
 
               <ul className="list-group list-group-horizontal">
                 <li className="list-group-item border-0 w-50 fw-bold">
-                  Shipping Area:
+                {t("prodInfo.part10")}:
                 </li>
-                <li className="list-group-item border-0">All over the world</li>
+                <li className="list-group-item border-0">{t("prodInfo.part12")}</li>
               </ul>
 
               <ul className="list-group list-group-horizontal ">
                 <li className="list-group-item border-0 w-50 fw-bold">
-                  Shipping Fee:
+                {t("prodInfo.part11")}:
                 </li>
-                <li className="list-group-item border-0">Free</li>
+                <li className="list-group-item border-0">{t("prodInfo.part13")}</li>
               </ul>
             </div>
             <div>
-              <span className="fs-4 fw-bold">about this item:</span>
+              <span className="fs-4 fw-bold">{t("prodInfo.part14")}:</span>
               <p>{myProd?.description}</p>
             </div>
 
             <div className="d-block">
-              <p>Share At:</p>
+              <p>{t("prodInfo.part15")}:</p>
               <a
                 href="https://www.facebook.com/"
                 target="_blank"
@@ -248,12 +251,12 @@ const ProductDetails = () => {
             <div className=" bg-white border p-1 w-100 m-1">
               <div className="p-1 text-center bg-secondary">
                 <input type="checkbox" id="Fdelevir" name="Fdelevir" />
-                <label htmlFor="Fdelevir">Yes, I want FREE Delivery</label>
+                <label htmlFor="Fdelevir">{t("prime.part1")}</label>
               </div>
-              <p className="text-center">Enjoy FREE & FAST delivery with</p>
+              <p className="text-center">{t("prime.part2")}</p>
               <p className="text-center">
                 <a href="" className="text-decoration-none">
-                  Amazon Prime
+                  {t("prime.part3")}
                 </a>
               </p>
               <img className="mx-auto d-block image-fluid w-50 " src={prime} />
@@ -268,21 +271,21 @@ const ProductDetails = () => {
               <div className="p-1">
                 <ul className="list-unstyled p-1 small ">
                   <li className="pb-1">
-                    <Link className="text-decoration-none ">FREE Returns</Link>
+                    <Link className="text-decoration-none ">{t("prime.part4")}</Link>
                   </li>
                   <li className="py-1">
                     <Link className="text-decoration-none">
-                      FREE Delivery, in 3 days
+                    {t("prime.part5")} 
                     </Link>
                   </li>
                   <li className="py-1">
                     <Link className="text-decoration-none " aria-disabled>
                       <i className="fa-solid fa-location-dot pe-2"></i>
-                      Deliver to Sohag , Egypt
+                      {t("prime.part6")} 
                     </Link>
                   </li>
                 </ul>
-                <span className="text-success ps-2 fs-5">In Stock</span>
+                <span className="text-success ps-2 fs-5">{t("prime.part7")}</span>
                 <div className="d-flex px-2 pt-3">
                   <span className="pe-2">Qty : </span>
                   <select>
@@ -301,7 +304,7 @@ const ProductDetails = () => {
                     isLogin ? hanleAddWithAp(myProd) : handelAdd(myProd)
                   }
                 >
-                  <span className="pe-2">Add to Cart</span>
+                  <span className="pe-2">{t("prime.part8")}</span>
 
                   <i className="fas fa-shopping-cart"></i>
                 </button>
@@ -311,7 +314,7 @@ const ProductDetails = () => {
                   style={{ backgroundColor: "#FFA41C" }}
                 >
                   <Link to="/checkout" className="pe-3">
-                    Buy now
+                  {t("prime.part9")}
                   </Link>
                   <i className="fa-solid fa-money-check"></i>
                 </button>
@@ -319,21 +322,21 @@ const ProductDetails = () => {
 
               <div className=" p-0 small lh-1">
                 <ul className="list-group list-group-horizontal ">
-                  <li className="list-group-item w-50 border-0">Payment :</li>
+                  <li className="list-group-item w-50 border-0"> {t("prime.part10")}:</li>
                   <li className="list-group-item border-0">
-                    Secure transaction
+                  {t("prime.part11")}
                   </li>
                 </ul>
 
                 <ul className=" list-unstyled list-group list-group-horizontal ">
                   <li className="list-group-item w-50 border-0">
-                    Ships from :
+                    {t("prime.part12")} :
                   </li>
                   <li className="list-group-item border-0">Amazon.eg</li>
                 </ul>
 
                 <ul className="list-group list-group-horizontal">
-                  <li className="list-group-item w-50 border-0">Sold by :</li>
+                  <li className="list-group-item w-50 border-0">{t("prime.part13")} :</li>
                   <li className="list-group-item border-0">Amazon.eg</li>
                 </ul>
               </div>
@@ -342,19 +345,19 @@ const ProductDetails = () => {
         </div>
         {/* search section */}
         <div className="container p-2 ">
-          <h3 className="fw-bold">Looking for specific info?</h3>
+          <h3 className="fw-bold">{t("ask.part1")}</h3>
           <div className="py-2">
             <input
               type="search"
               className="form-control"
-              placeholder="search in reviews Q&A"
+              placeholder={t("ask.part2")}
             ></input>
           </div>
           <ul className="list-unstyled fs-5 text-muted">
-            <li>Typical questions asked about products:</li>
-            <li>- Is the item durable?</li>
-            <li>- Is this item easy to use?</li>
-            <li>- What are the dimensions of this item?</li>
+            <li>{t("ask.part3")}:</li>
+            <li>-{t("ask.part4")} </li>
+            <li>- {t("ask.part5")}</li>
+            <li>-{t("ask.part6")} </li>
           </ul>
         </div>
         <div className="border-top row">
@@ -362,7 +365,7 @@ const ProductDetails = () => {
           <div className="col-lg-5 col-md-3">
             {/*   rating section   */}
             <div className="product-rating p-2">
-              <h1>Customer reviews</h1>
+              <h1>{t("rev.part1")}</h1>
               <i className="fa-solid fa-star" style={{ color: " #f4d84e" }}></i>
               <i className="fa-solid fa-star" style={{ color: " #f4d84e" }}></i>
               <i className="fa-solid fa-star" style={{ color: " #f4d84e" }}></i>
@@ -372,10 +375,10 @@ const ProductDetails = () => {
                 style={{ color: " #f4d84e" }}
               ></i>
               <span>4.5 of 5</span>
-              <p className="text-muted small mb-0">500 - global ratings</p>
+              <p className="text-muted small mb-0">500 - {t("rev.part2")}</p>
             </div>
             <div className="p-2  pb-4">
-              <span>5 Stars:</span>
+              <span>5 {t("rev.part3")}:</span>
               <div className="progress mb-2">
                 <div
                   className="progress-bar  "
@@ -392,7 +395,7 @@ const ProductDetails = () => {
                 </div>
               </div>
 
-              <span>4 Stars:</span>
+              <span>4 {t("rev.part3")}:</span>
               <div className="progress mb-2">
                 <div
                   className="progress-bar  "
@@ -408,7 +411,7 @@ const ProductDetails = () => {
                   20%
                 </div>
               </div>
-              <span>3 Stars:</span>
+              <span>3 {t("rev.part3")}:</span>
               <div className="progress mb-2">
                 <div
                   className="progress-bar  "
@@ -424,7 +427,7 @@ const ProductDetails = () => {
                   7%
                 </div>
               </div>
-              <span>2 Stars:</span>
+              <span>2 {t("rev.part3")}:</span>
               <div className="progress mb-2">
                 <div
                   className="progress-bar  "
@@ -440,7 +443,7 @@ const ProductDetails = () => {
                   8%
                 </div>
               </div>
-              <span>1 Star:</span>
+              <span>1 {t("rev.part3")}:</span>
               <div className="progress ">
                 <div
                   className="progress-bar  "
@@ -460,33 +463,33 @@ const ProductDetails = () => {
             {/*  */}
             <div className="border-top mt-2 p-2">
               <div>
-                <h4>Review this product</h4>
+                <h4>{t("rev.part4")}</h4>
                 <p className="text-secondary">
-                  Share your thoughts with other customers
+                {t("rev.part5")}
                 </p>
               </div>
               <Link className="btn bg-light border-dark">
-                Write a customer review{" "}
+                {t("rev.part6")}
               </Link>
             </div>
           </div>
           {/*  comments section  */}
           <div className="col-lg-7">
             <select className="my-2">
-              <option>top reviews</option>
-              <option>most recent</option>
+              <option>{t("rev.part7")}</option>
+              <option>{t("rev.part8")}</option>
             </select>
             {/*   user comment   */}
             <div className="m-2 p-2">
               <div className="d-block">
-                <h6 className="text-start text-dark">
+                <h6 className=" text-dark">
                   <p>
                     {" "}
                     <i className="fa-solid fa-user fa-lg "></i>
                     Hamza Mohamed
                   </p>
                 </h6>
-                <p className="text-muted small mb-0">anonymous user</p>
+                <p className="text-muted small mb-0">{t("rev.part9")}</p>
                 <i
                   className="fa-solid fa-star"
                   style={{ color: " #f4d84e" }}
@@ -522,7 +525,7 @@ const ProductDetails = () => {
                     target="_blank"
                   >
                     <i className="far fa-thumbs-up me-2"></i>
-                    <p className="mb-0">Like</p>
+                    <p className="mb-0">{t("rev.part10")}</p>
                   </a>
                   <a
                     href="#"
@@ -530,7 +533,7 @@ const ProductDetails = () => {
                     target="_blank"
                   >
                     <i className="far fa-comment-dots me-2"></i>
-                    <p className="mb-0">Comment</p>
+                    <p className="mb-0">{t("rev.part11")}</p>
                   </a>
                   <a
                     href="#"
@@ -538,7 +541,7 @@ const ProductDetails = () => {
                     target="_blank"
                   >
                     <i className="far fa-comment-dots me-2"></i>
-                    <p className="mb-0">report</p>
+                    <p className="mb-0">{t("rev.part12")}</p>
                   </a>
                 </div>
               </div>

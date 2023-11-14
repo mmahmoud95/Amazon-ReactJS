@@ -65,6 +65,10 @@
     text-align: center;
 }
 
+[dir="rtl"] .serch-icon {
+    padding: 2px 22px;
+}
+
 .serch-icon:hover {
     cursor: pointer;
     background-color: #ff9900;

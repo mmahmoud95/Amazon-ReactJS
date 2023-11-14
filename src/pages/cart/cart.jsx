@@ -350,7 +350,7 @@ export const Cart = () => {
                                                         </li>
                                                     </ul>
                                                     <p className='total-price fw-bold'>
-                                                        {t("cart.part8")} : EGP{" "}
+                                                        {/* {t("cart.part8")} : EGP{" "} */}
                                                     </p>
                                                 </div>
                                             </div>
@@ -474,18 +474,35 @@ export const Cart = () => {
                                     <div className='row' key={index}>
                                         <div className='item col-md-3 col-sm-12 d-flex align-items-center'>
                                             <div className='mt-3 mb-3'>
-                                                <img
-                                                    className='w-100'
-                                                    width='500px'
-                                                    src={
-                                                        item.product?.thumbnail
-                                                    }
-                                                />
+                                                <Link
+                                                    className='text-black text-decoration-none fw-bold'
+                                                    to={`/products/${item.product?._id}`}
+                                                >
+                                                    <img
+                                                        className='w-100'
+                                                        width='500px'
+                                                        src={
+                                                            item.product
+                                                                ?.thumbnail
+                                                        }
+                                                    />
+                                                </Link>
                                             </div>
                                         </div>
 
                                         <div className='col-md-7 col-sm-12 justify-content-center flex-column mt-3 mb-3'>
-                                            <h5>{item.product?.description}</h5>
+                                            <h5>
+                                                <Link
+                                                    className='text-black text-decoration-none fw-bold'
+                                                    to={`/products/${item.product?._id}`}
+                                                >
+                                                    {lang === "en"
+                                                        ? item.product?.en
+                                                              .description
+                                                        : item.product?.ar
+                                                              .description}
+                                                </Link>
+                                            </h5>
                                             <p className='price h5'>
                                                 EGP: {item.product?.price}
                                             </p>
@@ -571,10 +588,10 @@ export const Cart = () => {
                                                     </li>
                                                 </ul>
                                                 <p className='total-price fw-bold'>
-                                                    {t("cart.part8")}: EGP{" "}
-                                                    {item.product?.price *
+                                                    {/* {t("cart.part8")}: EGP{" "} */}
+                                                    {/* {item.product?.price *
                                                         cartPageRedux[index]
-                                                            .quantity}
+                                                            .quantity} */}
                                                 </p>
                                             </div>
                                         </div>

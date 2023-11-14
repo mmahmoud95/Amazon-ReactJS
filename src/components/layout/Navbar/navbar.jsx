@@ -48,24 +48,6 @@ export const Header = () => {
             localStorage.setItem("category", "All");
         }
     };
-    // useEffect(() => {
-    //     if (isLogin) {
-    //         instance
-    //             .get("cart", {
-    //                 headers: {
-    //                     Authorization: localStorage.getItem("userToken"),
-    //                 },
-    //             })
-    //             .then((res) => {
-    //                 // priductsitemsid = res.data.data[0].items;
-    //                 // console.log(res.data.data.items);
-    //                 // setCartPage(res.data.data.items);
-    //                 console.log();
-    //                 // localStorage.setItem("cartItems", res.data.numOfCartItems);
-    //                 setNumberItems(res.data.numOfCartItems);
-    //             });
-    //     }
-    // }, []); // console.log(catogories);
     useEffect(() => {
         console.log(searchCategory);
         // localStorage.setItem('category',searchCategory)
@@ -92,32 +74,46 @@ export const Header = () => {
         setSearchText("");
         setSearchCategory("");
     };
-//
-   const {t}=useTranslation()
-   const changeLanguage=(language)=>{
-    i18n.changeLanguage(language)
-    if(language==="ar"){
-        setLang("ar")
-      }else{
-        setLang("en")
-      }
-    document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
-    }
-//
-    const [catogories, setCatogories] = useState([]);
-    useEffect(() => {
-        instance
-            .get("category")
-            .then((res) => {
-                // console.log(res.data);
-                setCatogories(res.data);
-                // setCategoryProducts(res.data.data);
-                // console.log(res.data.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }, [catogories]);
+    //
+    const { t } = useTranslation();
+    const changeLanguage = (language) => {
+        i18n.changeLanguage(language);
+        if (language === "ar") {
+            setLang("ar");
+        } else {
+            setLang("en");
+        }
+        document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+    };
+    //
+
+    const catogories = {
+        electronics: {
+            name: `${t("nav2.part7")}`,
+            id: "65527a31376a52ea210d9703",
+        },
+        fashion: {
+            name: `${t("nav2.part8")}`,
+            id: "65527ac3376a52ea210d9706",
+        },
+        grocery: {
+            name: `${t("nav2.part9")}`,
+            id: "65527c22376a52ea210d9708",
+        },
+        beauty: {
+            name: `${t("nav2.part10")}`,
+            id: "65527c8c376a52ea210d970a",
+        },
+        sports: {
+            name: `${t("nav2.part11")}`,
+            id: "65527d1a376a52ea210d970e",
+        },
+        mobilephones: {
+            name: `${t("nav2.part12")}`,
+            id: "6552870b2c4411da5152c87a",
+        },
+    };
+
     // console.log(catogories);
     const cart = useSelector((state) => state.Cart.cart);
 
@@ -159,7 +155,7 @@ export const Header = () => {
                                             {t("navTop.part1")}
                                         </p>
                                         <a
-                                            className='nav-link active address'
+                                            className='nav-link active address text-decoration-none'
                                             aria-current='page'
                                             href='#'
                                         >
@@ -182,14 +178,14 @@ export const Header = () => {
                                                 onChange={(e) => {
                                                     searchSubmit(e);
                                                 }}
-                                                className='nav-item dropdown all-category-search py-2  '
+                                                className='nav-item dropdown all-category-search py-2 rounded-0 border-0'
                                                 defaultValue={"All"}
                                             >
                                                 <option
                                                     className='dropdown-item'
                                                     value='All'
                                                 >
-                                                     {t("navTop.part12")} 
+                                                    {t("navTop.part12")}
                                                 </option>
                                                 <option
                                                     className='dropdown-item'
@@ -201,28 +197,28 @@ export const Header = () => {
                                                     className='dropdown-item'
                                                     value='groceries'
                                                 >
-                                                     {t("navTop.part14")}
+                                                    {t("navTop.part14")}
                                                 </option>
                                                 <option
                                                     className='dropdown-item'
                                                     value='laptops'
                                                 >
-                                                     {t("navTop.part17")}
+                                                    {t("navTop.part17")}
                                                 </option>
                                                 <option className='dropdown-item'>
-                                                {t("navTop.part15")}
+                                                    {t("navTop.part15")}
                                                 </option>
                                                 <option className='dropdown-item'>
-                                                {t("navTop.part16")}
+                                                    {t("navTop.part16")}
                                                 </option>
                                                 <option className='dropdown-item'>
-                                                {t("navTop.part18")}
+                                                    {t("navTop.part18")}
                                                 </option>
                                             </select>
                                         </li>
 
                                         <input
-                                            className='form-control  align-items-center'
+                                            className='form-control  align-items-center rounded-0'
                                             style={{ width: "400px" }}
                                             type='text'
                                             placeholder={t("navTop.part11")}
@@ -237,12 +233,14 @@ export const Header = () => {
                                             className='serch-icon border-0'
                                         >
                                             {/* <span className='d-block'> */}
-                                            <IoSearchOutline />
+                                            <IoSearchOutline
+                                                style={{ marginRight: "-18px" }}
+                                            />
                                             {/* </span> */}
                                         </button>
                                     </form>
                                 </li>
-                                <li className='nav-item dropdown all-category-search'>
+                                {/* <li className='nav-item dropdown all-category-search'>
                                     <a
                                         className='nav-link dropdown-toggle'
                                         href='#'
@@ -318,11 +316,11 @@ export const Header = () => {
                                             </a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li> */}
                             </ul>
-                            <li className='nav-item dropdown'>
+                            <li className='nav-item dropdown text-decoration-none'>
                                 <a
-                                    className='nav-link dropdown-toggle langugae-location'
+                                    className='nav-link dropdown-toggle langugae-location text-decoration-none'
                                     href='#'
                                     role='button'
                                     data-bs-toggle='dropdown'
@@ -383,63 +381,59 @@ export const Header = () => {
                                     aria-expanded='false'
                                 >
                                     <span className='account-lists'>
-                                        {(isLogin)?<span className='hello' >{t("navTop.part2")},{name}</span>
-                                        :   <span className='hello'>
-                                           {t("navTop.part2")},{t("SignIn.part1")} 
-                                            <br />
-                                        </span>}
-                                     
+                                        {isLogin ? (
+                                            <span className='hello'>
+                                                {t("navTop.part2")},{name}
+                                            </span>
+                                        ) : (
+                                            <span className='hello'>
+                                                {t("navTop.part2")},
+                                                {t("SignIn.part1")}
+                                                <br />
+                                            </span>
+                                        )}
+
                                         {t("navTop.part7")}
                                     </span>
                                 </a>
                                 <ul className='dropdown-menu'>
                                     <li>
-                                        <a className='dropdown-item drop-account shadow'>
-                                            {isLogin ? (
-                                                <NavLink
-                                                    className='me-auto '
-                                                    to='./login'
-                                                    onClick={logOut}
-                                                >
-                                                    {t("navTop.part13")}
-                                                </NavLink>
-                                            ) : (
-                                                <Nav className='me-auto '>
-                                                    <NavLink
-                                                        to='/login'
-                                                        className={({
-                                                            isActive,
-                                                        }) =>
-                                                            isActive
-                                                                ? "act"
-                                                                : "test"
-                                                        }
-                                                    >
-                                                        {t("SignIn.part1")} 
-                                                    </NavLink>
-                                                </Nav>
-                                            )}
-                                        </a>
+                                        {isLogin ? (
+                                            <NavLink
+                                                className='me-auto dropdown-item drop-account shadow text-decoration-none'
+                                                to='./login'
+                                                onClick={logOut}
+                                            >
+                                                {t("navTop.part13")}
+                                            </NavLink>
+                                        ) : (
+                                            <NavLink
+                                                to='/login'
+                                                className='me-auto dropdown-item drop-account shadow text-decoration-none '
+                                            >
+                                                {t("SignIn.part1")}
+                                            </NavLink>
+                                        )}
                                         <p className='register'>
-                                        {t("navTop.part20")}
+                                            {t("navTop.part20")}
                                             <a href='../register-page/register.html'>
-                                            {t("navTop.part21")}
+                                                {t("navTop.part21")}
                                             </a>
                                         </p>
                                         <hr />
                                     </li>
                                     <li>
                                         <p className='border-3 fw-bold d-inline-block'>
-                                        {t("navTop.part22")}
+                                            {t("navTop.part22")}
                                         </p>
                                         <p className='fw-bold mb-0'>
-                                        {t("navTop.part23")}
+                                            {t("navTop.part23")}
                                         </p>
                                         <a
                                             href='../account-page/account.html'
                                             className='text-decoration-none text-dark'
                                         >
-                                          {t("navTop.part23")}
+                                            {t("navTop.part23")}
                                         </a>
                                         <br />
                                         <a
@@ -453,7 +447,7 @@ export const Header = () => {
                             </li>
                             <li className='nav-item'>
                                 <a
-                                    className='nav-link order'
+                                    className='nav-link order text-decoration-none'
                                     href='../orders/order.html'
                                 >
                                     {t("navTop.part3")}
@@ -482,59 +476,6 @@ export const Header = () => {
                 </div>
             </nav>
             <div className='search-bar-meduim d-flex d-lg-none'>
-                <div className='all-category-search'>
-                    <a
-                        className='nav-link dropdown-toggle'
-                        href='#'
-                        role='button'
-                        data-bs-toggle='dropdown'
-                        aria-expanded='false'
-                    >
-                        All
-                    </a>
-                    {/* <ul className='dropdown-menu'>
-                        <li>
-                            <a className='dropdown-item' href='#'>
-                                All Category
-                            </a>
-                        </li>
-                        <li>
-                            <a className='dropdown-item' href='#'>
-                                Amazon Devices
-                            </a>
-                        </li>
-                        <li>
-                            <a className='dropdown-item' href='#'>
-                                Amazon Fashion
-                            </a>
-                        </li>
-                        <li>
-                            <a className='dropdown-item' href='#'>
-                                Amazon Warehouse
-                            </a>
-                        </li>
-                        <li>
-                            <a className='dropdown-item' href='#'>
-                                Baby
-                            </a>
-                        </li>
-                        <li>
-                            <a className='dropdown-item' href='#'>
-                                Books
-                            </a>
-                        </li>
-                        <li>
-                            <a className='dropdown-item' href='#'>
-                                Sports
-                            </a>
-                        </li>
-                        <li>
-                            <a className='dropdown-item' href='#'>
-                                Software
-                            </a>
-                        </li>
-                    </ul> */}
-                </div>
                 <div className='flex-grow-1 h-100'>
                     <form role='search'>
                         <input
@@ -560,19 +501,54 @@ export const Header = () => {
                     <li>
                         <a href='#'>{t("nav2.part2")}</a>
                     </li>
-
-                    {catogories.map((category, index) => {
-                        return (
-                            <li key={index}>
-                                <NavLink
-                                    className='text-capitalize'
-                                    to={`/products/category/${category._id}`}
-                                >
-                                    {category.name}
-                                </NavLink>
-                            </li>
-                        );
-                    })}
+                    <li>
+                        <NavLink
+                            className='text-capitalize'
+                            to={`/products/category/${catogories.electronics.id}`}
+                        >
+                            {catogories.electronics.name}
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                            className='text-capitalize'
+                            to={`/products/category/${catogories.fashion.id}`}
+                        >
+                            {catogories.fashion.name}
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                            className='text-capitalize'
+                            to={`/products/category/${catogories.grocery.id}`}
+                        >
+                            {catogories.grocery.name}
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                            className='text-capitalize'
+                            to={`/products/category/${catogories.beauty.id}`}
+                        >
+                            {catogories.beauty.name}
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                            className='text-capitalize'
+                            to={`/products/category/${catogories.sports.id}`}
+                        >
+                            {catogories.sports.name}
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                            className='text-capitalize'
+                            to={`/products/category/${catogories.mobilephones.id}`}
+                        >
+                            {catogories.mobilephones.name}
+                        </NavLink>
+                    </li>
 
                     <li>
                         <a href='#'>{t("nav2.part3")}</a>

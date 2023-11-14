@@ -18,6 +18,8 @@ import { instance } from "../../services/axios/instance";
 export const Cart = () => {
     const [totalPrice, setTotalPrice] = useState(0);
     let cartPageRedux = useSelector((state) => state.Cart.cart);
+    const { lang, setLang } = useContext(authContext);
+
     // console.log(cartPageRedux[0].quantity);
     // const countRed = useSelector((state) => state.counter.counter);
     const [count, setCount] = useState(1);
@@ -31,7 +33,7 @@ export const Cart = () => {
         const quantity = cartPageRedux[index].quantity;
         // console.log(quantity);
         let updatequantity = quantity + 1;
-        // console.log(updatequantity);
+
         dispatch(udateQuantity({ updatequantity, index }));
         setCount(cartPageRedux[index].quantity);
     };
@@ -44,6 +46,8 @@ export const Cart = () => {
             dispatch(udateQuantity({ updatequantity, index }));
             setCount(cartPageRedux[index].quantity);
         }
+        // localStorage.setItem("cart", JSON.stringify(cartPage));
+        // console.log(JSON.parse(localStorage.getItem("cart")));
         // console.log(updatequantity);
     };
     let total = 0;
@@ -225,16 +229,31 @@ export const Cart = () => {
                                         <div className='row' key={index}>
                                             <div className='item col-md-3 col-sm-12 d-flex align-items-center'>
                                                 <div className='mt-3 mb-3'>
-                                                    <img
-                                                        className='w-100'
-                                                        width='500px'
-                                                        src={item.thumbnail}
-                                                    />
+                                                    <Link
+                                                        to={`/products/${item._id}`}
+                                                    >
+                                                        <img
+                                                            className='w-100'
+                                                            width='500px'
+                                                            src={item.thumbnail}
+                                                        />
+                                                    </Link>
                                                 </div>
                                             </div>
 
                                             <div className='col-md-7 col-sm-12 justify-content-center flex-column mt-3 mb-3'>
-                                                <h5>{item.description}</h5>
+                                                <h5>
+                                                    <Link
+                                                        className='text-black text-decoration-none fw-bold'
+                                                        to={`/products/${item._id}`}
+                                                    >
+                                                        {lang === "en"
+                                                            ? item.en
+                                                                  .description
+                                                            : item.ar
+                                                                  .description}
+                                                    </Link>
+                                                </h5>
                                                 <p className='price h5'>
                                                     EGP: {item.price}
                                                 </p>

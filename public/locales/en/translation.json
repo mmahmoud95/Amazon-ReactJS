@@ -6,7 +6,13 @@
         "part3": "Home",
         "part4": "Video Games",
         "part5": "Toy & Games",
-        "part6": "Help"
+        "part6": "Help",
+        "part7": "Electronics",
+        "part8": "Fashion",
+        "part9": "Grocery",
+        "part10": "Beauty",
+        "part11": "Sports",
+        "part12": "Smart Phones"
     },
     "navTop": {
         "part1": "Deliver to",
@@ -207,7 +213,8 @@
         "part2": "Privacy Notice",
         "part3": "Interest-Based Ads",
         "part4": "©1996–2023, Amazon.com, Inc. or its affiliates"
-    } ,"categoryPage":{
-        "part1":"Rating"
+    },
+    "categoryPage": {
+        "part1": "Rating"
     }
 }

@@ -12,7 +12,7 @@ import { useContext } from "react";
 import { authContext } from "../../../context/authcontex";
 import { useTranslation } from "react-i18next";
 import i18n from "../../../i18n";
-import { clearCart } from "../../../Store/Slice/Cart";
+import { clearCart, totalPriceAction } from "../../../Store/Slice/Cart";
 
 // import Navbar from 'react-bootstrap/Navbar';
 
@@ -53,6 +53,9 @@ export const Header = () => {
         // localStorage.setItem('category',searchCategory)
     }, [searchCategory]);
     //   for text
+    useEffect(() => {
+        dispatch(totalPriceAction());
+    }, []);
     const handleChange = (e) => {
         setSearchText(e.target.value);
         console.log(searchCategory);
@@ -110,7 +113,7 @@ export const Header = () => {
         },
         mobilephones: {
             name: `${t("nav2.part12")}`,
-            id: "6552870b2c4411da5152c87a",
+            id: "65522f3250f3b49965ea7807",
         },
     };
 

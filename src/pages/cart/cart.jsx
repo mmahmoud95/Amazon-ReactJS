@@ -86,7 +86,7 @@ export const Cart = () => {
                     // priductsitemsid = res.data.data[0].items;
                     // console.log(res.data.data.items);
                     setCartPage(res.data.data.items);
-                    console.log(res.data.data.items);
+                    // console.log(res.data.data.items);
                     setCartProducts(res.data.data.items);
                     setTotalPrice(res.data.data.totalPrice);
                 });
@@ -118,7 +118,7 @@ export const Cart = () => {
     // }, [cartPage, isLogin]);
 
     var handelincreas = (productId, quantity) => {
-        console.log(productId, quantity);
+        // console.log(productId, quantity);
         if (isLogin) {
             instance
                 .patch(
@@ -232,14 +232,14 @@ export const Cart = () => {
                                             <div className='item col-md-3 col-sm-12 d-flex align-items-center'>
                                                 <div className='mt-3 mb-3'>
                                                     <Link
-                                                        to={`/products/${item._id}`}
+                                                        to={`/products/${item.productId._id}`}
                                                     >
                                                         <img
                                                             className='w-100'
                                                             width='500px'
                                                             src={
                                                                 item?.productId
-                                                                    .thumbnail
+                                                                    ?.thumbnail
                                                             }
                                                         />
                                                     </Link>
@@ -250,12 +250,12 @@ export const Cart = () => {
                                                 <h5>
                                                     <Link
                                                         className='text-black text-decoration-none fw-bold'
-                                                        to={`/products/${item._id}`}
+                                                        to={`/products/${item.productId._id}`}
                                                     >
                                                         {lang === "en"
-                                                            ? item.en
+                                                            ? item.productId.en
                                                                   ?.description
-                                                            : item.ar
+                                                            : item.productId.ar
                                                                   ?.description}
                                                     </Link>
                                                 </h5>
@@ -265,11 +265,17 @@ export const Cart = () => {
 
                                                 <p className='stock'>
                                                     DiscountPercentage:
-                                                    {item.discountPercentage}
+                                                    {
+                                                        item.productId
+                                                            .discountPercentage
+                                                    }
                                                 </p>
                                                 <p className='stock'>
                                                     stock:
-                                                    {item.quantityInStock}
+                                                    {
+                                                        item.productId
+                                                            .quantityInStock
+                                                    }
                                                 </p>
                                                 <div className='mt-3'>
                                                     <ul className='list-unstyled d-flex flex-row list'>

@@ -101,12 +101,12 @@ export const Search = () => {
                             <ProductCard
                                 key={index}
                                 productID={product._id}
-                                productTitle={product.title}
+                                productTitle={product?.en?.title}
                                 productRating={product.rating}
                                 productDiscount={product.discountPercentage}
                                 productThumbnail={product.thumbnail}
                                 productPrice={product.price}
-                                productDescription={product.description}
+                                productDescription={product?.en?.description}
                             />
                         ))}
                         {<h1>{notFound}</h1>}

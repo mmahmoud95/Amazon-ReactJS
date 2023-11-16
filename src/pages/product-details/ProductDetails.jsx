@@ -214,9 +214,9 @@ const ProductDetails = () => {
                                     {t("prodInfo.part7")}:
                                 </li>
                                 <li className='list-group-item border-0'>
-                                    {lang === "en"
-                                        ? myProd?.category?.en.name
-                                        : myProd?.category?.ar.name}
+                                {lang === "en"
+                                        ? myProd?.category?.en?.name
+                                        : myProd?.category?.ar?.name}
                                 </li>
                             </ul>
 

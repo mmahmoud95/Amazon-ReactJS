@@ -5,7 +5,7 @@ import { Carousel } from "react-responsive-carousel";
 import { instance } from "../../services/axios/instance";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { totalPriceAction, udateQuantity } from "../../Store/Slice/Cart";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams,useLocation } from "react-router-dom";
 import prime from "./1prime.png";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../Store/Slice/Cart";
@@ -18,75 +18,78 @@ const ProductDetails = () => {
   const { isLogin, setLogin } = useContext(authContext);
   const { lang, setLang } = useContext(authContext);
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
 
-    var { id } = useParams();
-    const dispatch = useDispatch();
-    var cartPage = useSelector((state) => state.Cart.cart);
-    const handelAdd = (product) => {
-        const isProductIncart = cartPage.some(
-            (item) => item.product._id === product._id
+  var { id } = useParams();
+  const dispatch = useDispatch();
+  var cartPage = useSelector((state) => state.Cart.cart);
+  const handelAdd = (product) => {
+    const isProductIncart = cartPage.some(
+      (item) => item.product._id === product._id
+    );
+    console.log(cartPage);
+    console.log(isProductIncart);
+    if (!isProductIncart) {
+      dispatch(addToCart({ product: product, quantity: 1 }));
+    } else {
+      for (const i in cartPage) {
+        const product1 = cartPage.find((items) => {
+          return items.product._id === product._id;
+        });
+        let index = cartPage.findIndex(
+          (item) => item.product._id === product._id
         );
-        console.log(cartPage);
-        console.log(isProductIncart);
-        if (!isProductIncart) {
-            dispatch(addToCart({ product: product, quantity: 1 }));
-        } else {
-            for (const i in cartPage) {
-                const product1 = cartPage.find((items) => {
-                    return items.product._id === product._id;
-                });
-                let index = cartPage.findIndex(
-                    (item) => item.product._id === product._id
-                );
-                // console.log(quantity);
-                let updatequantity = product1.quantity + 1;
-                // updatequantity = product1.quantity + 1;
-                dispatch(udateQuantity({ updatequantity, index: index }));
-            }
-        }
-    };
-    // const dispatch = useDispatch();
-
-    const hanleAddWithAp = (myProd) => {
-        console.log(myProd);
-        instance
-            .post(
-                `cart/`,
-                {
-                    productId: myProd._id,
-                    quantity: 1,
-                },
-                {
-                    headers: {
-                        Authorization: localStorage.getItem("userToken"),
-                    },
-                }
-            )
-            .then(() => {
-                dispatch(totalPriceAction());
-            });
-    };
-    const [myProd, setmyProd] = useState();
-
-    useEffect(() => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        instance
-            .get(`/products/${id}`)
-            .then((res) => {
-                setmyProd(res.data.data);
-                // console.log(res.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }, [id]);
-
-    // to handle carousel
-    const [currentIndex, setCurrentIndex] = useState();
-    function handleChange(index) {
-        setCurrentIndex(index);
+        // console.log(quantity);
+        let updatequantity = product1.quantity + 1;
+        // updatequantity = product1.quantity + 1;
+        dispatch(udateQuantity({ updatequantity, index: index }));
+      }
     }
+  };
+  // const dispatch = useDispatch();
+
+  const hanleAddWithAp = (myProd) => {
+    console.log(myProd);
+    instance
+      .post(
+        `cart/`,
+        {
+          productId: myProd._id,
+          quantity: 1,
+        },
+        {
+          headers: {
+            Authorization: localStorage.getItem("userToken"),
+          },
+        }
+      )
+      .then(() => {
+        dispatch(totalPriceAction());
+      });
+  };
+  const [myProd, setmyProd] = useState();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    instance
+      .get(`/products/${id}`)
+      .then((res) => {
+        setmyProd(res.data.data);
+        // console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [id]);
+
+  // to handle carousel
+  const [currentIndex, setCurrentIndex] = useState();
+  function handleChange(index) {
+    setCurrentIndex(index);
+  }
+
 
   return (
     <>
@@ -130,19 +133,19 @@ const ProductDetails = () => {
             </div>
 
             <div className="product-price d-flex p-2">
-              <span className="new-price text-muted pt-2 fs-3">{t("prodInfo.part3")}:</span>
+              <span className="new-price text-muted pt-2 fs-3">
+                {t("prodInfo.part3")}:
+              </span>
               <span className=" text-muted px-1 ">EGP</span>
 
-                            <span className='text-dark fw-bold fs-3 '>
-                                {myProd?.price}
-                            </span>
-                            <span className=' text-muted px-1 '>00</span>
-                        </div>
+              <span className="text-dark fw-bold fs-3 ">{myProd?.price}</span>
+              <span className=" text-muted px-1 ">00</span>
+            </div>
 
             <div className="product-detail border-bottom">
               <ul className="list-group list-group-horizontal ">
                 <li className="list-group-item w-50 border-0 fw-bold">
-                {t("prodInfo.part4")}:
+                  {t("prodInfo.part4")}:
                 </li>
                 <li className="list-group-item border-0">
                   {lang === "en" ? myProd?.en.brand : myProd?.ar.brand}
@@ -151,38 +154,35 @@ const ProductDetails = () => {
 
               <ul className=" list-unstyled list-group list-group-horizontal ">
                 <li className="list-group-item w-50 border-0 fw-bold">
-                  
                   {t("prodInfo.part5")}:
                 </li>
                 <li className="list-group-item border-0">
                   {" "}
-                  {lang === "en"
-                    ? myProd?.en.title
-                    : myProd?.ar.title}
+                  {lang === "en" ? myProd?.en.title : myProd?.ar.title}
                 </li>
               </ul>
 
               <ul className="list-group list-group-horizontal">
                 <li className="list-group-item w-50 border-0 fw-bold">
-                {t("prodInfo.part6")}:
+                  {t("prodInfo.part6")}:
                 </li>
                 <li className="list-group-item border-0">Black</li>
               </ul>
 
-                            <ul className='list-group list-group-horizontal'>
-                                <li className='list-group-item border-0 w-50  fw-bold'>
-                                    {t("prodInfo.part7")}:
-                                </li>
-                                <li className='list-group-item border-0'>
-                                {lang === "en"
-                                        ? myProd?.category?.en?.name
-                                        : myProd?.category?.ar?.name}
-                                </li>
-                            </ul>
+              <ul className="list-group list-group-horizontal">
+                <li className="list-group-item border-0 w-50  fw-bold">
+                  {t("prodInfo.part7")}:
+                </li>
+                <li className="list-group-item border-0">
+                  {lang === "en"
+                    ? myProd?.category?.en?.name
+                    : myProd?.category?.ar?.name}
+                </li>
+              </ul>
 
               <ul className="list-group list-group-horizontal">
                 <li className="list-group-item border-0 w-50 fw-bold small">
-                {t("prodInfo.part8")}:
+                  {t("prodInfo.part8")}:
                 </li>
                 <li className="list-group-item border-0">.......</li>
               </ul>
@@ -197,16 +197,20 @@ const ProductDetails = () => {
 
               <ul className="list-group list-group-horizontal">
                 <li className="list-group-item border-0 w-50 fw-bold">
-                {t("prodInfo.part10")}:
+                  {t("prodInfo.part10")}:
                 </li>
-                <li className="list-group-item border-0">{t("prodInfo.part12")}</li>
+                <li className="list-group-item border-0">
+                  {t("prodInfo.part12")}
+                </li>
               </ul>
 
               <ul className="list-group list-group-horizontal ">
                 <li className="list-group-item border-0 w-50 fw-bold">
-                {t("prodInfo.part11")}:
+                  {t("prodInfo.part11")}:
                 </li>
-                <li className="list-group-item border-0">{t("prodInfo.part13")}</li>
+                <li className="list-group-item border-0">
+                  {t("prodInfo.part13")}
+                </li>
               </ul>
             </div>
             <div>
@@ -275,21 +279,25 @@ const ProductDetails = () => {
               <div className="p-1">
                 <ul className="list-unstyled p-1 small ">
                   <li className="pb-1">
-                    <Link className="text-decoration-none ">{t("prime.part4")}</Link>
+                    <Link className="text-decoration-none ">
+                      {t("prime.part4")}
+                    </Link>
                   </li>
                   <li className="py-1">
                     <Link className="text-decoration-none">
-                    {t("prime.part5")} 
+                      {t("prime.part5")}
                     </Link>
                   </li>
                   <li className="py-1">
                     <Link className="text-decoration-none " aria-disabled>
                       <i className="fa-solid fa-location-dot pe-2"></i>
-                      {t("prime.part6")} 
+                      {t("prime.part6")}
                     </Link>
                   </li>
                 </ul>
-                <span className="text-success ps-2 fs-5">{t("prime.part7")}</span>
+                <span className="text-success ps-2 fs-5">
+                  {t("prime.part7")}
+                </span>
                 <div className="d-flex px-2 pt-3">
                   <span className="pe-2">Qty : </span>
                   <select>
@@ -317,18 +325,23 @@ const ProductDetails = () => {
                   className="btn w-75 rounded-pill text-center my-2 "
                   style={{ backgroundColor: "#FFA41C" }}
                 >
-                  <Link to="/checkout" className="pe-3">
-                  {t("prime.part9")}
-                  </Link>
+                  <button
+                    className="pe-3 btn"
+                    onClick={()=>navigate('/checkout', { state: { product: myProd }} )}>
+                    {t("prime.part9")}
+                  </button>
                   <i className="fa-solid fa-money-check"></i>
                 </button>
               </div>
 
               <div className=" p-0 small lh-1">
                 <ul className="list-group list-group-horizontal ">
-                  <li className="list-group-item w-50 border-0"> {t("prime.part10")}:</li>
+                  <li className="list-group-item w-50 border-0">
+                    {" "}
+                    {t("prime.part10")}:
+                  </li>
                   <li className="list-group-item border-0">
-                  {t("prime.part11")}
+                    {t("prime.part11")}
                   </li>
                 </ul>
 
@@ -340,7 +353,9 @@ const ProductDetails = () => {
                 </ul>
 
                 <ul className="list-group list-group-horizontal">
-                  <li className="list-group-item w-50 border-0">{t("prime.part13")} :</li>
+                  <li className="list-group-item w-50 border-0">
+                    {t("prime.part13")} :
+                  </li>
                   <li className="list-group-item border-0">Amazon.eg</li>
                 </ul>
               </div>
@@ -468,13 +483,9 @@ const ProductDetails = () => {
             <div className="border-top mt-2 p-2">
               <div>
                 <h4>{t("rev.part4")}</h4>
-                <p className="text-secondary">
-                {t("rev.part5")}
-                </p>
+                <p className="text-secondary">{t("rev.part5")}</p>
               </div>
-              <Link className="btn bg-light border-dark">
-                {t("rev.part6")}
-              </Link>
+              <Link className="btn bg-light border-dark">{t("rev.part6")}</Link>
             </div>
           </div>
           {/*  comments section  */}

@@ -69,17 +69,22 @@ const LoginStep2 = () => {
                     localStorage.setItem("userToken", data.yourToken);
                     localStorage.setItem("name", data.name);
                     setLogin(true);
+                    // const cart = JSON.parse(localStorage.getItem("cart"));
+                    // console.log(cart);
+
                     const cart = JSON.parse(localStorage.getItem("cart"));
                     console.log(cart);
-                    for (const i in cart) {
-                        let productId = cart[i].product._id;
-                        let quantity = cart[i].quantity;
+                    if (cart) {
+                        const items = cart.map((item) => ({
+                            productId: item.product._id,
+                            quantity: item.quantity,
+                        }));
+                        console.log(items);
                         instance
                             .post(
-                                `cart/`,
+                                `cart/`, // Endpoint to handle updating multiple items in the cart
                                 {
-                                    productId: productId,
-                                    quantity: quantity,
+                                    items: items,
                                 },
                                 {
                                     headers: {
@@ -90,13 +95,15 @@ const LoginStep2 = () => {
                             )
                             .then(() => {
                                 dispatch(totalPriceAction());
-                                // priductsitemsid = res.data.data[0].items;
-                                // console.log(res.data.data.items);
-                                // setCartPage(res.data.data.items);
-                                // console.log(cartPage);
+                                // Perform actions after the request is processed
+                                navigate("/");
+                            })
+                            .catch((error) => {
+                                // Handle errors here
+                                console.error(error);
+                                navigate("/");
                             });
                     }
-
                     navigate("/");
                 } else if (
                     data.message == "please enter your email and password "

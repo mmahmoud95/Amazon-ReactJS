@@ -64,6 +64,7 @@ export const Cart = () => {
     const [cartPage, setCartPage] = useState([]);
     const [categoryProducts, setCategoryProducts] = useState([]);
     const { categoryname } = useParams();
+    const [cartProducts, setCartProducts] = useState([]);
     useEffect(() => {
         document.title = `Amazon - Cart`;
         // instance
@@ -85,38 +86,39 @@ export const Cart = () => {
                     // priductsitemsid = res.data.data[0].items;
                     // console.log(res.data.data.items);
                     setCartPage(res.data.data.items);
+                    // console.log(res.data.data.items);
+                    setCartProducts(res.data.data.items);
                     setTotalPrice(res.data.data.totalPrice);
-                    console.log(res.data.data.totalPrice);
                 });
         }
     }, [categoryname]);
 
-    console.log(cartPage);
-    const [cartProducts, setCartProducts] = useState([]);
+    // console.log(cartPage);
 
-    useEffect(() => {
-        if (isLogin) {
-            // Use Promise.all to wait for all requests to complete
-            Promise.all(
-                cartPage?.map(async (item) => {
-                    let id = item.productId;
-                    return instance
-                        .get(`products/${id}`)
-                        .then((res) => res.data.data);
-                })
-            )
-                .then((productsData) => {
-                    // productsData is an array of product data
-                    setCartProducts(productsData);
-                })
-                .catch((error) => {
-                    console.error("Error fetching product data:", error);
-                });
-        }
-    }, [cartPage, isLogin]);
+    // useEffect(() => {
+    //     if (isLogin) {
+    //         // Use Promise.all to wait for all requests to complete
+    //         Promise.all(
+    //             cartPage?.map(async (item) => {
+    //                 let id = item.productId;
+    //                 return instance
+    //                     .get(`products/${id}`)
+    //                     .then((res) => res.data.data);
+    //             })
+    //         )
+    //             .then((productsData) => {
+    //                 // productsData is an array of product data
+    //                 // setCartProducts(productsData);
+    //                 console.log(cartProducts);
+    //             })
+    //             .catch((error) => {
+    //                 console.error("Error fetching product data:", error);
+    //             });
+    //     }
+    // }, [cartPage, isLogin]);
 
     var handelincreas = (productId, quantity) => {
-        console.log(productId, quantity);
+        // console.log(productId, quantity);
         if (isLogin) {
             instance
                 .patch(
@@ -135,7 +137,6 @@ export const Cart = () => {
                     // priductsitemsid = res.data.data[0].items;
                     // console.log(res.data.data.items);
                     setTotalPrice(res.data.data.totalPrice);
-
                     setCartPage(res.data.data.items);
                     // console.log(cartPage);
                 });
@@ -159,9 +160,8 @@ export const Cart = () => {
                     }
                 )
                 .then((res) => {
-                    dispatch(totalPriceAction());
+                    // dispatch(totalPriceAction());
                     setTotalPrice(res.data.data.totalPrice);
-
                     // priductsitemsid = res.data.data[0].items;
                     // console.log(res.data.data.items);
                     setCartPage(res.data.data.items);
@@ -181,10 +181,12 @@ export const Cart = () => {
                     dispatch(totalPriceAction());
                     // Assuming res.data.data.items is the updated cart after removal
                     const updatedCart = res.data.data.items;
+                    setCartPage(updatedCart);
+                    setCartProducts(res.data.data.items);
                     setTotalPrice(res.data.data.totalPrice);
                     // Update the local state with the updated cart
-                    setCartPage(updatedCart);
 
+                    console.log(res.data.data.items);
                     // You may also want to update cartProducts if it's derived from cartPage
                     // setCartProducts(updatedCart.map(item => fetchProductData(item.productId)));
 
@@ -230,12 +232,15 @@ export const Cart = () => {
                                             <div className='item col-md-3 col-sm-12 d-flex align-items-center'>
                                                 <div className='mt-3 mb-3'>
                                                     <Link
-                                                        to={`/products/${item._id}`}
+                                                        to={`/products/${item.productId._id}`}
                                                     >
                                                         <img
                                                             className='w-100'
                                                             width='500px'
-                                                            src={item.thumbnail}
+                                                            src={
+                                                                item?.productId
+                                                                    ?.thumbnail
+                                                            }
                                                         />
                                                     </Link>
                                                 </div>
@@ -245,13 +250,13 @@ export const Cart = () => {
                                                 <h5>
                                                     <Link
                                                         className='text-black text-decoration-none fw-bold'
-                                                        to={`/products/${item._id}`}
+                                                        to={`/products/${item.productId._id}`}
                                                     >
                                                         {lang === "en"
-                                                            ? item.en
-                                                                  .description
-                                                            : item.ar
-                                                                  .description}
+                                                            ? item.productId.en
+                                                                  ?.description
+                                                            : item.productId.ar
+                                                                  ?.description}
                                                     </Link>
                                                 </h5>
                                                 <p className='price h5'>
@@ -260,11 +265,17 @@ export const Cart = () => {
 
                                                 <p className='stock'>
                                                     DiscountPercentage:
-                                                    {item.discountPercentage}
+                                                    {
+                                                        item.productId
+                                                            .discountPercentage
+                                                    }
                                                 </p>
                                                 <p className='stock'>
                                                     stock:
-                                                    {item.quantityInStock}
+                                                    {
+                                                        item.productId
+                                                            .quantityInStock
+                                                    }
                                                 </p>
                                                 <div className='mt-3'>
                                                     <ul className='list-unstyled d-flex flex-row list'>
@@ -275,7 +286,9 @@ export const Cart = () => {
                                                                     aria-label='Increment value'
                                                                     onClick={() =>
                                                                         handelincreas(
-                                                                            item._id,
+                                                                            item
+                                                                                .productId
+                                                                                ._id,
                                                                             cartPage[
                                                                                 index
                                                                             ]
@@ -302,7 +315,9 @@ export const Cart = () => {
                                                                     aria-label='Decrement value'
                                                                     onClick={() =>
                                                                         handeldecres(
-                                                                            item._id,
+                                                                            item
+                                                                                .productId
+                                                                                ._id,
                                                                             cartPage[
                                                                                 index
                                                                             ]
@@ -319,7 +334,9 @@ export const Cart = () => {
                                                                 className='text-decoration-none me-2'
                                                                 onClick={() =>
                                                                     handelRemove(
-                                                                        item._id
+                                                                        item
+                                                                            .productId
+                                                                            ._id
                                                                     )
                                                                 }
                                                             >

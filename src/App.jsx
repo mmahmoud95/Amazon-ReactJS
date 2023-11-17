@@ -2,7 +2,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 // import { Navbar } from "./layout/Navbar/Navbar";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
 import { Home } from "./pages/home/home";
 import { Cart } from "./pages/cart/cart";
 import Register from "./pages/Register/Register";
@@ -39,26 +39,29 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-   const[isLogin,setLogin] =useState(localStorage.getItem('userToken')?true:false)
-   const[lang,setLang] =useState("en")
+    const [isLogin, setLogin] = useState(
+        localStorage.getItem("userToken") ? true : false
+    );
+    const [lang, setLang] = useState("en");
 
-//    const {t,i18nKey}=useTranslation()
-//    const changeLanguage=(language)=>{
-//     i18n.changeLanguage(language)
-//     }
+    //    const {t,i18nKey}=useTranslation()
+    //    const changeLanguage=(language)=>{
+    //     i18n.changeLanguage(language)
+    //     }
     return (
-        <>  
-   {/* <button onClick={()=>changeLanguage('en')}>En</button>
+        <>
+            {/* <button onClick={()=>changeLanguage('en')}>En</button>
    <button onClick={()=>changeLanguage('ar')}>De</button>
     <hr/>   
          <Trans i18nKey="description.part1">
              hi <div>{t("description.part1")}</div>
          </Trans> */}
-        <AuthProvider value={{isLogin,setLogin,lang,setLang}}> <Provider store={store}>
-
-          
-                <RouterProvider router={router} />
-            </Provider></AuthProvider>  
+            <AuthProvider value={{ isLogin, setLogin, lang, setLang }}>
+                {" "}
+                <Provider store={store}>
+                    <RouterProvider router={router} />
+                </Provider>
+            </AuthProvider>
         </>
     );
 }

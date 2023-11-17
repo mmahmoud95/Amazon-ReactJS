@@ -5,7 +5,7 @@ import { Carousel } from "react-responsive-carousel";
 import { instance } from "../../services/axios/instance";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { totalPriceAction, udateQuantity } from "../../Store/Slice/Cart";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams,useLocation } from "react-router-dom";
 import prime from "./1prime.png";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../Store/Slice/Cart";
@@ -90,24 +90,24 @@ const ProductDetails = () => {
     };
     const [myProd, setmyProd] = useState();
 
-    useEffect(() => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        instance
-            .get(`/products/${id}`)
-            .then((res) => {
-                setmyProd(res.data.data);
-                // console.log(res.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }, [id]);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    instance
+      .get(`/products/${id}`)
+      .then((res) => {
+        setmyProd(res.data.data);
+        // console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [id]);
 
-    // to handle carousel
-    const [currentIndex, setCurrentIndex] = useState();
-    function handleChange(index) {
-        setCurrentIndex(index);
-    }
+  // to handle carousel
+  const [currentIndex, setCurrentIndex] = useState();
+  function handleChange(index) {
+    setCurrentIndex(index);
+  }
 
     return (
         <>
@@ -170,11 +170,9 @@ const ProductDetails = () => {
                             </span>
                             <span className=' text-muted px-1 '>EGP</span>
 
-                            <span className='text-dark fw-bold fs-3 '>
-                                {myProd?.price}
-                            </span>
-                            <span className=' text-muted px-1 '>00</span>
-                        </div>
+              <span className="text-dark fw-bold fs-3 ">{myProd?.price}</span>
+              <span className=" text-muted px-1 ">00</span>
+            </div>
 
                         <div className='product-detail border-bottom'>
                             <ul className='list-group list-group-horizontal '>
@@ -209,16 +207,16 @@ const ProductDetails = () => {
                                 </li>
                             </ul>
 
-                            <ul className='list-group list-group-horizontal'>
-                                <li className='list-group-item border-0 w-50  fw-bold'>
-                                    {t("prodInfo.part7")}:
-                                </li>
-                                <li className='list-group-item border-0'>
-                                {lang === "en"
-                                        ? myProd?.category?.en?.name
-                                        : myProd?.category?.ar?.name}
-                                </li>
-                            </ul>
+              <ul className="list-group list-group-horizontal">
+                <li className="list-group-item border-0 w-50  fw-bold">
+                  {t("prodInfo.part7")}:
+                </li>
+                <li className="list-group-item border-0">
+                  {lang === "en"
+                    ? myProd?.category?.en?.name
+                    : myProd?.category?.ar?.name}
+                </li>
+              </ul>
 
                             <ul className='list-group list-group-horizontal'>
                                 <li className='list-group-item border-0 w-50 fw-bold small'>

@@ -78,7 +78,7 @@ export const Category = () => {
                                         ? product.en?.title
                                         : product.ar?.title
                                 }
-                                productRating={product.rating}
+                                productRating={Math.round(product.rating)}
                                 productDiscount={product.discountPercentage}
                                 productThumbnail={product.thumbnail}
                                 productPrice={product.price}

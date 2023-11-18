@@ -1,11 +1,13 @@
 /* eslint-disable react/jsx-no-target-blank */
+import ReactStarRating from "react-star-ratings-component";
+
 import { useState, useEffect } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import { instance } from "../../services/axios/instance";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { totalPriceAction, udateQuantity } from "../../Store/Slice/Cart";
-import { Link, useNavigate, useParams,useLocation } from "react-router-dom";
+import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 import prime from "./1prime.png";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../Store/Slice/Cart";
@@ -17,6 +19,8 @@ import toast, { Toaster } from "react-hot-toast";
 import { Reviews } from "../../components/review/reviews";
 
 const ProductDetails = () => {
+    const [loading, setLoading] = useState(true);
+
     const { isLogin, setLogin } = useContext(authContext);
     const { lang, setLang } = useContext(authContext);
     const [quantity, setSelectedValue] = useState(1); // Initialize with a default value of '1'
@@ -91,24 +95,25 @@ const ProductDetails = () => {
     };
     const [myProd, setmyProd] = useState();
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    instance
-      .get(`/products/${id}`)
-      .then((res) => {
-        setmyProd(res.data.data);
-        // console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [id]);
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        instance
+            .get(`/products/${id}`)
+            .then((res) => {
+                setmyProd(res.data.data);
+                setLoading(false);
+                // console.log(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, [id]);
 
-  // to handle carousel
-  const [currentIndex, setCurrentIndex] = useState();
-  function handleChange(index) {
-    setCurrentIndex(index);
-  }
+    // to handle carousel
+    const [currentIndex, setCurrentIndex] = useState();
+    function handleChange(index) {
+        setCurrentIndex(index);
+    }
 
     return (
         <>
@@ -153,15 +158,25 @@ const ProductDetails = () => {
                             {t("prodInfo.part1")}
                         </Link>
                         <div className='border-bottom pb-2'>
-                            <span className='px-1'>{myProd?.rating}</span>
-                            <i className='fa-solid fa-star text-warning'></i>
-                            <i className='fa-solid fa-star text-warning'></i>
-                            <i className='fa-solid fa-star text-warning'></i>
-                            <i className='fa-solid fa-star text-warning'></i>
-                            <i className='fa-solid fa-star-half-stroke text-warning'></i>
-                            <span className='text-primary'>
-                                {" "}
-                                40 {t("prodInfo.part2")}
+                            <span className='px-1'>
+                                {Math.round(myProd?.rating)}
+                            </span>
+                            {!loading && (
+                                <span className='d-inline-block'>
+                                    <ReactStarRating
+                                        numberOfStar={5}
+                                        numberOfSelectedStar={Math.round(
+                                            myProd?.rating
+                                        )}
+                                        colorFilledStar='#ff9900'
+                                        colorEmptyStar='#eee'
+                                        starSize='30px'
+                                        spaceBetweenStar='10px'
+                                    />
+                                </span>
+                            )}
+                            <span className='text-primary p-2'>
+                                {myProd?.ratingQuantity} {t("prodInfo.part2")}
                             </span>
                         </div>
 
@@ -171,9 +186,11 @@ const ProductDetails = () => {
                             </span>
                             <span className=' text-muted px-1 '>EGP</span>
 
-              <span className="text-dark fw-bold fs-3 ">{myProd?.price}</span>
-              <span className=" text-muted px-1 ">00</span>
-            </div>
+                            <span className='text-dark fw-bold fs-3 '>
+                                {myProd?.price}
+                            </span>
+                            <span className=' text-muted px-1 '>00</span>
+                        </div>
 
                         <div className='product-detail border-bottom'>
                             <ul className='list-group list-group-horizontal '>
@@ -208,16 +225,16 @@ const ProductDetails = () => {
                                 </li>
                             </ul>
 
-              <ul className="list-group list-group-horizontal">
-                <li className="list-group-item border-0 w-50  fw-bold">
-                  {t("prodInfo.part7")}:
-                </li>
-                <li className="list-group-item border-0">
-                  {lang === "en"
-                    ? myProd?.category?.en?.name
-                    : myProd?.category?.ar?.name}
-                </li>
-              </ul>
+                            <ul className='list-group list-group-horizontal'>
+                                <li className='list-group-item border-0 w-50  fw-bold'>
+                                    {t("prodInfo.part7")}:
+                                </li>
+                                <li className='list-group-item border-0'>
+                                    {lang === "en"
+                                        ? myProd?.category?.en?.name
+                                        : myProd?.category?.ar?.name}
+                                </li>
+                            </ul>
 
                             <ul className='list-group list-group-horizontal'>
                                 <li className='list-group-item border-0 w-50 fw-bold small'>

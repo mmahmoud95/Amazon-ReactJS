@@ -16,7 +16,8 @@ export const Reviews = (props) => {
     const [reloadData, setReloadData] = useState(false);
     const [reviews, setReviews] = useState([]);
     const [key, setKey] = useState(0);
-
+    const [totalRating, setTotalRating] = useState(null); // Set initial totalRating to null
+    const [loading, setLoading] = useState(true);
     const { t } = useTranslation();
     const onChangeHandler = (e) => {
         setErrors(
@@ -69,8 +70,9 @@ export const Reviews = (props) => {
 
     useEffect(() => {
         instance.get(`/review/${props.productId}`).then((res) => {
-            console.log(res.data.data);
-            setReviews(res.data.data);
+            setReviews(res.data);
+            setTotalRating(res.data.rating);
+            setLoading(false);
         });
     }, [props.productId, reloadData]);
     return (
@@ -93,9 +95,29 @@ export const Reviews = (props) => {
             </div>
             <div className='border-top row'>
                 {/*  third section for ratings and comments  */}
-                <div className='col-lg-5 col-md-3'>
+                <div className='col-lg-5 col-md-3 fs-3 p-5'>
                     {/*   rating section   */}
-                    <div className='product-rating p-2'>
+                    {!loading && totalRating !== null && (
+                        <span className='d-inline-block'>
+                            <ReactStarRating
+                                numberOfStar={5}
+                                numberOfSelectedStar={Math.round(totalRating)}
+                                colorFilledStar='#ff9900'
+                                colorEmptyStar='#eee'
+                                starSize='40px'
+                                spaceBetweenStar='10px'
+                            />
+                        </span>
+                    )}
+                    <span className='p-4'>
+                        {reviews.rating == null
+                            ? ""
+                            : `${reviews.rating + " " + t("rev.part15")} 5`}
+                    </span>
+                    <p className='fs-3'>
+                        {reviews.numberOfRatings} {t("rev.part14")}
+                    </p>
+                    {/* <div className='product-rating p-2'>
                         <h1>{t("rev.part1")}</h1>
                         <i
                             className='fa-solid fa-star'
@@ -121,8 +143,8 @@ export const Reviews = (props) => {
                         <p className='text-muted small mb-0'>
                             500 - {t("rev.part2")}
                         </p>
-                    </div>
-                    <div className='p-2  pb-4'>
+                    </div> */}
+                    {/* <div className='p-2  pb-4'>
                         <span>5 {t("rev.part3")}:</span>
                         <div className='progress mb-2'>
                             <div
@@ -204,9 +226,9 @@ export const Reviews = (props) => {
                                 5%
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     {/*  */}
-                    <div className='border-top mt-2 p-2'>
+                    {/* <div className='border-top mt-2 p-2'>
                         <div>
                             <h4>{t("rev.part4")}</h4>
                             <p className='text-secondary'>{t("rev.part5")}</p>
@@ -214,7 +236,7 @@ export const Reviews = (props) => {
                         <Link className='btn bg-light border-dark'>
                             {t("rev.part6")}
                         </Link>
-                    </div>
+                    </div> */}
                 </div>
                 {/*  comments section  */}
                 <div className='col-lg-7'>
@@ -228,7 +250,7 @@ export const Reviews = (props) => {
                             <ReactStarRating
                                 numberOfStar={5}
                                 numberOfSelectedStar={0}
-                                colorFilledStar='rgb(244 216 75)'
+                                colorFilledStar='#ff9900'
                                 colorEmptyStar='#eee'
                                 starSize='40px'
                                 spaceBetweenStar='5px'
@@ -257,8 +279,8 @@ export const Reviews = (props) => {
                                 {t("rev.part13")}
                             </button>
                         </form>
-                        {reviews.length > 0 &&
-                            reviews.map((review, index) => {
+                        {reviews.data?.length > 0 &&
+                            reviews.data.map((review, index) => {
                                 return (
                                     <div className='d-block p-3' key={index}>
                                         <h6 className='text-dark p-0 m-0 mt-3'>
@@ -276,7 +298,7 @@ export const Reviews = (props) => {
                                             numberOfSelectedStar={
                                                 review.ratings
                                             }
-                                            colorFilledStar='rgb(244 216 75)'
+                                            colorFilledStar='#ff9900'
                                             colorEmptyStar='#eee'
                                             starSize='30px'
                                             spaceBetweenStar='10px'

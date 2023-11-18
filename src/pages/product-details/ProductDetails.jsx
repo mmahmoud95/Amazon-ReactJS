@@ -402,7 +402,7 @@ const ProductDetails = () => {
                 >
                   <button
                     className="pe-3 btn"
-                    onClick={()=>navigate('/checkout', { state: { product: myProd }} )}>
+                    onClick={()=>navigate('/checkout', { state: { product: [myProd,{quantity}],totalPrice:myProd?.price }} )}>
                     {t("prime.part9")}
                   </button>
                   <i className="fa-solid fa-money-check"></i>

@@ -17,7 +17,7 @@
     "navTop": {
         "part1": "Deliver to",
         "part2": "Hello",
-        "part3": "Order",
+        "part3": "Orders",
         "part4": "Cart",
         "part5": "En",
         "part6": "Egypt",
@@ -86,7 +86,7 @@
         "part11": "Your order qualifies for FREE Shipping Choose this option at checkout.",
         "part12": "See details",
         "part13": "items",
-        "part14": "Proced to buy",
+        "part14": "Process to buy",
         "part15": "Pair with your cart"
     },
     "title2": "Product-details",
@@ -261,5 +261,25 @@
         "part38": "Promotion applied:",
         "part39": "Order total:",
         "part40": "How are shipping costs calculated?"
+    },"order": {
+        "part1": "Orders List",
+        "part2": "Order Details",
+        "part3": "Delete Order",
+        "part4": "Shipping Address",
+        "part5": "Total Order Price",
+        "part6": "Payment Method",
+        "part7": "Products",
+        "part8": "Title",
+        "part9": "Description",
+        "part10": "Price",
+        "part11": "Quantity",
+        "part12": " You do not have any orders yet",
+        "part13":"Is Paid",
+        "part14":"Is Delivered"
+        ,"part15":"Postal code",
+        "part16":"Deliver to "
+     
+  
+
     }
 }

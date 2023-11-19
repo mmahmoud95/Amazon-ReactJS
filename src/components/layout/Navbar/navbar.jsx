@@ -439,22 +439,22 @@ export const Header = () => {
                                             {t("navTop.part23")}
                                         </a>
                                         <br />
-                                        <a
-                                            href='../orders/order.html'
+                                        <NavLink
+                                            to='/orders/'
                                             className='text-decoration-none text-dark'
                                         >
                                             {t("navTop.part24")}
-                                        </a>
+                                        </NavLink>
                                     </li>
                                 </ul>
                             </li>
                             <li className='nav-item'>
-                                <a
+                                <NavLink
                                     className='nav-link order text-decoration-none'
-                                    href='../orders/order.html'
+                                    to='/orders/'
                                 >
                                     {t("navTop.part3")}
-                                </a>
+                                </NavLink>
                             </li>
                             <li className=''>
                                 <NavLink

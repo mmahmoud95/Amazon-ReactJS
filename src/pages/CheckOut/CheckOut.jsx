@@ -1,65 +1,142 @@
 import React, { useState } from "react";
 import logoImage from "./amazon.png";
 import "./checkoutStyle.css";
-import { Link, useLocation } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
 
 const CheckOut = () => {
+  const navigate=useNavigate();
   const stripe = useStripe();
   const element = useElements();
   const { t } = useTranslation();
   const location = useLocation();
-  const passedData = location?.state?.product;
+  const { product, totalPrice, cartID } = location?.state;
   const [isProcessing, setProcessing] = useState(false);
+  const [status, setStatus] = useState("pay");
+  const [payMethod, setPayMethod] = useState("card");
   const [orderData, setOrderData] = useState({
-    name: "",
+    fullName: "",
+    city: "",
     street: "",
-    address: "",
-    productId:passedData?._id,
-    productTitle: passedData?.en?.title,
-    productPrice: passedData?.price,
+    province: "",
+    zip: "",
+  });
+  const [errors, setErrors] = useState({
+    fullName: "",
+    province: "",
+    city: "",
+    street: "",
+    zip: "",
   });
 
-
   const handleAddress = (e) => {
-    const { value, name } = e.target;
-    setOrderData({ ...orderData, [name]: value });
+    const { name, value } = e.target;
+
+    // Perform your validation logic here
+    let error = "";
+    if (name === "fullName" && value.trim() === "") {
+      error = "Full Name is required";
+    } else if (name === "province") {
+      if (value.trim().length < 5 || /\d/.test(value)) {
+        error =
+          "province must be at least 5 characters and should not include numbers";
+      }
+    } else if (name === "city") {
+      if (value.trim().length < 5 || /\d/.test(value)) {
+        error =
+          "City must be at least 5 characters and should not include numbers";
+      }
+    } else if (name === "street") {
+      if (!/^\d{2}[a-zA-Z ]+$/.test(value)) {
+        error = "Street must start with 2 numbers followed by a string";
+      }
+    } else if (name === "zip") {
+      if (!/^\d{5}$/.test(value)) {
+        error = "Postal Code must be a 5-digit number";
+      }
+    }
+    // Add other validation checks for other fields
+    setOrderData((prevOrderData) => ({
+      ...prevOrderData,
+      [name]: value,
+    }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: error,
+    }));
   };
   const handlePayment = async (e) => {
     e.preventDefault();
-    setProcessing(true);
+    const hasErrors = Object.values(errors).some((error) => error !== "");
+
     const cardElement = element.getElement("card");
-    const { name, street, address, productTitle, productPrice,productId } = orderData;
-    const billingInfo = {
-      name,
-      street,
-      address: {
-        line1: address,
-      },
-      productTitle,
-      productPrice,
-    };
-    try {
+
+    if (payMethod == "card" && !hasErrors) {
+      try {
+        const pamentIntent = await axios.post(
+          "http://localhost:3333/order/card",
+          {
+            amount: totalPrice * 100,
+            orderData,
+            product,
+            payMethod,
+            cartID
+          },
+          {
+            headers: {
+              Authorization: localStorage.getItem("userToken"),
+            },
+          }
+        );
+        const paymentMethodObj = await stripe.createPaymentMethod({
+          type: "card",
+          card: cardElement,
+          billing_details: orderData,
+        });
+        setProcessing(true);
+        navigate('/orders')
+
+        toast.success("successful payment", {
+          position: "top-left",
+          autoClose: 5000, // 5000 milliseconds = 5 seconds
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    } else if (payMethod == "cash" && !hasErrors) {
       const pamentIntent = await axios.post(
-        "http://localhost:3333/order/",
+        "http://localhost:3333/order/cash",
         {
-          amount: productPrice * 100,productTitle, productPrice,productId
+          amount: totalPrice,
+          orderData,
+          product,
+          payMethod,
+          cartID,
         },
         {
           headers: {
-            Authorization:localStorage.getItem("userToken"),
+            Authorization: localStorage.getItem("userToken"),
           },
         }
       );
-      const paymentMethodObj = await stripe.createPaymentMethod({
-        type: "card",
-        card: cardElement,
-        billing_details: billingInfo,
+          setProcessing(true);
+
+      toast.success("successful payment", {
+        position: "top-left",
+        autoClose: 5000, // 5000 milliseconds = 5 seconds
       });
-    } catch (error) {
-      console.log(error);
+      navigate('/orders')
+      
+    } else {
+      toast.success("failed payment", {
+        position: "top-left",
+        autoClose: 5000, // 5000 milliseconds = 5 seconds
+      });
+      return null;
     }
   };
   return (
@@ -90,7 +167,6 @@ const CheckOut = () => {
         <div className="col-lg-8 col-md-8  p-1 ">
           {/* shipping address section */}
           <form onSubmit={handlePayment}>
-            <h1>sssssss</h1>
             <div className="border-bottom bg-white d-flex m-1">
               <div>
                 <Link
@@ -101,40 +177,99 @@ const CheckOut = () => {
                   {t("checkOut.part3")}
                 </Link>
               </div>
-              <div className="mx-auto">
-                {/* <ul className="list-unstyled">
-                  <li>hamza mohamed </li>
-                  <li>nasser Elzeraie street</li>
-                  <li>20</li>
-                  <li>Sohag, Markaz Akhmim, Markaz Akhmim</li>
-                  <li>
-                    <Link className="text-decoration-none">
-                      {t("checkOut.part4")}
-                    </Link>
-                  </li>
-                </ul> */}
-                <input
-                  type="text"
-                  placeholder="fullName"
-                  required
-                  name="name"
-                  value={orderData?.name}
-                  onChange={handleAddress}
-                />
-                <input
-                  type="text"
-                  placeholder="street"
-                  required
-                  name="street"
-                  onChange={handleAddress}
-                />
-                <input
-                  type="text"
-                  placeholder="Address"
-                  required
-                  name="address"
-                  onChange={handleAddress}
-                />
+              <div className="mx-5 ">
+                <div className="mb-3 d-flex">
+                  <label htmlFor="fullName" className="form-label pe-4">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="fullName"
+                    name="fullName"
+                    value={orderData.fullName}
+                    onChange={handleAddress}
+                    required
+                  />
+                </div>
+                <div className="d-block text-center">
+                  {errors.fullName && (
+                    <p className="text-danger">{errors.fullName}</p>
+                  )}
+                </div>
+
+                <div className="mb-3 d-flex">
+                  <label htmlFor="city" className="form-label pe-3">
+                    Province
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="city"
+                    name="province"
+                    value={orderData.province}
+                    onChange={handleAddress}
+                    required
+                  />
+                </div>
+                <div className="d-block text-center">
+                  {errors.province && (
+                    <p className="text-danger">{errors.province}</p>
+                  )}
+                </div>
+                <div className="mb-3 d-flex">
+                  <label htmlFor="city" className="form-label pe-4">
+                    city
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control ms-3"
+                    id="city"
+                    name="city"
+                    value={orderData.city}
+                    onChange={handleAddress}
+                    required
+                  />
+                </div>
+                <div className="d-block text-center">
+                  {errors.city && <p className="text-danger">{errors.city}</p>}
+                </div>
+                <div className="mb-3 d-flex">
+                  <label htmlFor="street" className="form-label pe-4">
+                    street
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="street"
+                    name="street"
+                    value={orderData.street}
+                    onChange={handleAddress}
+                    required
+                  />
+                </div>
+                <div className="d-block text-center">
+                  {errors.street && (
+                    <p className="text-danger">{errors.street}</p>
+                  )}
+                </div>
+                <div className="mb-3 d-flex">
+                  <label htmlFor="zip" className="form-label pe-2 ">
+                    Postal Code
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="zip"
+                    name="zip"
+                    value={orderData.zip}
+                    onChange={handleAddress}
+                    required
+                  />
+                </div>
+                <div className="d-block text-center">
+                  {errors.zip && <p className="text-danger">{errors.zip}</p>}
+                </div>
               </div>
               <div className="pe-3">
                 <Link className="text-decoration-none">
@@ -153,7 +288,7 @@ const CheckOut = () => {
                 {t("checkOut.part7")}
               </h5>
               <div className="d-flex p-3">
-                <a className="ps-2 pt-4" href="#">
+                <a className="ps-2 pt-4">
                   <i
                     className="fa-solid fa-plus"
                     // style="color: #c9cfd9"
@@ -181,7 +316,7 @@ const CheckOut = () => {
               <h5 className="border-bottom fw-bold">{t("checkOut.part9")}</h5>
 
               <div className="d-flex p-3">
-                <a className="p-auto" href="#">
+                <a className="p-auto">
                   <i
                     className="fa-solid fa-plus"
                     style={{ color: "#c9cfd9" }}
@@ -199,7 +334,7 @@ const CheckOut = () => {
                   />
                   <i className="fa-brands fa-cc-amazon-pay"></i>
                   <a
-                    href="#"
+                    disabled={true}
                     target="_blank"
                     className="text-decoration-none ps-1"
                   >
@@ -215,15 +350,20 @@ const CheckOut = () => {
               <div className="border-top d-flex p-3">
                 <div className="mx-2">
                   <p className="fw-bold">
-                    <input className="mx-2" type="radio" />
-                    {t("checkOut.part13")}{" "}
+                    <input
+                      className="mx-2"
+                      type="radio"
+                      onClick={() => setPayMethod("cash")}
+                    />
+                    {t("checkOut.part13")}
+                    {" cash"}
                   </p>
                   <div className="mx-4">
                     <span>
                       {t("checkOut.part14")}
                       <span className="fw-bold">EGP 12</span>{" "}
                       {t("checkOut.part15")}{" "}
-                      <a className="text-decoration-none" href="#">
+                      <a className="text-decoration-none" disabled={true}>
                         {t("checkOut.part16")}
                       </a>
                       .
@@ -238,11 +378,10 @@ const CheckOut = () => {
                   className="d-block w-30 border rounded paymentButton small p-2"
                   style={{ backgroundColor: "#FFFAE0" }}
                   value="Use this payment method"
-                  disabled={isProcessing || !passedData}
+                  disabled={isProcessing || !product}
                   placeholder="Use this payment method"
                 />
               </div>
-              <h1>ssssssss</h1>
             </div>
           </form>
           <div className="border-bottom border-top mt-3">
@@ -260,7 +399,6 @@ const CheckOut = () => {
               target="_blank"
               aria-disabled
               className="text-decoration-none text-muted fs-3"
-              href="#"
             >
               <span className="px-1">4</span> {t("checkOut.part19")}
             </a>
@@ -270,32 +408,36 @@ const CheckOut = () => {
             <div className="pt-3 pb-1 text-muted small col-9">
               <p>
                 {t("checkOut.part20")}
-                <a target="_blank" href="#" className="text-decoration-none">
+                <a
+                  target="_blank"
+                  className="text-decoration-none"
+                  disabled={true}
+                >
                   {t("checkOut.part21")}
                 </a>
               </p>
               <p>
                 {t("checkOut.part22")}
-                <a href="#" target="_blank" className="text-decoration-none">
+                <a target="_blank" className="text-decoration-none">
                   {t("checkOut.part23")}
                 </a>
                 {t("checkOut.part24")}
 
-                <a target="_blank" href="#" className="text-decoration-none">
+                <a target="_blank" className="text-decoration-none">
                   {t("checkOut.part25")}
                 </a>
               </p>
               <p>{t("checkOut.part26")}</p>
               <p>
                 {t("checkOut.part27")}
-                <a href="#" target="_blank" className="text-decoration-none">
+                <a target="_blank" className="text-decoration-none">
                   {t("checkOut.part28")}
                 </a>
                 .
               </p>
               <p>
                 {t("checkOut.part29")}
-                <a href="#" target="_blank" className="text-decoration-none">
+                <a target="_blank" className="text-decoration-none">
                   {t("checkOut.part30")}
                 </a>
                 .
@@ -325,9 +467,7 @@ const CheckOut = () => {
                 <ul className="list-unstyled">
                   <li>
                     <span>{t("checkOut.part35")}</span>
-                    <span style={{ float: "right" }}>
-                      EGP {passedData?.price}
-                    </span>
+                    <span style={{ float: "right" }}>EGP {totalPrice}</span>
                   </li>
                   <li>
                     <span>{t("checkOut.part36")}</span>
@@ -353,11 +493,7 @@ const CheckOut = () => {
             </div>
             <div className="border-top bg-light m-0">
               <div className="p-3">
-                <a
-                  href="#"
-                  target="_blank"
-                  className="small text-decoration-none"
-                >
+                <a target="_blank" className="small text-decoration-none">
                   {t("checkOut.part40")}
                 </a>
               </div>

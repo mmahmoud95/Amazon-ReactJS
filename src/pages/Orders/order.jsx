@@ -71,15 +71,18 @@ const Order = () => {
                     >
                       {t("order.part3")}
                     </button>
+                    <div>
+                      <h3 className="card-title fs-4">{t("order.part16")} :{order.name}</h3>
+                    </div>
                     <p className="card-text fs-6 text-info">
                       {t("order.part4")}: {order.shippingAddress.street},{" "}
                       {order.shippingAddress.city},{" "}
                       {order.shippingAddress.province},{" "}
                       {order.shippingAddress.country}
                     </p>
-                    <p>  {t("order.part15")}:  {order.shippingAddress.zip},{" "}</p>
+                    <p>  {t("order.part15")}:  {order.shippingAddress.zip}{" "}</p>
                     <p className="card-text fs-6">
-                      {t("order.part5")}: ${order.totalOrderPrice}
+                      {t("order.part5")}: {order.totalOrderPrice} EGP
                     </p>
                     <p className="card-text fs-6">
                       {t("order.part6")}: {order.paymentMethodType}

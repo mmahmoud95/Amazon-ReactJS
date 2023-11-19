@@ -275,7 +275,8 @@
         "part12": " You do not have any orders yet",
         "part13":"Is Paid",
         "part14":"Is Delivered"
-        ,"part15":"Postal code"
+        ,"part15":"Postal code",
+        "part16":"Deliver to "
      
   
 

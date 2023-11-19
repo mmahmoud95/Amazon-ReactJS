@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 import { instance } from "../../services/axios/instance";
 import { authContext } from "../../context/authcontex";
 const Order = () => {
   const { lang, setLang } = useContext(authContext);
   const { isLogin, setLogin } = useContext(authContext);
   const [orders, setOrders] = useState([]);
+  const { t } = useTranslation();
 
   const getUserOrders = async () => {
     // Fetch orders from MongoDB or your API endpoint
@@ -29,10 +31,9 @@ const Order = () => {
 
       if (response) {
         // Refresh the orders list or update state to reflect the changes
-        // Refresh the orders list or update state to reflect the changes
         setOrders((prevOrders) =>
-        prevOrders.filter((order) => order._id !== orderId)
-      );
+          prevOrders.filter((order) => order._id !== orderId)
+        );
         console.log("Order deleted successfully!");
       } else {
         console.error("Failed to delete order");
@@ -42,78 +43,100 @@ const Order = () => {
     }
   };
   useEffect(() => {
-    // Initial fetch of orders when the component mounts
     getUserOrders();
   }, []);
 
   return (
     <>
-      <div className="container mt-2">
-        <h2>Orders List</h2>
+      <div className="container mt-4">
+        <div className="text-center">
+          <h2 className="mb-4">{t("order.part1")}</h2>
+        </div>
         <div className="row">
           {orders.length > 0 ? (
-            orders?.map((order) => (
-              <div key={order._id} className="card col-12 my-2">
+            orders.map((order) => (
+              <div
+                key={order._id}
+                className="card col-lg-10 col-md-10 col-sm-12 mx-auto my-3"
+              >
                 <div className="card-body">
-                  <div>
+                  <div className="bg-light p-2">
+                    <div>
+                      <h3 className="card-title fs-4">{t("order.part2")}</h3>
+                    </div>
+
                     <button
-                      className="btn btn-warning"
-                      style={{ float: "right" }}
+                      className="btn btn-warning float-right"
                       onClick={() => handleDeleteOrder(order._id)}
                     >
-                      Delete order
+                      {t("order.part3")}
                     </button>
+                    <p className="card-text fs-6 text-info">
+                      {t("order.part4")}: {order.shippingAddress.street},{" "}
+                      {order.shippingAddress.city},{" "}
+                      {order.shippingAddress.province},{" "}
+                      {order.shippingAddress.country}
+                    </p>
+                    <p>  {t("order.part15")}:  {order.shippingAddress.zip},{" "}</p>
+                    <p className="card-text fs-6">
+                      {t("order.part5")}: ${order.totalOrderPrice}
+                    </p>
+                    <p className="card-text fs-6">
+                      {t("order.part6")}: {order.paymentMethodType}
+                    </p>
                   </div>
-                  <h3 className="card-title">Order Details</h3>
-                  <p className="card-text">
-                    Shipping Address: {order.shippingAddress.street},{" "}
-                    {order.shippingAddress.city},{" "}
-                    {order.shippingAddress.province},{" "}
-                    {order.shippingAddress.zip}, {order.shippingAddress.country}
-                  </p>
-                  <p className="card-text">
-                    Total Order Price: ${order.totalOrderPrice}
-                  </p>
-                  <p className="card-text">
-                    Payment Method: {order.paymentMethodType}
-                  </p>
-                  <h3 className="card-title">Products</h3>
-                  <div className="row border p-2">
+                  <h3 className="card-title fs-5">{t("order.part7")}</h3>
+                  <div className="  p-2">
                     {order.cartItems?.map((item) => (
-                      <div
-                        key={item._id}
-                        className="product-card col-lg-6 col-12"
-                      >
-                        <p>Title: {item.productId?.en?.title}</p>
-                        <p>Description: {item.productId?.en?.description}</p>
-                        <p>Price: ${item.price}</p>
-                        <p>Quantity: {item.quantity}</p>
+                      <div key={item._id} className=" d-flex row  border p-1">
+                        <div className="col-8 ">
+                          <p className="fs-3">
+                            {t("order.part8")}:
+                            {lang === "en"
+                              ? item.productId?.en.title
+                              : item.productId?.ar.title}
+                          </p>
+                          <p className="fs-4">
+                            {t("order.part9")}:{" "}
+                            {lang === "en"
+                              ? item.productId?.en.description
+                              : item.productId?.ar.description}
+                          </p>
+                          <p className="fs-4">
+                            {t("order.part10")}:{item.price} EGP
+                          </p>
+                          <p className="fs-4">
+                            {t("order.part11")}: {item.quantity}
+                          </p>
+                        </div>
 
-                        {/* Add image display logic here */}
-                        <img
-                          src={item.productId?.thumbnail}
-                          alt={item.productId?.en.title}
-                          className="img-fluid"
-                          style={{ width: "100px", height: "100px" }}
-                        />
+                        <div className="col-4 ">
+                          <img
+                            src={item.productId?.thumbnail}
+                            alt={item.productId?.en.title}
+                            className="img-fluid"
+                            style={{
+                              width: "200px",
+                              height: "150px",
+                              objectFit: "contain",
+                              marginRight: "10px",
+                            }}
+                          />
+                        </div>
                       </div>
                     ))}
                   </div>
-
-                  {/* Additional order details, if any */}
-                  <p className="card-text">
-                    Is Paid: {order.isPaid ? "Yes" : "No"}
+                  <p className="card-text fs-5">
+                    {t("order.part13")}: {order.isPaid ? "Yes" : "No"}
                   </p>
-                  <p className="card-text">
-                    Is Delivered: {order.isDelivered ? "Yes" : "No"}
+                  <p className="card-text fs-5">
+                    {t("order.part14")}: {order.isDelivered ? "Yes" : "No"}
                   </p>
-
-                  {/* Add more Bootstrap classes or components for styling */}
                 </div>
               </div>
             ))
           ) : (
-            <h1>you do not have any orders yet</h1>
+            <h1 className="col-12 text-center">{t("order.part12")}</h1>
           )}
         </div>
       </div>

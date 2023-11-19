@@ -4,7 +4,7 @@ export const totalPriceAction = createAsyncThunk(
     "totalPriceAction",
     async () => {
         try {
-            const res = await axios.get("http://localhost:3333/cart", {
+            const res = await axios.get("http://localhost:3000/cart", {
                 headers: {
                     Authorization: localStorage.getItem("userToken"),
                 },

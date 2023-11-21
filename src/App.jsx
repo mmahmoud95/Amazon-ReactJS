@@ -20,6 +20,7 @@ import { AuthProvider, CartProvider } from "./context/authcontex";
 import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import {SubCategory} from './pages/subCategory/subCategory';
 
 
 const stripePromise = loadStripe("pk_test_51OCi3SLRQrL1VrZswDwPuvrsnACjfHOIZRWWV8YwoO8ayi21WLiX8ZfLTEFH2IA0HvyMW5aTpisVbwc72emP0yCf00az2YHAv7");
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
     children: [
       { path: "cart", element: <Cart /> },
       { path: "products/category/:categoryID", element: <Category /> },
+      { path: "products/SubCategory/:SubCategoryID", element: <SubCategory /> },
       { path: "products/:id", element: <ProductDetails /> },
       { path: "products/results/", element: <Search /> },
     ],

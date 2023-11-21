@@ -20,6 +20,7 @@ import { AuthProvider, CartProvider } from "./context/authcontex";
 import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import {SubCategory} from './pages/subCategory/subCategory';
 import Order from "./pages/Orders/order";
 
 
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
     children: [
       { path: "cart", element: <Cart /> },
       { path: "products/category/:categoryID", element: <Category /> },
+      { path: "products/SubCategory/:SubCategoryID", element: <SubCategory /> },
       { path: "products/:id", element: <ProductDetails /> },
       { path: "products/results/", element: <Search /> },
       { path: "orders/", element: <Order /> },

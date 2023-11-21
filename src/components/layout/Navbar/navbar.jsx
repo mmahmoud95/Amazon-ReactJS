@@ -69,7 +69,7 @@ export const Header = () => {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-        navigate(`/products/results?${searchText}`);
+        navigate(`/products/results`,{state:{searchValue:searchText}});
         // ,
         //  {
         //   state: { Category: searchCategory },

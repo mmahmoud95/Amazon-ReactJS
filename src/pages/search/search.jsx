@@ -3,47 +3,57 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { instance } from "../../services/axios/instance";
 import { ProductCard } from "../../components/category-product/productCard";
 import { authContext } from "../../context/authcontex";
+import axios from "axios";
 
 export const Search = () => {
   let location = useLocation();
-
+  const { searchValue } = location?.state;
+  console.log(searchValue,"state");
   const [categoryProducts, setCategoryProducts] = useState([]);
   const [notFound, setNotFound] = useState("");
   const [Scategory, setScategory] = useState(localStorage.getItem("category"));
   const { lang, setLang } = useContext(authContext);
 
-  const { search } = useLocation();
-  const result = search.split("?");
+  // const { search } = useLocation();
+  // const result = search.split("?");
   const navigate = useNavigate();
   useEffect(() => {
+    console.log("search start");
     // document.title = `Amazon - ${categoryName}`;
     window.scrollTo({ top: 0, behavior: "smooth" });
-    instance
-      .post(`products/result?search=${result[1]}`, {
+    searchfunc();
+
+    // console.log(res.data.data);
+  }, [localStorage.getItem("category"), searchValue]);
+
+  const searchfunc = async () => {
+    await axios
+      .post(`http://localhost:3333/products/result?search=${searchValue}`, {
         category: localStorage?.getItem("category"),
         lang: lang,
       })
       .then((res) => {
+        console.log(res.data, "text");
         // console.log(res.data.products);
         // console.log(rasult[1]);
         if (res.data.data.length > 0) {
+          console.log("search done");
           setNotFound("");
           setCategoryProducts(res.data.data);
           // localStorage.setItem('category',"All")
 
           // console.log(res.data.data);
         } else {
+          console.log("dddddddddddddd");
           setCategoryProducts([]);
           setNotFound(`product not found  search again`);
           // console.log(res.data.message);
         }
-
-        // console.log(res.data.data);
       })
       .catch((err) => {
         navigate("/");
       });
-  }, [localStorage.getItem("category"), result[1]]);
+  };
   //  useEffect(() => {
   //         return () => {
   //             // Anything in here is fired on component unmount.
@@ -103,9 +113,7 @@ export const Search = () => {
                 key={index}
                 productID={product._id}
                 productTitle={
-                  lang === "en"
-                    ? product?.en.title
-                    : product?.ar.title
+                  lang === "en" ? product?.en.title : product?.ar.title
                 }
                 productRating={product.rating}
                 productDiscount={product.discountPercentage}

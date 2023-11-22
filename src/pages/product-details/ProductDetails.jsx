@@ -215,7 +215,6 @@ const ProductDetails = () => {
                                     {t("prodInfo.part5")}:
                                 </li>
                                 <li className='list-group-item border-0'>
-                                    {" "}
                                     {lang === "en"
                                         ? myProd?.en.title
                                         : myProd?.ar.title}

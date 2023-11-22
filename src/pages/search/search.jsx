@@ -28,7 +28,7 @@ export const Search = () => {
 
   const searchfunc = async () => {
     await axios
-      .post(`http://localhost:3333/products/result?search=${searchValue}`, {
+      .post(`http://localhost:3000/products/result?search=${searchValue}`, {
         category: localStorage?.getItem("category"),
         lang: lang,
       })

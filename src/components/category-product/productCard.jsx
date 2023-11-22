@@ -33,6 +33,7 @@ export const ProductCard = (props) => {
                         <div className='product-rating'>
                             {/* {t("categoryPage.part1")}: &nbsp; */}
                             <span>
+                                {props.productRating}
                                 <ReactStarRating
                                     numberOfStar={5}
                                     numberOfSelectedStar={props.productRating}
@@ -61,11 +62,11 @@ export const ProductCard = (props) => {
                         <p className='fifty-chars'>
                             {props.productDescription}
                         </p>
+                        <p> {props.productBrand}</p>
                         <Link
                             className='btn btn-success text-decoration-none'
                             to={`/products//${props.id}`}
                         >
-                            {" "}
                             more Details
                         </Link>
                         {/* <button onClick={()=>handelAdd(props)} >jjj</button> */}

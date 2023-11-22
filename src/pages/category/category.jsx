@@ -95,9 +95,11 @@ export const Category = () => {
             setBrand("");
         } else if (event.target.checked === true) {
             setBrand([...brand, value]);
+            console.log(brand);
         } else if (event.target.checked === false) {
             const newArr = brand.filter((e) => e !== value);
             setBrand([...newArr]);
+            console.log(brand);
         }
     };
 
@@ -113,7 +115,7 @@ export const Category = () => {
         if (rating) {
             params.rating = rating;
         }
-        if (brand) {
+        if (brand.length > 0) {
             params[lang === "en" ? "en.brand" : "ar.brand"] = brand;
         }
 
@@ -151,7 +153,7 @@ export const Category = () => {
             .catch((err) => {
                 // console.log(err);
             });
-    }, []);
+    }, [subCategories]);
 
     return (
         // <></>

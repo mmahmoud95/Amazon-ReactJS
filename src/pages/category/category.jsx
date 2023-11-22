@@ -41,7 +41,7 @@ export const Category = () => {
         document.title = `Amazon`;
         window.scrollTo({ top: 0, behavior: "smooth" });
         fetchProducts();
-    }, [categoryID, navigate, categoryName]);
+    }, [categoryID, navigate]);
 
     let fetchProducts = async (params) => {
         // console.log(params);
@@ -95,11 +95,11 @@ export const Category = () => {
             setBrand("");
         } else if (event.target.checked === true) {
             setBrand([...brand, value]);
-            console.log(brand);
+            // console.log(brand);
         } else if (event.target.checked === false) {
             const newArr = brand.filter((e) => e !== value);
             setBrand([...newArr]);
-            console.log(brand);
+            // console.log(brand);
         }
     };
 
@@ -153,7 +153,7 @@ export const Category = () => {
             .catch((err) => {
                 // console.log(err);
             });
-    }, [subCategories]);
+    }, [categoryID, navigate]);
 
     return (
         // <></>
@@ -171,7 +171,7 @@ export const Category = () => {
                                         )
                                     }
                                 >
-                                    <p className='fs-5 border-bottom-1'>
+                                    <p className='p-0 my-0 ms-4 text-truncate fs-6'>
                                         {sub.en.name}
                                     </p>
                                 </a>
@@ -325,7 +325,9 @@ export const Category = () => {
                                         )
                                     }
                                 >
-                                    <p>{sub.ar.name}</p>
+                                    <p className='p-0 my-0 ms-4 text-truncate fs-6'>
+                                        {sub.ar.name}
+                                    </p>
                                 </a>
                             ))}
 

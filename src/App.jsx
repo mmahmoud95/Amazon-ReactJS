@@ -24,7 +24,7 @@ import {SubCategory} from './pages/subCategory/subCategory';
 import Order from "./pages/Orders/order";
 
 
-const stripePromise = loadStripe("pk_test_51OCi3SLRQrL1VrZswDwPuvrsnACjfHOIZRWWV8YwoO8ayi21WLiX8ZfLTEFH2IA0HvyMW5aTpisVbwc72emP0yCf00az2YHAv7");
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },

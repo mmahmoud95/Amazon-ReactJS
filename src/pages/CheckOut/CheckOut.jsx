@@ -78,7 +78,7 @@ const CheckOut = () => {
     if (payMethod == "card" && !hasErrors) {
       try {
         const pamentIntent = await axios.post(
-          "http://localhost:3000/order/card",
+          "http://localhost:3333/order/card",
           {
             amount: totalPrice * 100,
             orderData,
@@ -109,7 +109,7 @@ const CheckOut = () => {
       }
     } else if (payMethod == "cash" && !hasErrors) {
       const pamentIntent = await axios.post(
-        "http://localhost:3000/order/cash",
+        "http://localhost:3333/order/cash",
         {
           amount: totalPrice,
           orderData,

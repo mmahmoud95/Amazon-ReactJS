@@ -61,7 +61,7 @@ const LoginStep2 = () => {
                 };
                 console.log(setLog);
                 const { data } = await axios.post(
-                    "http://localhost:3000/api/user/login",
+                    "http://localhost:3333/api/user/login",
                     setLog
                 );
                 if (data.message == "welcome to our site ") {

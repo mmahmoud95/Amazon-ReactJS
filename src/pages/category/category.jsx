@@ -17,8 +17,8 @@ export const Category = () => {
     const [price, setPrice] = useState("");
     const [rating, setRating] = useState("");
     const [brand, setBrand] = useState([]);
-    const [brandCollection, setBrandCollection] = useState([]);
-    const [ArbrandCollection, setArBrandCollection] = useState([]);
+    // const [brandCollection, setBrandCollection] = useState([]);
+    // const [ArbrandCollection, setArBrandCollection] = useState([]);
     const [subCategories, setSubcategories] = useState([]);
 
     // useEffect(() => {
@@ -38,13 +38,13 @@ export const Category = () => {
     // console.log(categoryname);
 
     useEffect(() => {
-        document.title = `Amazon - ${categoryName}`;
+        document.title = `Amazon`;
         window.scrollTo({ top: 0, behavior: "smooth" });
         fetchProducts();
-    }, [categoryID, navigate, categoryName]);
+    }, [categoryID, navigate]);
 
     let fetchProducts = async (params) => {
-        console.log(params);
+        // console.log(params);
         try {
             await instance
                 .get(`/products/categoryPrd/${categoryID}`, {
@@ -53,46 +53,34 @@ export const Category = () => {
                     },
                 })
                 .then((res) => {
-                    console.log(res);
+                    // console.log(res);
                     setCategoryProducts(res.data.data);
                 });
         } catch (error) {
-            console.error(error);
+            // console.error(error);
             setCategoryProducts([]);
         }
     };
 
     useEffect(() => {
-        generateBrands();
-    }, [categoryProducts]);
-
-    const generateBrands = () => {
-        // const uniqueBrands = Array.from(
-        //   // new Set(categoryProducts.map((product) => product.brand))
-        //   new Set(categoryProducts.map((product) => lang === "en" ? product.en?.brand:product.ar?.brand))
-        // );
-        // setBrandCollection(uniqueBrands);
-
-        if (lang === "en") {
-            const enBrands = Array.from(
-                new Set(categoryProdBrand.map((product) => product.en.brand))
-            );
-            setBrandCollection(enBrands);
-        } else if (lang === "ar") {
-            const arBrands = Array.from(
-                new Set(categoryProdBrand.map((product) => product.ar.brand))
-            );
-            setArBrandCollection(arBrands);
-        }
-    };
-
-    const [categoryProdBrand, setCategoryProdBrand] = useState([]);
-    useEffect(() => {
         instance.get(`/products/categoryPrd/${categoryID}`).then((res) => {
             // console.log(res);
-            setCategoryProdBrand(res.data.data);
+            generateBrands(res.data.data);
         });
-    }, [categoryProdBrand]);
+    }, [categoryID]);
+    const [enBrands, setEnBrands] = useState([]);
+    const [arBrands, setArBrands] = useState([]);
+
+    const generateBrands = (data) => {
+        const enBrandList = Array.from(
+            new Set(data.map((product) => product.en.brand))
+        );
+        const arBrandList = Array.from(
+            new Set(data.map((product) => product.ar.brand))
+        );
+        setEnBrands(enBrandList);
+        setArBrands(arBrandList);
+    };
     const handlePriceChange = (event) => {
         setPrice(event.target.value);
     };
@@ -107,9 +95,11 @@ export const Category = () => {
             setBrand("");
         } else if (event.target.checked === true) {
             setBrand([...brand, value]);
+            // console.log(brand);
         } else if (event.target.checked === false) {
             const newArr = brand.filter((e) => e !== value);
             setBrand([...newArr]);
+            // console.log(brand);
         }
     };
 
@@ -125,7 +115,7 @@ export const Category = () => {
         if (rating) {
             params.rating = rating;
         }
-        if (brand) {
+        if (brand.length > 0) {
             params[lang === "en" ? "en.brand" : "ar.brand"] = brand;
         }
 
@@ -158,12 +148,12 @@ export const Category = () => {
             .get(`/subcategory/subs/${categoryID}`)
             .then((res) => {
                 setSubcategories(res.data.data);
-                console.log(res.data.data);
+                // console.log(res.data.data);
             })
             .catch((err) => {
-                console.log(err);
+                // console.log(err);
             });
-    }, []);
+    }, [categoryID, navigate]);
 
     return (
         // <></>
@@ -181,7 +171,7 @@ export const Category = () => {
                                         )
                                     }
                                 >
-                                    <p className='fs-5 border-bottom-1'>
+                                    <p className='p-0 my-0 ms-4 text-truncate fs-6'>
                                         {sub.en.name}
                                     </p>
                                 </a>
@@ -304,7 +294,7 @@ export const Category = () => {
                                 <br />
 
                                 <h4>Brands</h4>
-                                {brandCollection.map((bd) => (
+                                {enBrands?.map((bd) => (
                                     <label
                                         key={bd}
                                         className='d-block fs-6 ms-2'
@@ -335,7 +325,9 @@ export const Category = () => {
                                         )
                                     }
                                 >
-                                    <p>{sub.ar.name}</p>
+                                    <p className='p-0 my-0 ms-4 text-truncate fs-6'>
+                                        {sub.ar.name}
+                                    </p>
                                 </a>
                             ))}
 
@@ -455,7 +447,7 @@ export const Category = () => {
                                 </label>
 
                                 <h4>العلامات التجارية</h4>
-                                {ArbrandCollection.map((bd) => (
+                                {arBrands?.map((bd) => (
                                     <label
                                         key={bd}
                                         className='d-block fs-6 ms-2'
@@ -463,7 +455,9 @@ export const Category = () => {
                                         <input
                                             type='checkbox'
                                             value={bd}
-                                            onChange={handleBrandChange}
+                                            onChange={(ev) =>
+                                                handleBrandChange(ev)
+                                            }
                                             // checked={brand.includes(bd)}
                                         />
                                         {bd}

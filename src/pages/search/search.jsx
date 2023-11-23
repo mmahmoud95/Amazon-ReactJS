@@ -28,9 +28,27 @@ export const Search = () => {
     document.title = `Amazon - search`;
     window.scrollTo({ top: 0, behavior: "smooth" });
     searchfunc();
+    let location = useLocation();
+    const { searchValue } = location?.state;
+    console.log(searchValue, "state");
+    const [categoryProducts, setCategoryProducts] = useState([]);
+    const [notFound, setNotFound] = useState("");
+    const [Scategory, setScategory] = useState(
+        localStorage.getItem("category")
+    );
+    const { lang, setLang } = useContext(authContext);
 
-    // console.log(res.data.data);
-  }, [localStorage.getItem("category"), searchValue]);
+    // const { search } = useLocation();
+    // const result = search.split("?");
+    const navigate = useNavigate();
+    useEffect(() => {
+        console.log("search start");
+        // document.title = `Amazon - ${categoryName}`;
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        searchfunc();
+
+        // console.log(res.data.data);
+    }, [localStorage.getItem("category"), searchValue]);
 
   const searchfunc = async () => {
     await axios

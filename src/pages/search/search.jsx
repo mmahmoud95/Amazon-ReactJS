@@ -107,7 +107,7 @@ export const Search = () => {
         } else if (lang == "ar") {
           brandMatch = filtervalues["ar.brand"].includes(item.ar.brand);
         } else {
-          brandMatch = null;
+          return item.ar.brand ||item.en.brand;
         }
         if (
           priceThreshold === 0 &&

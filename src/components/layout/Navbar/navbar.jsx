@@ -3,7 +3,7 @@ import amzonlogo from "../../../assets/nav-images/amzon-logo.png";
 import cartImage from "../../../assets/nav-images/cart.png";
 import egyptFlage from "../../../assets/nav-images/egypt-flag.svg";
 import { IoSearchOutline, IoLocationOutline, IoLogOut } from "react-icons/io5";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -13,13 +13,17 @@ import { authContext } from "../../../context/authcontex";
 import { useTranslation } from "react-i18next";
 import i18n from "../../../i18n";
 import { clearCart, totalPriceAction } from "../../../Store/Slice/Cart";
+import Spinner from "react-bootstrap/Spinner";
+import { changeLoader } from "../../../Store/Slice/Loader";
 
 // import Navbar from 'react-bootstrap/Navbar';
 
 export const Header = () => {
+    var loading = useSelector((state) => state.Loader.loader);
     let cartPageRedux = useSelector((state) => state.Cart.cart);
     const totalPrice = useSelector((state) => state.Cart.totalPrice);
     const dispatch = useDispatch();
+    // const [loading, setLoading] = useState(true);
 
     // const [numberItems, setNumberItems] = useState(0);
     const name = localStorage.getItem("name");
@@ -49,7 +53,7 @@ export const Header = () => {
         }
     };
     useEffect(() => {
-        console.log(searchCategory);
+        // console.log(searchCategory);
         // localStorage.setItem('category',searchCategory)
     }, [searchCategory]);
     //   for text
@@ -69,7 +73,7 @@ export const Header = () => {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-        navigate(`/products/results`,{state:{searchValue:searchText}});
+        navigate(`/products/results`, { state: { searchValue: searchText } });
         // ,
         //  {
         //   state: { Category: searchCategory },
@@ -419,9 +423,9 @@ export const Header = () => {
                                         )}
                                         <p className='register'>
                                             {t("navTop.part20")}
-                                            <a href='../register-page/register.html'>
+                                            <Link to='./signUp'>
                                                 {t("navTop.part21")}
-                                            </a>
+                                            </Link>
                                         </p>
                                         <hr />
                                     </li>
@@ -466,7 +470,26 @@ export const Header = () => {
                                     to='/cart'
                                 >
                                     <span className='item-count'>
-                                        {isLogin ? totalPrice : cart?.length}
+                                        {isLogin ? (
+                                            loading ? (
+                                                <Spinner
+                                                    style={{
+                                                        display: "block",
+                                                        width: "16px",
+                                                        height: "16px",
+                                                        marginLeft: "-4px",
+                                                        marginBottom: "8px",
+                                                        color: "#ffff",
+                                                    }}
+                                                    animation='border'
+                                                    role='status'
+                                                ></Spinner>
+                                            ) : (
+                                                totalPrice
+                                            )
+                                        ) : (
+                                            cart?.length
+                                        )}
                                     </span>
                                     <img className='mb-2' src={cartImage} />
                                     <span className='cart text-decoration-none'>

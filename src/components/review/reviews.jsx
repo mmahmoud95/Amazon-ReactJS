@@ -8,7 +8,12 @@ import { instance } from "../../services/axios/instance";
 import toast from "react-hot-toast";
 import { authContext } from "../../context/authcontex";
 import { useContext } from "react";
+import { Stars } from "../stars/stars";
+import Spinner from "react-bootstrap/Spinner";
+
 export const Reviews = (props) => {
+    const [loading, setLoading] = useState(true);
+
     const { isLogin } = useContext(authContext);
     const [message, setMessage] = useState("");
     const [rating, setRating] = useState();
@@ -17,7 +22,7 @@ export const Reviews = (props) => {
     const [reviews, setReviews] = useState([]);
     const [key, setKey] = useState(0);
     const [totalRating, setTotalRating] = useState(null); // Set initial totalRating to null
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
     const { t } = useTranslation();
     const onChangeHandler = (e) => {
         setErrors(
@@ -47,13 +52,15 @@ export const Reviews = (props) => {
                     .then((res) => {
                         setMessage("");
                         setKey((prevKey) => prevKey + 1);
-                        setReloadData(!reloadData);
+
                         if (
                             res.data.message ===
                             "You Already added review for this product"
                         ) {
                             toast.error(res.data.message);
                             setKey((prevKey) => prevKey + 1);
+                        } else {
+                            setReloadData(!reloadData);
                         }
                     });
             } else {
@@ -69,6 +76,7 @@ export const Reviews = (props) => {
     };
 
     useEffect(() => {
+        setLoading(true);
         instance.get(`/review/${props.productId}`).then((res) => {
             setReviews(res.data);
             setTotalRating(res.data.rating);
@@ -97,17 +105,22 @@ export const Reviews = (props) => {
                 {/*  third section for ratings and comments  */}
                 <div className='col-lg-5 col-md-3 fs-3 p-5'>
                     {/*   rating section   */}
-                    {!loading && totalRating !== null && (
-                        <span className='d-inline-block'>
-                            <ReactStarRating
-                                numberOfStar={5}
-                                numberOfSelectedStar={Math.round(totalRating)}
-                                colorFilledStar='#ff9900'
-                                colorEmptyStar='#eee'
-                                starSize='40px'
-                                spaceBetweenStar='10px'
-                            />
-                        </span>
+                    {loading ? (
+                        <Spinner
+                            animation='border'
+                            role='status'
+                            style={{ color: "#FF9900" }}
+                        ></Spinner>
+                    ) : (
+                        !loading &&
+                        totalRating !== null && (
+                            <span className='d-inline-block'>
+                                <Stars
+                                    productRating={Math.round(totalRating)}
+                                    starSize={40}
+                                />
+                            </span>
+                        )
                     )}
                     <span className='p-4'>
                         {reviews.rating == null
@@ -279,7 +292,13 @@ export const Reviews = (props) => {
                                 {t("rev.part13")}
                             </button>
                         </form>
-                        {reviews.data?.length > 0 &&
+                        {loading ? (
+                            <Spinner
+                                animation='border'
+                                style={{ color: "#FF9900" }}
+                            />
+                        ) : (
+                            reviews.data?.length > 0 &&
                             reviews.data.map((review, index) => {
                                 return (
                                     <div className='d-block p-3' key={index}>
@@ -293,17 +312,13 @@ export const Reviews = (props) => {
                                             {t("rev.part9")}
                                         </p> */}
 
-                                        <ReactStarRating
-                                            numberOfStar={5}
-                                            numberOfSelectedStar={
+                                        <Stars
+                                            starSize={24}
+                                            productRating={Math.round(
                                                 review.ratings
-                                            }
-                                            colorFilledStar='#ff9900'
-                                            colorEmptyStar='#eee'
-                                            starSize='30px'
-                                            spaceBetweenStar='10px'
+                                            )}
                                         />
-                                        <p className='mt-3 mb-4 fs-5'>
+                                        <p className='mt-1 mb-4 fs-5'>
                                             {review.reviewMessage}
                                         </p>
                                         <div className='small d-flex justify-content-start'>
@@ -340,7 +355,8 @@ export const Reviews = (props) => {
                                         </div>
                                     </div>
                                 );
-                            })}
+                            })
+                        )}
                     </div>
                 </div>
             </div>

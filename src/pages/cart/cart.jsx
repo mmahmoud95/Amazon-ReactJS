@@ -14,6 +14,7 @@ import { login, removeToCartWithAPI } from "../../services/auth";
 import { useTranslation } from "react-i18next";
 // import { instance } from "../../services/axios/instance";
 import { instance } from "../../services/axios/instance";
+import Spinner from "react-bootstrap/Spinner";
 
 export const Cart = () => {
     const navigate = useNavigate();
@@ -21,6 +22,7 @@ export const Cart = () => {
     const [totalPrice, setTotalPrice] = useState(0);
     let cartPageRedux = useSelector((state) => state.Cart.cart);
     const { lang, setLang } = useContext(authContext);
+    const [loading, setLoading] = useState(true);
 
     // console.log(cartPageRedux[0].quantity);
     // const countRed = useSelector((state) => state.counter.counter);
@@ -28,7 +30,7 @@ export const Cart = () => {
     const { isLogin, setLogin } = useContext(authContext);
     const dispatch = useDispatch();
     var handelRemoveRedux = (id) => {
-        console.log(id);
+        // console.log(id);
         dispatch(removeToCartWithAPI(id));
     };
     var handelincreasRedux = (index) => {
@@ -70,14 +72,6 @@ export const Cart = () => {
     const [cartId, setcartId] = useState("");
     useEffect(() => {
         document.title = `Amazon - Cart`;
-        // instance
-        //     .get(`category/${categoryname}`)
-        //     .then((res) => {
-        //         console.log(res.data.products);
-        //         setCategoryProductss(res.data.products);
-        //     })
-        //     .catch((err) => {
-        //         console.log(err);let priductsitemsid;
         if (isLogin) {
             instance
                 .get("cart", {
@@ -92,34 +86,16 @@ export const Cart = () => {
                     setcartId(res.data.data._id);
                     // console.log(res.data.data.items);
                     setCartProducts(res.data.data.items);
+                    // console.log(cartProducts);
                     setTotalPrice(res.data.data.totalPrice);
+                    setLoading(false);
+                })
+                .catch((error) => {
+                    setCartProducts([]);
+                    setLoading(false);
                 });
         }
     }, [categoryname]);
-
-    // console.log(cartPage);
-
-    // useEffect(() => {
-    //     if (isLogin) {
-    //         // Use Promise.all to wait for all requests to complete
-    //         Promise.all(
-    //             cartPage?.map(async (item) => {
-    //                 let id = item.productId;
-    //                 return instance
-    //                     .get(`products/${id}`)
-    //                     .then((res) => res.data.data);
-    //             })
-    //         )
-    //             .then((productsData) => {
-    //                 // productsData is an array of product data
-    //                 // setCartProducts(productsData);
-    //                 console.log(cartProducts);
-    //             })
-    //             .catch((error) => {
-    //                 console.error("Error fetching product data:", error);
-    //             });
-    //     }
-    // }, [cartPage, isLogin]);
 
     var handelincreas = (productId, quantity) => {
         // console.log(productId, quantity);
@@ -148,7 +124,7 @@ export const Cart = () => {
     };
 
     var handeldecres = (productId, quantity) => {
-        console.log(productId, quantity);
+        // console.log(productId, quantity);
         if (isLogin && quantity > 1) {
             instance
                 .patch(
@@ -175,6 +151,7 @@ export const Cart = () => {
     };
     const handelRemove = (productId) => {
         if (isLogin) {
+            setLoading(true);
             instance
                 .delete(`cart/${productId}`, {
                     headers: {
@@ -189,6 +166,7 @@ export const Cart = () => {
                     setCartProducts(res.data.data.items);
                     setTotalPrice(res.data.data.totalPrice);
                     // Update the local state with the updated cart
+                    setLoading(false);
 
                     console.log(res.data.data.items);
                     // You may also want to update cartProducts if it's derived from cartPage
@@ -230,7 +208,16 @@ export const Cart = () => {
                             ) : null}
 
                             {isLogin ? (
-                                cartProducts?.length > 0 ? (
+                                loading ? (
+                                    <div className='m-auto d-flex vh-100'>
+                                        <Spinner
+                                            className='m-auto'
+                                            animation='border'
+                                            role='status'
+                                            style={{ color: "#ff9900" }}
+                                        ></Spinner>
+                                    </div>
+                                ) : cartProducts?.length > 0 ? (
                                     cartProducts?.map((item, index) => (
                                         <div className='row' key={index}>
                                             <div className='item col-md-3 col-sm-12 d-flex align-items-center'>
@@ -303,17 +290,18 @@ export const Cart = () => {
                                                                     +
                                                                 </button>
                                                                 <span>
+                                                                    {" "}
                                                                     {t(
                                                                         "cart.part5"
-                                                                    )}
+                                                                    )}{" "}
                                                                     {cartPage?.length >
                                                                     0
                                                                         ? cartPage[
                                                                               index
                                                                           ]
                                                                               ?.quantity
-                                                                        : "0"}
-                                                                </span>
+                                                                        : "0"}{" "}
+                                                                </span>{" "}
                                                                 <button
                                                                     className='btn btn-dark'
                                                                     aria-label='Decrement value'
@@ -412,20 +400,18 @@ export const Cart = () => {
 
                         {/* right side */}
                         <div className='col-md-3 p-0 mx-md-4 my-2 my-md-0'>
-                            {console.log(cartPage)}
-
                             {isLogin ? (
                                 cartPage?.length > 0 ? (
                                     <div className='shadow p-3 bg-white mb-2'>
                                         <p className='total-cart'>
-                                            <ion-icon name='checkmark-circle'></ion-icon>{" "}
+                                            <ion-icon name='checkmark-circle'></ion-icon>
                                             {t("cart.part11")}{" "}
                                             <a href='#'>{t("cart.part12")}</a>
                                         </p>
                                         {/* {cartPage .map((product, index) => ( */}
                                         <p className='total-price'>
-                                            {t("cart.part8")} ({cartPage.length}{" "}
-                                            {t("cart.part13")}) :
+                                            {t("cart.part8")} ({cartPage.length}
+                                            {t("cart.part13")}) :{" "}
                                             <span className='price'>
                                                 {totalPrice}
                                             </span>
@@ -661,7 +647,7 @@ export const Cart = () => {
                                     <button
                                         className='to-buy d-inline-block text-decoration-none text-info'
                                         onClick={() => navigate("/login")}
-                                        disabled={!isLogin}
+                                        // disabled={!isLogin}
                                     >
                                         {t("cart.part14")}
                                     </button>

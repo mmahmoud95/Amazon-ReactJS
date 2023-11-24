@@ -127,7 +127,7 @@ const Login = () => {
                                                 <input
                                                     type='submit'
                                                     id='form3Example4cdg'
-                                                    className='form-control submit '
+                                                    className='form-control submit'
                                                     value={t("signUp.part6")}
                                                 />
                                             </div>

@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import ReactStarRating from "react-star-ratings-component";
+import { Stars } from "../../components/stars/stars";
 
+import "./productCard";
 export const ProductCard = (props) => {
     const { t } = useTranslation();
 
@@ -27,26 +28,22 @@ export const ProductCard = (props) => {
                         />
                     </div>
                     <div className='card-body'>
-                        <h5 className='card-title category-product-title '>
+                        <h5 className='card-title category-product-title fifty-chars'>
                             {props.productTitle}
                         </h5>
                         <div className='product-rating'>
                             {/* {t("categoryPage.part1")}: &nbsp; */}
                             <span>
-                                {props.productRating}
-                                <ReactStarRating
-                                    numberOfStar={5}
-                                    numberOfSelectedStar={props.productRating}
-                                    colorFilledStar='#ff9900'
-                                    colorEmptyStar='#eee'
-                                    starSize='25px'
-                                    spaceBetweenStar='0px'
+                                <Stars
+                                    starSize={24}
+                                    productRating={Math.round(
+                                        props.productRating
+                                    )}
                                 />
-                                {/* <strong>{props.productRating}</strong> */}
                             </span>
                         </div>
                         <p className='price mt-2 d-inline-block'>
-                            <sup> $ </sup>
+                            <sup> EGP </sup>
                             {props.productPrice}
                             <sup> 00</sup>
                             <p

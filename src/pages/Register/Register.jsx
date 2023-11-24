@@ -1,7 +1,7 @@
 import { useState } from "react";
 import amzonlogo from "../../assets/download.png";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
-import {  useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
 import { registerr } from "../../services/auth";
 import toast, { Toaster } from "react-hot-toast";
@@ -21,7 +21,7 @@ const Register = () => {
     });
 
     const [visible, setvisible] = useState(false);
-    const navigate=useNavigate()
+    const navigate = useNavigate();
     const handelChange = (eve) => {
         // console.log(eve.target);
         var regex = /^[a-zA-Z0-9]{2,}(@)(gmail)(.com)$/;
@@ -75,36 +75,44 @@ const Register = () => {
             });
         }
     };
-    const handleSubmit =async (evt) => {
+    const handleSubmit = async (evt) => {
         evt.preventDefault();
-        if(errors.emailError||errors.passwordError||errors.nameError||errors.ConfirmPasswordError){
-      toast.error("validation error ,try again",{position:"top-center"})
-        }else{
-            try{
-             const res=await registerr(user)
-             navigate('/login')
-             console.log(res);   
-            }catch(err){
-           toast.error("Error registration,server crashed",{position:"top-center"})
+        if (
+            errors.emailError ||
+            errors.passwordError ||
+            errors.nameError ||
+            errors.ConfirmPasswordError
+        ) {
+            toast.error("validation error ,try again", {
+                position: "top-center",
+            });
+        } else {
+            try {
+                const res = await registerr(user);
+                navigate("/login");
+                console.log(res);
+            } catch (err) {
+                toast.error("Error registration,server crashed", {
+                    position: "top-center",
+                });
             }
-       
         }
-    }
+    };
     //
-   const {t}=useTranslation()
- 
-//
+    const { t } = useTranslation();
+
+    //
     return (
         <>
             <div className='vh-100 '>
                 <div className='mask d-flex align-items-center gradient-custom-3'>
                     <div className='container '>
                         <div className='row d-flex justify-content-center '>
-                            <a href='/'>
+                            <Link to='/'>
                                 <div className='text-center'>
                                     <img src={amzonlogo} className='rounded' />
                                 </div>
-                            </a>
+                            </Link>
                         </div>
                         <div className='row d-flex justify-content-center align-items-center'>
                             <div className='col-sm-12 col-md-6 col-lg-6 col-xl-4 '>
@@ -117,7 +125,9 @@ const Register = () => {
                                         <form
                                             form
                                             autoComplete='off'
-                                            onSubmit={(e) => { handleSubmit(e) }}
+                                            onSubmit={(e) => {
+                                                handleSubmit(e);
+                                            }}
                                         >
                                             <div className='form-outline mb-3'>
                                                 <label
@@ -132,7 +142,9 @@ const Register = () => {
                                                     className={`form-control
               ${errors.nameError ? "border-danger shadow-none" : ""}`}
                                                     name='name'
-                                                    placeholder={t("signUp.part16")}
+                                                    placeholder={t(
+                                                        "signUp.part16"
+                                                    )}
                                                     value={user.name}
                                                     onChange={(e) => {
                                                         handelChange(e);
@@ -224,7 +236,9 @@ const Register = () => {
                                                     required
                                                     id='formGroupExampleInput'
                                                     className={`form-control
-              ${errors.ConfirmPasswordError ? "border-danger shadow-none" : ""}`}
+              ${
+                  errors.ConfirmPasswordError ? "border-danger shadow-none" : ""
+              }`}
                                                     name='ConfirmPassword'
                                                     value={user.ConfirmPassword}
                                                     onChange={(e) => {
@@ -242,14 +256,16 @@ const Register = () => {
                                                         <FaRegEyeSlash />
                                                     )}
                                                     <p className='text-danger'>
-                                                        {errors.ConfirmPasswordError}
+                                                        {
+                                                            errors.ConfirmPasswordError
+                                                        }
                                                     </p>
                                                 </div>
                                             </div>
 
                                             <div className='form-outline mb-5'>
-                                           {/* <NavLink to='/'>  */}
-                                            <input
+                                                {/* <NavLink to='/'>  */}
+                                                <input
                                                     type='submit'
                                                     id='form3Example4cdg'
                                                     className='form-control submit '
@@ -259,38 +275,36 @@ const Register = () => {
                                             </div>
                                             <div className='form-check d-flex justify-content-center mb-3 ptn'>
                                                 <p>
-                                                {t("signUp.part7")}
+                                                    {t("signUp.part7")}
                                                     <a href=''>
-                                                    {t("signUp.part8")}
+                                                        {t("signUp.part8")}
                                                     </a>
-                                                    
                                                     <a href=''>
-                                                    {t("signUp.part9")}
+                                                        {t("signUp.part9")}
                                                     </a>
                                                     .
                                                 </p>
                                             </div>
                                             <p className=' text-muted mt-3 mb-0'>
-                                            {t("signUp.part10")}
+                                                {t("signUp.part10")}
                                                 <a href='./Login'>
                                                     <u> {t("signUp.part11")}</u>
                                                 </a>
                                             </p>
-                                         
-                                        </form>  
-                                         <Toaster/>
+                                        </form>
+                                        <Toaster />
                                     </div>
                                 </div>
                                 <div className='row'>
                                     <div className='foot mt-5 d-flex pt-3 col-12'>
                                         <a href='../help-page/help.html'>
-                                        {t("signUp.part12")}
+                                            {t("signUp.part12")}
                                         </a>
                                         <a href='../help-page/help.html'>
-                                        {t("signUp.part13")}
+                                            {t("signUp.part13")}
                                         </a>
                                         <a href='../help-page/help.html'>
-                                        {t("signUp.part14")}
+                                            {t("signUp.part14")}
                                         </a>
                                     </div>
                                 </div>
@@ -301,7 +315,7 @@ const Register = () => {
                                     }}
                                     className='text-center mt-4'
                                 >
-                                   {t("signUp.part15")}
+                                    {t("signUp.part15")}
                                 </p>
                             </div>
                         </div>

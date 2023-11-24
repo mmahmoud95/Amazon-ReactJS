@@ -1,0 +1,6 @@
+.fifty-chars {
+  height: 6ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0;
+}

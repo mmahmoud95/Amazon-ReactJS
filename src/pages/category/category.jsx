@@ -6,11 +6,12 @@ import "./category.css";
 import { ProductCard } from "../../components/category-product/productCard";
 import { authContext } from "../../context/authcontex";
 import { Button } from "bootstrap";
+import Spinner from "react-bootstrap/Spinner";
 
 export const Category = () => {
     const [categoryProducts, setCategoryProducts] = useState([]);
     const { lang, setLang } = useContext(authContext);
-
+    const [loading, setLoading] = useState(true);
     let { categoryID } = useParams();
 
     const navigate = useNavigate();
@@ -44,6 +45,7 @@ export const Category = () => {
     }, [categoryID, navigate]);
 
     let fetchProducts = async (params) => {
+        setLoading(true);
         // console.log(params);
         try {
             await instance
@@ -54,18 +56,23 @@ export const Category = () => {
                 })
                 .then((res) => {
                     // console.log(res);
+                    setLoading(false);
                     setCategoryProducts(res.data.data);
                 });
         } catch (error) {
+            setLoading(false);
+
             // console.error(error);
             setCategoryProducts([]);
         }
     };
-
+    const [loadingBrands, setLoadingBrands] = useState(true);
     useEffect(() => {
+        setLoadingBrands(true);
         instance.get(`/products/categoryPrd/${categoryID}`).then((res) => {
             // console.log(res);
             generateBrands(res.data.data);
+            setLoadingBrands(false);
         });
     }, [categoryID]);
     const [enBrands, setEnBrands] = useState([]);
@@ -294,22 +301,31 @@ export const Category = () => {
                                 <br />
 
                                 <h4>Brands</h4>
-                                {enBrands?.map((bd) => (
-                                    <label
-                                        key={bd}
-                                        className='d-block fs-6 ms-2'
-                                    >
-                                        <input
-                                            type='checkbox'
-                                            value={bd}
-                                            onChange={(ev) =>
-                                                handleBrandChange(ev)
-                                            }
-                                            // checked={brand.includes(bd)}
-                                        />
-                                        {bd}
-                                    </label>
-                                ))}
+                                {loadingBrands ? (
+                                    <Spinner
+                                        style={{ color: "#FF9900" }}
+                                        className='m-auto'
+                                        animation='border'
+                                        role='status'
+                                    ></Spinner>
+                                ) : (
+                                    enBrands?.map((bd) => (
+                                        <label
+                                            key={bd}
+                                            className='d-block fs-6 ms-2'
+                                        >
+                                            <input
+                                                type='checkbox'
+                                                value={bd}
+                                                onChange={(ev) =>
+                                                    handleBrandChange(ev)
+                                                }
+                                                // checked={brand.includes(bd)}
+                                            />
+                                            {bd}
+                                        </label>
+                                    ))
+                                )}
                             </div>
                         </div>
                     ) : (
@@ -447,22 +463,35 @@ export const Category = () => {
                                 </label>
 
                                 <h4>العلامات التجارية</h4>
-                                {arBrands?.map((bd) => (
-                                    <label
-                                        key={bd}
-                                        className='d-block fs-6 ms-2'
-                                    >
-                                        <input
-                                            type='checkbox'
-                                            value={bd}
-                                            onChange={(ev) =>
-                                                handleBrandChange(ev)
-                                            }
-                                            // checked={brand.includes(bd)}
-                                        />
-                                        {bd}
-                                    </label>
-                                ))}
+                                {loadingBrands ? (
+                                    <Spinner
+                                        style={{
+                                            color: "#FF9900",
+                                            width: "20px",
+                                            height: "20px",
+                                        }}
+                                        className='me-3'
+                                        animation='border'
+                                        role='status'
+                                    ></Spinner>
+                                ) : (
+                                    arBrands?.map((bd) => (
+                                        <label
+                                            key={bd}
+                                            className='d-block fs-6 ms-2'
+                                        >
+                                            <input
+                                                type='checkbox'
+                                                value={bd}
+                                                onChange={(ev) =>
+                                                    handleBrandChange(ev)
+                                                }
+                                                // checked={brand.includes(bd)}
+                                            />
+                                            {bd}
+                                        </label>
+                                    ))
+                                )}
                             </div>
                         </div>
                     )}
@@ -482,7 +511,16 @@ export const Category = () => {
                         </div>
                     </div>
                     <div className='row'>
-                        {categoryProducts.length > 0 ? (
+                        {loading ? (
+                            <div className='m-auto d-flex vh-100'>
+                                <Spinner
+                                    style={{ color: "#FF9900" }}
+                                    className='m-auto'
+                                    animation='border'
+                                    role='status'
+                                ></Spinner>
+                            </div>
+                        ) : categoryProducts.length > 0 ? (
                             categoryProducts.map((product, index) => (
                                 // return (
                                 <ProductCard

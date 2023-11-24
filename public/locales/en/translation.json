@@ -77,7 +77,7 @@
         "part2": "Shopping Cart",
         "part3": " Deselect all items",
         "part4": " Delete",
-        "part5": " QTY:",
+        "part5": " QTY : ",
         "part6": "Save for later",
         "part7": "Share",
         "part8": "Subtotal ",
@@ -263,25 +263,26 @@
         "part38": "Promotion applied:",
         "part39": "Order total:",
         "part40": "How are shipping costs calculated?"
-    },"order": {
+    },
+    "order": {
         "part1": "Orders List",
         "part2": "Order Details",
         "part3": "Delete Order",
         "part4": "Shipping Address",
         "part5": "Total Order Price",
         "part6": "Payment Method",
-        "part7": "Products",
+        "part7": "Items",
         "part8": "Title",
         "part9": "Description",
         "part10": "Price",
         "part11": "Quantity",
         "part12": " You do not have any orders yet",
-        "part13":"Is Paid",
-        "part14":"Is Delivered"
-        ,"part15":"Postal code",
-        "part16":"Deliver to "
-     
-  
-
+        "part13": " Is Paid",
+        "part14": " Is Delivered",
+        "part15": "Postal code",
+        "part16": "Deliver to ",
+        "part17": "Order Summery",
+        "part18": "You must be login first",
+        "part19": "login"
     }
 }

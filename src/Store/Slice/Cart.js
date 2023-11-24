@@ -1,17 +1,23 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { changeLoader } from "../Slice/Loader";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 export const totalPriceAction = createAsyncThunk(
     "totalPriceAction",
-    async () => {
+    async (_, { dispatch }) => {
+        dispatch(changeLoader(true));
         try {
-            const res = await axios.get("http://localhost:3000/cart", {
+            const res = await axios.get("http://localhost:3333/cart", {
                 headers: {
                     Authorization: localStorage.getItem("userToken"),
                 },
             });
-            console.log(res.data.numOfCartItems);
+            // console.log(res);
+            dispatch(changeLoader(false));
             return res.data.numOfCartItems;
-        } catch {
+        } catch (error) {
+            console.log(error);
+            dispatch(changeLoader(false));
             return 0;
         }
     }

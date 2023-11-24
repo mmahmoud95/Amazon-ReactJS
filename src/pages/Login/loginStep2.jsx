@@ -3,7 +3,7 @@ import { useContext, useState } from "react";
 import { instance } from "../../services/axios/instance";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import "./login.css";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { authContext } from "../../context/authcontex";
 import { totalPriceAction } from "../../Store/Slice/Cart";
@@ -33,17 +33,17 @@ const LoginStep2 = () => {
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()\-+.]).{8,20}$/;
         if (eve.target.name == "password") {
             setUser({ ...user, password: eve.target.value });
-            setErrors({
-                ...errors,
-                passwordError:
-                    eve.target.value.length == 0
-                        ? "password is Required"
-                        : regexPassword.test(eve.target.value)
-                        ? ""
-                        : "Your password must have at least one lower case letter ,number,upperCase,symbol",
-            }),
-                // eslint-disable-next-line no-undef
-                setPassword(eve.target.value);
+            // setErrors({
+            //     ...errors,
+            //     passwordError:
+            //         eve.target.value.length == 0
+            //             ? "password is Required"
+            //             : regexPassword.test(eve.target.value)
+            //             ? ""
+            //             : "Your password must have at least one lower case letter ,number,upperCase,symbol",
+            // }),
+            // eslint-disable-next-line no-undef
+            setPassword(eve.target.value);
         }
     };
 
@@ -61,7 +61,7 @@ const LoginStep2 = () => {
                 };
                 console.log(setLog);
                 const { data } = await axios.post(
-                    "http://localhost:3000/api/user/login",
+                    "http://localhost:3333/api/user/login",
                     setLog
                 );
                 if (data.message == "welcome to our site ") {
@@ -129,11 +129,11 @@ const LoginStep2 = () => {
                 <div className='mask d-flex align-items-center gradient-custom-3'>
                     <div className='container '>
                         <div className='row d-flex justify-content-center '>
-                            <a href='/' target='_blank'>
+                            <Link to='/'>
                                 <div className='text-center'>
                                     <img src={amzonlogo} className='rounded' />
                                 </div>
-                            </a>
+                            </Link>
                         </div>
                         <div className='row d-flex justify-content-center align-items-center'>
                             <div className='col-sm-6 col-md-6 col-lg-4 col-xl-4 '>
@@ -167,7 +167,7 @@ const LoginStep2 = () => {
                                                     required
                                                     id='formGroupExampleInput'
                                                     className={`form-control
-              ${errors.passwordError ? "border-danger shadow-none" : ""}`}
+            ${errors.passwordError ? "border-danger shadow-none" : ""}`}
                                                     name='password'
                                                     value={user.password}
                                                     onChange={(e) => {
@@ -184,17 +184,14 @@ const LoginStep2 = () => {
                                                     ) : (
                                                         <FaRegEyeSlash />
                                                     )}
-                                                    <p className='text-danger'>
-                                                        {errors.passwordError}
-                                                    </p>
                                                 </div>
                                             </div>
                                             <div className='form-outline mb-2'>
-                                                <NavLink>
+                                                <NavLink className='text-decoration-none'>
                                                     <input
                                                         type='submit'
                                                         id='form3Example4cdg'
-                                                        className='form-control submit '
+                                                        className='form-control submit'
                                                         value={t(
                                                             "SignIn.part1"
                                                         )}

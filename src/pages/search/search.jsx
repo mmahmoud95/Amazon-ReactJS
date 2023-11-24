@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { instance } from "../../services/axios/instance";
 import { ProductCard } from "../../components/category-product/productCard";
 import { authContext } from "../../context/authcontex";
@@ -11,7 +11,8 @@ export const Search = () => {
   const { t } = useTranslation();
   let location = useLocation();
   const navigate = useNavigate();
-
+  const { category } = useParams();
+  console.log(category,"cattttt");
   const [categoryProducts, setCategoryProducts] = useState([]);
   const [FilteredProducts, setFilteredProducts] = useState(categoryProducts);
   const [notFound, setNotFound] = useState("");
@@ -43,7 +44,7 @@ export const Search = () => {
   const searchfunc = async () => {
     await axios
       .post(`http://localhost:3333/products/result?search=${searchValue}`, {
-        category: localStorage?.getItem("category"),
+        category: category,
         lang: lang,
       })
       .then((res) => {
@@ -56,12 +57,8 @@ export const Search = () => {
           setCategoryProducts(res.data.data);
           setFilteredProducts(res.data.data);
           setCategoryProdBrand(res.data.data);
-
-          // localStorage.setItem('category',"All")
-
           console.log(res.data.data, "next");
         } else {
-          console.log("dddddddddddddd");
           setCategoryProducts([]);
           setFilteredProducts([]);
           setNotFound(`${t("search.part7")}`);
@@ -98,7 +95,7 @@ export const Search = () => {
   };
 
   // to filter data after fetch from api
-  let filterProducts = async (filtervalues) => {
+  const filterProducts = async (filtervalues) => {
     console.log(filtervalues);
     try {
       const priceThreshold = parseInt(filtervalues.price, 10) || 0;
@@ -106,7 +103,7 @@ export const Search = () => {
       let filteredData = categoryProducts.filter((item) => {
         let brandMatch;
         const langBrand = lang === "en" ? "en.brand" : "ar.brand";
-        const ratingMatch = item.rating === ratingThreshold;
+        const ratingMatch = Math.ceil(item.rating) === ratingThreshold;
         const priceMatch = item.price <= priceThreshold;
         if (lang == "en") {
           brandMatch = filtervalues["en.brand"].includes(item.en.brand);

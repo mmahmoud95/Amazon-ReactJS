@@ -28,30 +28,23 @@ export const Header = () => {
   const { lang, setLang } = useContext(authContext);
 
   const [searchText, setSearchText] = useState("");
-  const [searchCategory, setSearchCategory] = useState("All");
+  const [searchCategory, setSearchCategory] = useState("");
   //   for category
   const searchSubmit = (e) => {
     const { value } = e.target;
     if (value === "All") {
-      setSearchCategory(value);
-      localStorage.setItem("category", "All");
+      setSearchCategory("All");
     } else if (value === "groceries") {
-      localStorage.setItem("category", "65527c22376a52ea210d9708");
-
-      setSearchCategory("653c2a48c6676875dde642fc");
+      setSearchCategory("65527c22376a52ea210d9708");
     } else if (value === "laptops") {
-      localStorage.setItem("category", "653c2a4cc6676875dde642fe");
-
       setSearchCategory("653c2a4cc6676875dde642fe");
     } else if (value === "smart") {
-      localStorage.setItem("category", "65522f3250f3b49965ea7807");
+      setSearchCategory(value);
       setSearchCategory("65522f3250f3b49965ea7807");
     } else if (value === "fashion") {
-      localStorage.setItem("category", "65527ac3376a52ea210d9706");
       setSearchCategory("65527ac3376a52ea210d9706");
     } else {
       setSearchCategory("All");
-      localStorage.setItem("category", "All");
     }
   };
   useEffect(() => {
@@ -73,10 +66,15 @@ export const Header = () => {
     setLogin(false);
   };
   const handleSubmit = (e) => {
-    e.preventDefault();
-    navigate(`/products/results`, { state: { searchValue: searchText } });
-    setSearchText("");
-    setSearchCategory("");
+    try{
+       e.preventDefault();
+    navigate(`/products/search/${searchCategory||"all"}`, {
+      state: { searchValue: searchText },
+    });
+    }catch(err){
+      navigate('/')
+    }
+   
   };
   //
   const { t } = useTranslation();
@@ -175,7 +173,7 @@ export const Header = () => {
                           searchSubmit(e);
                         }}
                         className="nav-item dropdown all-category-search py-2 rounded-0 border-0"
-                        defaultValue={"All"}
+                        defaultValue="All"
                       >
                         <option className="dropdown-item" value="All">
                           {t("navTop.part12")}
@@ -219,83 +217,6 @@ export const Header = () => {
                     </button>
                   </form>
                 </li>
-                {/* <li className='nav-item dropdown all-category-search'>
-                                    <a
-                                        className='nav-link dropdown-toggle'
-                                        href='#'
-                                        role='button'
-                                        data-bs-toggle='dropdown'
-                                        aria-expanded='false'
-                                    >
-                                        {t("navTop.part8")}
-                                    </a>
-                                    <ul className='dropdown-menu'>
-                                        <li>
-                                            <a
-                                                className='dropdown-item'
-                                                href='#'
-                                            >
-                                                {t("navTop.part9")}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                className='dropdown-item'
-                                                href='#'
-                                            >
-                                                {t("navTop.part10")}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                className='dropdown-item'
-                                                href='#'
-                                            >
-                                                {t("navTop.part14")}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                className='dropdown-item'
-                                                href='#'
-                                            >
-                                                {t("navTop.part19")}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                className='dropdown-item'
-                                                href='#'
-                                            >
-                                                {t("navTop.part17")}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                className='dropdown-item'
-                                                href='#'
-                                            >
-                                                {t("navTop.part15")}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                className='dropdown-item'
-                                                href='#'
-                                            >
-                                                {t("navTop.part16")}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                className='dropdown-item'
-                                                href='#'
-                                            >
-                                                {t("navTop.part18")}
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li> */}
               </ul>
               <li className="nav-item dropdown text-decoration-none">
                 <a

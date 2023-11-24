@@ -104,11 +104,11 @@ export const Search = () => {
         const priceMatch = item.price <= priceThreshold;
         if (lang == "en") {
           brandMatch = filtervalues["en.brand"].includes(item.en.brand);
-        } else if (lang == "ar") {
+        } else{ 
           brandMatch = filtervalues["ar.brand"].includes(item.ar.brand);
-        } else {
-          return item.ar.brand ||item.en.brand;
+
         }
+       
         if (
           priceThreshold === 0 &&
           ratingThreshold === 0 &&

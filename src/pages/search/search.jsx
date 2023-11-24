@@ -12,7 +12,6 @@ export const Search = () => {
   let location = useLocation();
   const navigate = useNavigate();
   const { category } = useParams();
-  console.log(category,"cattttt");
   const [categoryProducts, setCategoryProducts] = useState([]);
   const [FilteredProducts, setFilteredProducts] = useState(categoryProducts);
   const [notFound, setNotFound] = useState("");
@@ -24,7 +23,6 @@ export const Search = () => {
     setNotFound(`product not found  search again`);
     setFilteredProducts([]);
   }
-  const [Scategory, setScategory] = useState(localStorage.getItem("category"));
   const { lang, setLang } = useContext(authContext);
   const [price, setPrice] = useState("");
   const [rating, setRating] = useState("");
@@ -33,13 +31,12 @@ export const Search = () => {
   const [arBrands, setArBrands] = useState([]);
   const [categoryProdBrand, setCategoryProdBrand] = useState([]);
   useEffect(() => {
-    console.log("search start");
     document.title = `Amazon - search`;
     window.scrollTo({ top: 0, behavior: "smooth" });
     searchfunc();
 
     // console.log(res.data.data);
-  }, [localStorage.getItem("category"), searchValue, notFound]);
+  }, [category, searchValue, notFound]);
 
   const searchfunc = async () => {
     await axios

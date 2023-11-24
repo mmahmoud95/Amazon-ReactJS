@@ -37,7 +37,7 @@ export const Header = () => {
     } else if (value === "groceries") {
       setSearchCategory("65527c22376a52ea210d9708");
     } else if (value === "laptops") {
-      setSearchCategory("653c2a4cc6676875dde642fe");
+      setSearchCategory("65527a31376a52ea210d9703");
     } else if (value === "smart") {
       setSearchCategory(value);
       setSearchCategory("65522f3250f3b49965ea7807");
@@ -68,7 +68,7 @@ export const Header = () => {
   const handleSubmit = (e) => {
     try{
        e.preventDefault();
-    navigate(`/products/search/${searchCategory||"all"}`, {
+    navigate(`/products/search/${searchCategory||"All"}`, {
       state: { searchValue: searchText },
     });
     }catch(err){
@@ -175,9 +175,6 @@ export const Header = () => {
                         className="nav-item dropdown all-category-search py-2 rounded-0 border-0"
                         defaultValue="All"
                       >
-                        <option className="dropdown-item" value="All">
-                          {t("navTop.part12")}
-                        </option>
                         <option className="dropdown-item" value="All">
                           {t("navTop.part9")}
                         </option>

@@ -1,54 +1,44 @@
 import { useContext, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { instance } from "../../services/axios/instance";
 import { ProductCard } from "../../components/category-product/productCard";
 import { authContext } from "../../context/authcontex";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
+import ReactStarRating from "react-star-ratings-component";
 
 export const Search = () => {
+  const { t } = useTranslation();
   let location = useLocation();
-  const { searchValue } = location?.state;
+  const navigate = useNavigate();
+
   const [categoryProducts, setCategoryProducts] = useState([]);
   const [FilteredProducts, setFilteredProducts] = useState(categoryProducts);
-
   const [notFound, setNotFound] = useState("");
+  if (location.state !== null || location.state !== "") {
+    var { searchValue } = location?.state;
+  } else {
+    setCategoryProducts([]);
+
+    setNotFound(`product not found  search again`);
+    setFilteredProducts([]);
+  }
   const [Scategory, setScategory] = useState(localStorage.getItem("category"));
   const { lang, setLang } = useContext(authContext);
   const [price, setPrice] = useState("");
   const [rating, setRating] = useState("");
   const [brand, setBrand] = useState([]);
-  const [brandCollection, setBrandCollection] = useState([]);
-  const [ArbrandCollection, setArBrandCollection] = useState([]);
+  const [enBrands, setEnBrands] = useState([]);
+  const [arBrands, setArBrands] = useState([]);
   const [categoryProdBrand, setCategoryProdBrand] = useState([]);
-  const [subCategories, setSubcategories] = useState([]);
-
-  const navigate = useNavigate();
   useEffect(() => {
     console.log("search start");
     document.title = `Amazon - search`;
     window.scrollTo({ top: 0, behavior: "smooth" });
     searchfunc();
-    let location = useLocation();
-    const { searchValue } = location?.state;
-    console.log(searchValue, "state");
-    const [categoryProducts, setCategoryProducts] = useState([]);
-    const [notFound, setNotFound] = useState("");
-    const [Scategory, setScategory] = useState(
-        localStorage.getItem("category")
-    );
-    const { lang, setLang } = useContext(authContext);
 
-    // const { search } = useLocation();
-    // const result = search.split("?");
-    const navigate = useNavigate();
-    useEffect(() => {
-        console.log("search start");
-        // document.title = `Amazon - ${categoryName}`;
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        searchfunc();
-
-        // console.log(res.data.data);
-    }, [localStorage.getItem("category"), searchValue]);
+    // console.log(res.data.data);
+  }, [localStorage.getItem("category"), searchValue, notFound]);
 
   const searchfunc = async () => {
     await axios
@@ -69,29 +59,55 @@ export const Search = () => {
 
           // localStorage.setItem('category',"All")
 
-          // console.log(res.data.data);
+          console.log(res.data.data, "next");
         } else {
           console.log("dddddddddddddd");
           setCategoryProducts([]);
-          setNotFound(`product not found  search again`);
+          setFilteredProducts([]);
+          setNotFound(`${t("search.part7")}`);
           // console.log(res.data.message);
         }
       })
       .catch((err) => {
-        navigate("/");
+        setNotFound(`${t("search.part7")}`);
       });
   };
+  // for pagination هin results
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordsPerPage = 8;
+  const lastIndex = currentPage * recordsPerPage;
+  const firstIndex = lastIndex - recordsPerPage;
+  const records = FilteredProducts?.slice(firstIndex, lastIndex);
+  const nPage = Math.ceil(FilteredProducts.length / recordsPerPage);
+  const numbers = Array.from({ length: nPage }, (_, index) => index + 1);
+
+  // pagination functions
+  const prePage = () => {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+  const nextPage = () => {
+    if (currentPage !== nPage) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+  const changeCpage = (num) => {
+    setCurrentPage(num);
+  };
+
+  // to filter data after fetch from api
   let filterProducts = async (filtervalues) => {
     console.log(filtervalues);
     try {
-      const priceThreshold = parseInt(filtervalues.price) || 0;
+      const priceThreshold = parseInt(filtervalues.price, 10) || 0;
       const ratingThreshold = parseInt(filtervalues.rating, 10) || 0;
-      console.log(ratingThreshold, priceThreshold, filtervalues["en.brand"]);
       let filteredData = categoryProducts.filter((item) => {
-        let priceMatch, brandMatch, ratingMatch;
-        // Check if the item's price is equal to the specified price
-
+        let brandMatch;
+        const langBrand = lang === "en" ? "en.brand" : "ar.brand";
+        const ratingMatch = item.rating === ratingThreshold;
+        const priceMatch = item.price <= priceThreshold;
         if (lang == "en") {
           brandMatch = filtervalues["en.brand"].includes(item.en.brand);
         } else if (lang == "ar") {
@@ -100,24 +116,57 @@ export const Search = () => {
           brandMatch = null;
         }
         if (
-          priceThreshold == 0 &&
-          ratingThreshold == 0 &&
-          filtervalues["en.brand"].length == 0
+          priceThreshold === 0 &&
+          ratingThreshold === 0 &&
+          filtervalues[langBrand]?.length === 0
         ) {
           return item;
         } else if (
-          priceThreshold != 0 &&
-          ratingThreshold != 0 &&
-          filtervalues["en.brand"].length ==0
+          priceThreshold !== 0 &&
+          ratingThreshold !== 0 &&
+          filtervalues[langBrand]?.length !== 0
         ) {
-          ratingMatch = item.rating === ratingThreshold;
-          priceMatch = item.price <= priceThreshold;
+          return priceMatch && ratingMatch && brandMatch;
+        } else if (
+          priceThreshold !== 0 &&
+          ratingThreshold === 0 &&
+          filtervalues[langBrand]?.length === 0
+        ) {
+          return priceMatch;
+        } else if (
+          priceThreshold === 0 &&
+          ratingThreshold !== 0 &&
+          filtervalues[langBrand]?.length === 0
+        ) {
+          return ratingMatch;
+        } else if (
+          priceThreshold === 0 &&
+          ratingThreshold === 0 &&
+          filtervalues[langBrand]?.length !== 0
+        ) {
+          return brandMatch;
+        } else if (
+          priceThreshold !== 0 &&
+          ratingThreshold !== 0 &&
+          filtervalues[langBrand]?.length === 0
+        ) {
           return priceMatch && ratingMatch;
+        } else if (
+          priceThreshold !== 0 &&
+          ratingThreshold === 0 &&
+          filtervalues[langBrand]?.length !== 0
+        ) {
+          return priceMatch && brandMatch;
+        } else if (
+          priceThreshold === 0 &&
+          ratingThreshold !== 0 &&
+          filtervalues[langBrand]?.length !== 0
+        ) {
+          return ratingMatch && brandMatch;
+        } else {
+          return false;
         }
-
-        // return priceMatch && ratingMatch &&brandMatch;
       });
-
       console.log(filteredData, "fouced");
 
       setFilteredProducts(filteredData);
@@ -128,21 +177,17 @@ export const Search = () => {
   };
   useEffect(() => {
     generateBrands();
-  }, [categoryProducts]);
+  }, [categoryProducts, currentPage]);
 
-  const generateBrands = () => {
-    if (lang === "en") {
-      const enBrands = Array.from(
-        new Set(categoryProdBrand.map((product) => product.en.brand))
-      );
-      setBrandCollection(enBrands);
-    } else if (lang === "ar") {
-      const arBrands = Array.from(
-        new Set(categoryProdBrand.map((product) => product.ar.brand))
-      );
-      console.log(arBrands, "ddddddarabic");
-      setArBrandCollection(arBrands);
-    }
+  const generateBrands = (data) => {
+    const enBrandList = Array.from(
+      new Set(categoryProducts.map((product) => product.en.brand))
+    );
+    const arBrandList = Array.from(
+      new Set(categoryProducts.map((product) => product.ar.brand))
+    );
+    setEnBrands(enBrandList);
+    setArBrands(arBrandList);
   };
   const handlePriceChange = (event) => {
     setPrice(event.target.value);
@@ -172,6 +217,7 @@ export const Search = () => {
     return () => {
       // Set the filtered search data when the component is unmounted
       setFilteredProducts(categoryProducts);
+      // setRecords([]);
     };
   }, []);
 
@@ -200,16 +246,7 @@ export const Search = () => {
         <div className="col-lg-2 filter">
           {
             <div>
-              {subCategories.map((sub) => (
-                <a
-                  key={sub._id}
-                  onClick={() => navigate(`/products/SubCategory/${sub._id}`)}
-                >
-                  <p className="fs-5 border-bottom-1">{sub.en.name}</p>
-                </a>
-              ))}
-
-              <h4 className="mt-3">Rating</h4>
+              <h4 className="mt-3"> {t("search.part1")}</h4>
               <label className="d-block fs-6 ms-2">
                 <input
                   type="radio"
@@ -217,7 +254,7 @@ export const Search = () => {
                   value=""
                   onChange={handleRatingChange}
                 />
-                All Ratings
+                {t("search.part2")}
               </label>
               <label className="d-block fs-6 ms-2">
                 <input
@@ -226,7 +263,17 @@ export const Search = () => {
                   value={5}
                   onChange={handleRatingChange}
                 />
-                Equal to 5 stars
+
+                <span className="d-inline-block">
+                  <ReactStarRating
+                    numberOfStar={5}
+                    numberOfSelectedStar={5}
+                    colorFilledStar="#ff9900"
+                    colorEmptyStar="#eee"
+                    starSize="30px"
+                    spaceBetweenStar="10px"
+                  />
+                </span>
               </label>
               <label className="d-block fs-6 ms-2">
                 <input
@@ -235,7 +282,16 @@ export const Search = () => {
                   value={4}
                   onChange={handleRatingChange}
                 />
-                Equal to 4 stars
+                <span className="d-inline-block">
+                  <ReactStarRating
+                    numberOfStar={5}
+                    numberOfSelectedStar={4}
+                    colorFilledStar="#ff9900"
+                    colorEmptyStar="#eee"
+                    starSize="30px"
+                    spaceBetweenStar="10px"
+                  />
+                </span>
               </label>
               <label className="d-block fs-6 ms-2">
                 <input
@@ -244,7 +300,16 @@ export const Search = () => {
                   value={3}
                   onChange={handleRatingChange}
                 />
-                Greater to 3 stars
+                <span className="d-inline-block">
+                  <ReactStarRating
+                    numberOfStar={5}
+                    numberOfSelectedStar={3}
+                    colorFilledStar="#ff9900"
+                    colorEmptyStar="#eee"
+                    starSize="30px"
+                    spaceBetweenStar="10px"
+                  />
+                </span>{" "}
               </label>
               <label className="d-block fs-6 ms-2">
                 <input
@@ -253,7 +318,16 @@ export const Search = () => {
                   value={2}
                   onChange={handleRatingChange}
                 />
-                Greater to 2 stars
+                <span className="d-inline-block">
+                  <ReactStarRating
+                    numberOfStar={5}
+                    numberOfSelectedStar={2}
+                    colorFilledStar="#ff9900"
+                    colorEmptyStar="#eee"
+                    starSize="30px"
+                    spaceBetweenStar="10px"
+                  />
+                </span>{" "}
               </label>
               <label className="d-block fs-6 ms-2">
                 <input
@@ -262,11 +336,20 @@ export const Search = () => {
                   value={1}
                   onChange={handleRatingChange}
                 />
-                Greater to 1 star
+                <span className="d-inline-block">
+                  <ReactStarRating
+                    numberOfStar={5}
+                    numberOfSelectedStar={1}
+                    colorFilledStar="#ff9900"
+                    colorEmptyStar="#eee"
+                    starSize="30px"
+                    spaceBetweenStar="10px"
+                  />
+                </span>{" "}
               </label>
 
               <div className="mt-3">
-                <h4>Price</h4>
+                <h4> {t("search.part3")}</h4>
                 <label className="d-block fs-6 ms-2">
                   <input
                     type="radio"
@@ -274,7 +357,7 @@ export const Search = () => {
                     value=""
                     onChange={handlePriceChange}
                   />
-                  Any price
+                  {t("search.part4")}
                 </label>
                 <label className="d-block fs-6 ms-2">
                   <input
@@ -283,7 +366,8 @@ export const Search = () => {
                     value="25"
                     onChange={handlePriceChange}
                   />
-                  up to $25
+                  {t("search.part5")}
+                  $25
                 </label>
 
                 <label className="d-block fs-6 ms-2">
@@ -293,7 +377,8 @@ export const Search = () => {
                     value="50"
                     onChange={handlePriceChange}
                   />
-                  up to $50
+                  {t("search.part5")}
+                  $50
                 </label>
                 <label className="d-block fs-6 ms-2">
                   <input
@@ -302,7 +387,8 @@ export const Search = () => {
                     value="100"
                     onChange={handlePriceChange}
                   />
-                  up to $100
+                  {t("search.part5")}
+                  $100
                 </label>
 
                 <label className="d-block fs-6 ms-2">
@@ -312,7 +398,8 @@ export const Search = () => {
                     value="200"
                     onChange={handlePriceChange}
                   />
-                  up to $200
+                  {t("search.part5")}
+                  $200
                 </label>
                 <label className="d-block fs-6 ms-2">
                   <input
@@ -321,29 +408,41 @@ export const Search = () => {
                     value="300"
                     onChange={handlePriceChange}
                   />
-                  up to $300
+                  {t("search.part5")} $300
                 </label>
                 <br />
 
-                <h4>Brands</h4>
-                {brandCollection.map((bd) => (
-                  <label key={bd} className="d-block fs-6 ms-2">
-                    <input
-                      type="checkbox"
-                      value={bd}
-                      onChange={(ev) => handleBrandChange(ev)}
-                      // checked={brand.includes(bd)}
-                    />
-                    {bd}
-                  </label>
-                ))}
+                <h4> {t("search.part6")}</h4>
+                {lang == "en"
+                  ? enBrands.map((bd) => (
+                      <label key={bd} className="d-block fs-6 ms-2">
+                        <input
+                          type="checkbox"
+                          value={bd}
+                          onChange={(ev) => handleBrandChange(ev)}
+                          // checked={brand.includes(bd)}
+                        />
+                        {bd}
+                      </label>
+                    ))
+                  : arBrands?.map((bd) => (
+                      <label key={bd} className="d-block fs-6 ms-2">
+                        <input
+                          type="checkbox"
+                          value={bd}
+                          onChange={(ev) => handleBrandChange(ev)}
+                          // checked={brand.includes(bd)}
+                        />
+                        {bd}
+                      </label>
+                    ))}
               </div>
             </div>
           }
         </div>
         <div className="col-lg-10">
           <div className="row">
-            {FilteredProducts?.map((product, index) => (
+            {records?.map((product, index) => (
               // return (
               <ProductCard
                 key={index}
@@ -365,6 +464,38 @@ export const Search = () => {
             {<h1>{notFound}</h1>}
           </div>
         </div>
+        <nav>
+          <ul className="pagination justify-content-center">
+            <li className="page-item">
+              <button className="page-link" onClick={prePage}>
+                Prev
+              </button>
+            </li>
+            {numbers.map((n, i) => (
+              <li
+                key={i}
+                className={`page-item px-2 ${
+                  currentPage === n ? "active" : ""
+                }$`}
+              >
+                <a
+                  className="page-item fs-2"
+                  onClick={() => {
+                    changeCpage(n);
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                >
+                  {n}
+                </a>
+              </li>
+            ))}
+            <li>
+              <button className="page-link" onClick={nextPage}>
+                Next
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
     </section>
   );

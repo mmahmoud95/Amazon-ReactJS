@@ -36,13 +36,19 @@ export const Header = () => {
       setSearchCategory(value);
       localStorage.setItem("category", "All");
     } else if (value === "groceries") {
-      localStorage.setItem("category", "653c2a48c6676875dde642fc");
+      localStorage.setItem("category", "65527c22376a52ea210d9708");
 
       setSearchCategory("653c2a48c6676875dde642fc");
     } else if (value === "laptops") {
       localStorage.setItem("category", "653c2a4cc6676875dde642fe");
 
       setSearchCategory("653c2a4cc6676875dde642fe");
+    } else if (value === "smart") {
+      localStorage.setItem("category", "65522f3250f3b49965ea7807");
+      setSearchCategory("65522f3250f3b49965ea7807");
+    } else if (value === "fashion") {
+      localStorage.setItem("category", "65527ac3376a52ea210d9706");
+      setSearchCategory("65527ac3376a52ea210d9706");
     } else {
       setSearchCategory("All");
       localStorage.setItem("category", "All");
@@ -58,7 +64,6 @@ export const Header = () => {
   }, []);
   const handleChange = (e) => {
     setSearchText(e.target.value);
-    console.log(searchCategory);
   };
   const logOut = () => {
     localStorage.removeItem("userToken");
@@ -70,10 +75,6 @@ export const Header = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     navigate(`/products/results`, { state: { searchValue: searchText } });
-    // ,
-    //  {
-    //   state: { Category: searchCategory },
-    // });
     setSearchText("");
     setSearchCategory("");
   };
@@ -188,10 +189,10 @@ export const Header = () => {
                         <option className="dropdown-item" value="laptops">
                           {t("navTop.part17")}
                         </option>
-                        <option className="dropdown-item">
+                        <option className="dropdown-item" value="fashion">
                           {t("navTop.part15")}
                         </option>
-                        <option className="dropdown-item">
+                        <option className="dropdown-item" value="">
                           {t("navTop.part16")}
                         </option>
                         <option className="dropdown-item">

@@ -29,7 +29,7 @@
         "part12": "Select category",
         "part13": "logout",
         "part14": "Amazon groceries",
-        "part15": "Books",
+        "part15": "fashion",
         "part16": "Sports",
         "part17": " Amazon laptops",
         "part18": "software",
@@ -282,6 +282,15 @@
         "part16":"Deliver to "
      
   
+
+    },"search":{
+        "part1":"Rating",
+        "part2":"All",
+        "part3":"Price",
+        "part4":"All prices",
+        "part5":"Up to ",
+        "part6":"Brands",
+        "part7":" not found  search again"
 
     }
 }

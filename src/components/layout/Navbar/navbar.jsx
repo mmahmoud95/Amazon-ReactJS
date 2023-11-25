@@ -25,380 +25,263 @@ export const Header = () => {
     const dispatch = useDispatch();
     // const [loading, setLoading] = useState(true);
 
-    // const [numberItems, setNumberItems] = useState(0);
-    const name = localStorage.getItem("name");
-    const navigate = useNavigate();
-    const { isLogin, setLogin } = useContext(authContext);
-    const { lang, setLang } = useContext(authContext);
+  // const [numberItems, setNumberItems] = useState(0);
+  const name = localStorage.getItem("name");
+  const navigate = useNavigate();
+  const { isLogin, setLogin } = useContext(authContext);
+  const { lang, setLang } = useContext(authContext);
 
-    const [searchText, setSearchText] = useState("");
-    const [searchCategory, setSearchCategory] = useState("All");
-    //   for category
-    const searchSubmit = (e) => {
-        const { value } = e.target;
-        if (value === "All") {
-            setSearchCategory(value);
-            localStorage.setItem("category", "All");
-        } else if (value === "groceries") {
-            localStorage.setItem("category", "653c2a48c6676875dde642fc");
+  const [searchText, setSearchText] = useState("");
+  const [searchCategory, setSearchCategory] = useState("");
+  //   for category
+  const searchSubmit = (e) => {
+    const { value } = e.target;
+    if (value === "All") {
+      setSearchCategory("All");
+    } else if (value === "groceries") {
+      setSearchCategory("65527c22376a52ea210d9708");
+    } else if (value === "laptops") {
+      setSearchCategory("65527a31376a52ea210d9703");
+    } else if (value === "smart") {
+      setSearchCategory(value);
+      setSearchCategory("65522f3250f3b49965ea7807");
+    } else if (value === "fashion") {
+      setSearchCategory("65527ac3376a52ea210d9706");
+    } else {
+      setSearchCategory("All");
+    }
+  };
+  useEffect(() => {
+    console.log(searchCategory);
+    // localStorage.setItem('category',searchCategory)
+  }, [searchCategory]);
+  //   for text
+  useEffect(() => {
+    dispatch(totalPriceAction());
+  }, []);
+  const handleChange = (e) => {
+    setSearchText(e.target.value);
+  };
+  const logOut = () => {
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("cart");
+    localStorage.removeItem("name");
+    dispatch(clearCart(cartPageRedux));
+    setLogin(false);
+  };
+  const handleSubmit = (e) => {
+    try{
+       e.preventDefault();
+    navigate(`/products/search/${searchCategory||"All"}`, {
+      state: { searchValue: searchText },
+    });
+    }catch(err){
+      navigate('/')
+    }
+   
+  };
+  //
+  const { t } = useTranslation();
+  const changeLanguage = (language) => {
+    i18n.changeLanguage(language);
+    if (language === "ar") {
+      setLang("ar");
+    } else {
+      setLang("en");
+    }
+    document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+  };
+  //
 
-            setSearchCategory("653c2a48c6676875dde642fc");
-        } else if (value === "laptops") {
-            localStorage.setItem("category", "653c2a4cc6676875dde642fe");
+  const catogories = {
+    electronics: {
+      name: `${t("nav2.part7")}`,
+      id: "65527a31376a52ea210d9703",
+    },
+    fashion: {
+      name: `${t("nav2.part8")}`,
+      id: "65527ac3376a52ea210d9706",
+    },
+    grocery: {
+      name: `${t("nav2.part9")}`,
+      id: "65527c22376a52ea210d9708",
+    },
+    beauty: {
+      name: `${t("nav2.part10")}`,
+      id: "65527c8c376a52ea210d970a",
+    },
+    sports: {
+      name: `${t("nav2.part11")}`,
+      id: "65527d1a376a52ea210d970e",
+    },
+    mobilephones: {
+      name: `${t("nav2.part12")}`,
+      id: "65522f3250f3b49965ea7807",
+    },
+  };
 
-            setSearchCategory("653c2a4cc6676875dde642fe");
-        } else {
-            setSearchCategory("All");
-            localStorage.setItem("category", "All");
-        }
-    };
-    useEffect(() => {
-        // console.log(searchCategory);
-        // localStorage.setItem('category',searchCategory)
-    }, [searchCategory]);
-    //   for text
-    useEffect(() => {
-        dispatch(totalPriceAction());
-    }, []);
-    const handleChange = (e) => {
-        setSearchText(e.target.value);
-        console.log(searchCategory);
-    };
-    const logOut = () => {
-        localStorage.removeItem("userToken");
-        localStorage.removeItem("cart");
-        localStorage.removeItem("name");
-        dispatch(clearCart(cartPageRedux));
-        setLogin(false);
-    };
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        navigate(`/products/results`, { state: { searchValue: searchText } });
-        // ,
-        //  {
-        //   state: { Category: searchCategory },
-        // });
-        setSearchText("");
-        setSearchCategory("");
-    };
-    //
-    const { t } = useTranslation();
-    const changeLanguage = (language) => {
-        i18n.changeLanguage(language);
-        if (language === "ar") {
-            setLang("ar");
-        } else {
-            setLang("en");
-        }
-        document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
-    };
-    //
+  // console.log(catogories);
+  const cart = useSelector((state) => state.Cart.cart);
 
-    const catogories = {
-        electronics: {
-            name: `${t("nav2.part7")}`,
-            id: "65527a31376a52ea210d9703",
-        },
-        fashion: {
-            name: `${t("nav2.part8")}`,
-            id: "65527ac3376a52ea210d9706",
-        },
-        grocery: {
-            name: `${t("nav2.part9")}`,
-            id: "65527c22376a52ea210d9708",
-        },
-        beauty: {
-            name: `${t("nav2.part10")}`,
-            id: "65527c8c376a52ea210d970a",
-        },
-        sports: {
-            name: `${t("nav2.part11")}`,
-            id: "65527d1a376a52ea210d970e",
-        },
-        mobilephones: {
-            name: `${t("nav2.part12")}`,
-            id: "65522f3250f3b49965ea7807",
-        },
-    };
-
-    // console.log(catogories);
-    const cart = useSelector((state) => state.Cart.cart);
-
-    return (
-        <>
-            <nav className='navbar navbar-expand-lg'>
-                <div className='container-fluid'>
-                    <NavLink className='navbar-brand' to='/'>
-                        <img
-                            src={amzonlogo}
-                            style={{ width: "120px", height: "40px" }}
-                        />
-                    </NavLink>
-                    <button
-                        className='navbar-toggler'
-                        type='button'
-                        data-bs-toggle='collapse'
-                        data-bs-target='#navbarNavDropdown'
-                        aria-controls='navbarNavDropdown'
-                        aria-expanded='false'
-                        aria-label='Toggle navigation'
+  return (
+    <>
+      <nav className="navbar navbar-expand-lg">
+        <div className="container-fluid">
+          <NavLink className="navbar-brand" to="/">
+            <img src={amzonlogo} style={{ width: "120px", height: "40px" }} />
+          </NavLink>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul className="navbar-nav align-items-lg-center">
+              <li className="nav-item location-item">
+                <div className="d-flex">
+                  <div className="me-1">
+                    <span className="location">
+                      <IoLocationOutline />
+                    </span>
+                  </div>
+                  <div className="d-flex flex-column">
+                    <p className="deliver">{t("navTop.part1")}</p>
+                    <a
+                      className="nav-link active address text-decoration-none"
+                      aria-current="page"
+                      href="#"
                     >
-                        <span className='navbar-toggler-icon'></span>
+                      {t("navTop.part6")}
+                    </a>
+                  </div>
+                </div>
+              </li>
+              <ul className="navbar-nav search-bar">
+                <li className="nav-item">
+                  <form
+                    className="d-flex"
+                    role="search"
+                    onSubmit={(e) => {
+                      handleSubmit(e);
+                    }}
+                  >
+                    <li className="nav-item dropdown all-category-search">
+                      <select
+                        onChange={(e) => {
+                          searchSubmit(e);
+                        }}
+                        className="nav-item dropdown all-category-search py-2 rounded-0 border-0"
+                        defaultValue="All"
+                      >
+                        <option className="dropdown-item" value="All">
+                          {t("navTop.part9")}
+                        </option>
+                        <option className="dropdown-item" value="groceries">
+                          {t("navTop.part14")}
+                        </option>
+                        <option className="dropdown-item" value="laptops">
+                          {t("navTop.part17")}
+                        </option>
+                        <option className="dropdown-item" value="fashion">
+                          {t("navTop.part15")}
+                        </option>
+                        <option className="dropdown-item" value="">
+                          {t("navTop.part16")}
+                        </option>
+                        <option className="dropdown-item">
+                          {t("navTop.part18")}
+                        </option>
+                      </select>
+                    </li>
+
+                    <input
+                      className="form-control  align-items-center rounded-0"
+                      style={{ width: "400px" }}
+                      type="text"
+                      placeholder={t("navTop.part11")}
+                      aria-label="Search"
+                      value={searchText}
+                      onChange={(e) => {
+                        handleChange(e);
+                      }}
+                    />
+                    <button type="submit" className="serch-icon border-0">
+                      {/* <span className='d-block'> */}
+                      <IoSearchOutline style={{ marginRight: "-18px" }} />
+                      {/* </span> */}
                     </button>
-                    <div
-                        className='collapse navbar-collapse'
-                        id='navbarNavDropdown'
-                    >
-                        <ul className='navbar-nav align-items-lg-center'>
-                            <li className='nav-item location-item'>
-                                <div className='d-flex'>
-                                    <div className='me-1'>
-                                        <span className='location'>
-                                            <IoLocationOutline />
-                                        </span>
-                                    </div>
-                                    <div className='d-flex flex-column'>
-                                        <p className='deliver'>
-                                            {t("navTop.part1")}
-                                        </p>
-                                        <a
-                                            className='nav-link active address text-decoration-none'
-                                            aria-current='page'
-                                            href='#'
-                                        >
-                                            {t("navTop.part6")}
-                                        </a>
-                                    </div>
-                                </div>
-                            </li>
-                            <ul className='navbar-nav search-bar'>
-                                <li className='nav-item'>
-                                    <form
-                                        className='d-flex'
-                                        role='search'
-                                        onSubmit={(e) => {
-                                            handleSubmit(e);
-                                        }}
-                                    >
-                                        <li className='nav-item dropdown all-category-search'>
-                                            <select
-                                                onChange={(e) => {
-                                                    searchSubmit(e);
-                                                }}
-                                                className='nav-item dropdown all-category-search py-2 rounded-0 border-0'
-                                                defaultValue={"All"}
-                                            >
-                                                <option
-                                                    className='dropdown-item'
-                                                    value='All'
-                                                >
-                                                    {t("navTop.part12")}
-                                                </option>
-                                                <option
-                                                    className='dropdown-item'
-                                                    value='All'
-                                                >
-                                                    {t("navTop.part9")}
-                                                </option>
-                                                <option
-                                                    className='dropdown-item'
-                                                    value='groceries'
-                                                >
-                                                    {t("navTop.part14")}
-                                                </option>
-                                                <option
-                                                    className='dropdown-item'
-                                                    value='laptops'
-                                                >
-                                                    {t("navTop.part17")}
-                                                </option>
-                                                <option className='dropdown-item'>
-                                                    {t("navTop.part15")}
-                                                </option>
-                                                <option className='dropdown-item'>
-                                                    {t("navTop.part16")}
-                                                </option>
-                                                <option className='dropdown-item'>
-                                                    {t("navTop.part18")}
-                                                </option>
-                                            </select>
-                                        </li>
-
-                                        <input
-                                            className='form-control  align-items-center rounded-0'
-                                            style={{ width: "400px" }}
-                                            type='text'
-                                            placeholder={t("navTop.part11")}
-                                            aria-label='Search'
-                                            value={searchText}
-                                            onChange={(e) => {
-                                                handleChange(e);
-                                            }}
-                                        />
-                                        <button
-                                            type='submit'
-                                            className='serch-icon border-0'
-                                        >
-                                            {/* <span className='d-block'> */}
-                                            <IoSearchOutline
-                                                style={{ marginRight: "-18px" }}
-                                            />
-                                            {/* </span> */}
-                                        </button>
-                                    </form>
-                                </li>
-                                {/* <li className='nav-item dropdown all-category-search'>
-                                    <a
-                                        className='nav-link dropdown-toggle'
-                                        href='#'
-                                        role='button'
-                                        data-bs-toggle='dropdown'
-                                        aria-expanded='false'
-                                    >
-                                        {t("navTop.part8")}
-                                    </a>
-                                    <ul className='dropdown-menu'>
-                                        <li>
-                                            <a
-                                                className='dropdown-item'
-                                                href='#'
-                                            >
-                                                {t("navTop.part9")}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                className='dropdown-item'
-                                                href='#'
-                                            >
-                                                {t("navTop.part10")}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                className='dropdown-item'
-                                                href='#'
-                                            >
-                                                {t("navTop.part14")}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                className='dropdown-item'
-                                                href='#'
-                                            >
-                                                {t("navTop.part19")}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                className='dropdown-item'
-                                                href='#'
-                                            >
-                                                {t("navTop.part17")}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                className='dropdown-item'
-                                                href='#'
-                                            >
-                                                {t("navTop.part15")}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                className='dropdown-item'
-                                                href='#'
-                                            >
-                                                {t("navTop.part16")}
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a
-                                                className='dropdown-item'
-                                                href='#'
-                                            >
-                                                {t("navTop.part18")}
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li> */}
-                            </ul>
-                            <li className='nav-item dropdown text-decoration-none'>
-                                <a
-                                    className='nav-link dropdown-toggle langugae-location text-decoration-none'
-                                    href='#'
-                                    role='button'
-                                    data-bs-toggle='dropdown'
-                                    aria-expanded='false'
-                                >
-                                    <img
-                                        src={egyptFlage}
-                                        style={{ width: "25px" }}
-                                    />
-                                    {t("navTop.part5")}
-                                </a>
-                                <ul className='dropdown-menu p-2'>
-                                    <li>
-                                        <input
-                                            type='radio'
-                                            id='arabic'
-                                            name='languge'
-                                            onClick={() => changeLanguage("ar")}
-                                        />
-                                        <label htmlFor='arabic'>
-                                            العربية- AR
-                                        </label>
-                                    </li>
-                                    <hr />
-                                    <li>
-                                        <input
-                                            type='radio'
-                                            id='english'
-                                            name='languge'
-                                            onClick={() => changeLanguage("en")}
-                                        />
-                                        <label htmlFor='english'>
-                                            English - EN
-                                        </label>
-                                    </li>
-                                    <p>
-                                        <a href='#'>{t("navTop.part25")}</a>
-                                    </p>
-                                    <hr />
-                                    <p>
-                                        <img
-                                            src={egyptFlage}
-                                            style={{ width: "25px" }}
-                                        />
-                                        {t("navTop.part26")}
-                                    </p>
-                                    <p>
-                                        <a href='#'>{t("navTop.part27")}</a>
-                                    </p>
-                                </ul>
-                            </li>
-                            <li className='nav-item dropdown nav-account'>
-                                <a
-                                    className='nav-link dropdown-toggle'
-                                    href='#'
-                                    role='button'
-                                    data-bs-toggle='dropdown'
-                                    aria-expanded='false'
-                                >
-                                    <span className='account-lists'>
-                                        {isLogin ? (
-                                            <span className='hello'>
-                                                {t("navTop.part2")},{name}
-                                            </span>
-                                        ) : (
-                                            <span className='hello'>
-                                                {t("navTop.part2")},
-                                                {t("SignIn.part1")}
-                                                <br />
-                                            </span>
-                                        )}
+                  </form>
+                </li>
+              </ul>
+              <li className="nav-item dropdown text-decoration-none">
+                <a
+                  className="nav-link dropdown-toggle langugae-location text-decoration-none"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <img src={egyptFlage} style={{ width: "25px" }} />
+                  {t("navTop.part5")}
+                </a>
+                <ul className="dropdown-menu p-2">
+                  <li>
+                    <input
+                      type="radio"
+                      id="arabic"
+                      name="languge"
+                      onClick={() => changeLanguage("ar")}
+                    />
+                    <label htmlFor="arabic">العربية- AR</label>
+                  </li>
+                  <hr />
+                  <li>
+                    <input
+                      type="radio"
+                      id="english"
+                      name="languge"
+                      onClick={() => changeLanguage("en")}
+                    />
+                    <label htmlFor="english">English - EN</label>
+                  </li>
+                  <p>
+                    <a href="#">{t("navTop.part25")}</a>
+                  </p>
+                  <hr />
+                  <p>
+                    <img src={egyptFlage} style={{ width: "25px" }} />
+                    {t("navTop.part26")}
+                  </p>
+                  <p>
+                    <a href="#">{t("navTop.part27")}</a>
+                  </p>
+                </ul>
+              </li>
+              <li className="nav-item dropdown nav-account">
+                <a
+                  className="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  <span className="account-lists">
+                    {isLogin ? (
+                      <span className="hello">
+                        {t("navTop.part2")},{name}
+                      </span>
+                    ) : (
+                      <span className="hello">
+                        {t("navTop.part2")},{t("SignIn.part1")}
+                        <br />
+                      </span>
+                    )}
 
                                         {t("navTop.part7")}
                                     </span>
@@ -576,20 +459,20 @@ export const Header = () => {
                         </NavLink>
                     </li>
 
-                    <li>
-                        <a href='#'>{t("nav2.part3")}</a>
-                    </li>
-                    <li>
-                        <a href='#'>{t("nav2.part4")}</a>
-                    </li>
-                    <li>
-                        <a href='#'>{t("nav2.part5")}</a>
-                    </li>
-                    <li>
-                        <a href='../help-page/help.html'>{t("nav2.part6")}</a>
-                    </li>
-                </ul>
-            </div>
-        </>
-    );
+          <li>
+            <a href="#">{t("nav2.part3")}</a>
+          </li>
+          <li>
+            <a href="#">{t("nav2.part4")}</a>
+          </li>
+          <li>
+            <a href="#">{t("nav2.part5")}</a>
+          </li>
+          <li>
+            <a href="../help-page/help.html">{t("nav2.part6")}</a>
+          </li>
+        </ul>
+      </div>
+    </>
+  );
 };

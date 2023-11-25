@@ -24,31 +24,27 @@ import { Elements } from "@stripe/react-stripe-js";
 import { SubCategory } from "./pages/subCategory/subCategory";
 import Order from "./pages/Orders/order";
 
-const stripePromise = loadStripe(
-    "pk_test_51OCi3SLRQrL1VrZswDwPuvrsnACjfHOIZRWWV8YwoO8ayi21WLiX8ZfLTEFH2IA0HvyMW5aTpisVbwc72emP0yCf00az2YHAv7"
-);
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
 
 const router = createBrowserRouter([
-    { path: "/", element: <Home /> },
-    {
-        path: "/",
-        element: <Applayout />,
-        children: [
-            { path: "cart", element: <Cart /> },
-            { path: "products/category/:categoryID", element: <Category /> },
-            {
-                path: "products/SubCategory/:SubCategoryID",
-                element: <SubCategory />,
-            },
-            { path: "products/:id", element: <ProductDetails /> },
-            { path: "products/results/", element: <Search /> },
-            { path: "orders/", element: <Order /> },
-        ],
-    },
-    { path: "login", element: <Login /> },
-    { path: "login/loginStep2", element: <LoginStep2 /> },
-    { path: "signup", element: <Register /> },
-    { path: "checkout", element: <CheckOut /> },
+  { path: "/", element: <Home /> },
+  {
+    path: "/",
+    element: <Applayout />,
+    children: [
+      { path: "cart", element: <Cart /> },
+      { path: "products/category/:categoryID", element: <Category /> },
+      { path: "products/SubCategory/:SubCategoryID", element: <SubCategory /> },
+      { path: "products/:id", element: <ProductDetails /> },
+      { path: "products/search/:category", element: <Search /> },
+      { path: "orders/", element: <Order /> },
+    ],
+  },
+  { path: "login", element: <Login /> },
+  { path: "login/loginStep2", element: <LoginStep2 /> },
+  { path: "signup", element: <Register /> },
+  { path: "checkout", element: <CheckOut /> },
 ]);
 
 function App() {

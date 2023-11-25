@@ -284,14 +284,17 @@
         "part17": "Order Summery",
         "part18": "You must be login first",
         "part19": "login"
-    },"search":{
-        "part1":"Rating",
-        "part2":"All",
-        "part3":"Price",
-        "part4":"All prices",
-        "part5":"Up to ",
-        "part6":"Brands",
-        "part7":" not found  search again"
-
+    },
+    "search": {
+        "part1": "Rating",
+        "part2": "All",
+        "part3": "Price",
+        "part4": "All prices",
+        "part5": "Up to ",
+        "part6": "Brands",
+        "part7": " not found  search again"
+    },
+    "sugesstion": {
+        "part1": "Additional items"
     }
 }

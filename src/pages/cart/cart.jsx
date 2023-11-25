@@ -15,6 +15,9 @@ import { useTranslation } from "react-i18next";
 // import { instance } from "../../services/axios/instance";
 import { instance } from "../../services/axios/instance";
 import Spinner from "react-bootstrap/Spinner";
+import { Sugessions } from "../../components/sugesstion-producta/sugessions";
+import { ProductsSide } from "../../components/pairWitCart/products-pairs";
+import { IoCheckmarkCircleSharp } from "react-icons/io5";
 
 export const Cart = () => {
     const navigate = useNavigate();
@@ -200,7 +203,7 @@ export const Cart = () => {
                                             href='#'
                                             className='deselect text-decoration-none'
                                         >
-                                            {t("cart.part3")}
+                                            {/* {t("cart.part3")} */}
                                         </a>
                                     </div>
                                     <hr />
@@ -269,7 +272,7 @@ export const Cart = () => {
                                                     }
                                                 </p>
                                                 <div className='mt-3'>
-                                                    <ul className='list-unstyled d-flex flex-row list'>
+                                                    <ul className='list-unstyled d-flex flex-row list align-items-center'>
                                                         <li className='h-100'>
                                                             <div>
                                                                 <button
@@ -404,8 +407,8 @@ export const Cart = () => {
                                 cartPage?.length > 0 ? (
                                     <div className='shadow p-3 bg-white mb-2'>
                                         <p className='total-cart'>
-                                            <ion-icon name='checkmark-circle'></ion-icon>
-                                            {t("cart.part11")}{" "}
+                                            <IoCheckmarkCircleSharp className='text-primary fs-5' />
+                                            {t("cart.part11")}
                                             <a href='#'>{t("cart.part12")}</a>
                                         </p>
                                         {/* {cartPage .map((product, index) => ( */}
@@ -428,46 +431,20 @@ export const Cart = () => {
                                                     },
                                                 })
                                             }
-                                            disabled={!isLogin}
                                         >
                                             {t("cart.part14")}
                                         </button>
                                     </div>
                                 ) : null
                             ) : null}
-
-                            {isLogin ? (
-                                <div className='shadow p-3 bg-white'>
-                                    <h5>
-                                        <strong>{t("cart.part15")}</strong>
-                                    </h5>
-                                    <div className='row'>
-                                        {categoryProducts?.map(
-                                            (product, index) => (
-                                                // return (
-                                                <ProductCard
-                                                    key={index}
-                                                    productID={product._id}
-                                                    productTitle={product.title}
-                                                    productRating={
-                                                        product.rating
-                                                    }
-                                                    productDiscount={
-                                                        product.discountPercentage
-                                                    }
-                                                    productThumbnail={
-                                                        product.thumbnail
-                                                    }
-                                                    productPrice={product.price}
-                                                    productDescription={
-                                                        product.description
-                                                    }
-                                                />
-                                            )
-                                        )}
-                                    </div>
-                                </div>
-                            ) : null}
+                            <div className='shadow p-3 bg-white'>
+                                <h5>
+                                    <strong>{t("sugesstion.part1")}</strong>
+                                </h5>
+                                {/* <div className='row'> */}
+                                <ProductsSide />
+                                {/* </div> */}
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -537,7 +514,7 @@ export const Cart = () => {
                                                 {item.product?.quantityInStock}
                                             </p>
                                             <div className='mt-3'>
-                                                <ul className='list-unstyled d-flex flex-row list'>
+                                                <ul className='list-unstyled d-flex flex-row list align-items-center'>
                                                     <li className='h-100'>
                                                         <div>
                                                             <button
@@ -632,7 +609,7 @@ export const Cart = () => {
                             {cartPageRedux?.length > 0 ? (
                                 <div className='shadow p-3 bg-white mb-2'>
                                     <p className='total-cart'>
-                                        <ion-icon name='checkmark-circle'></ion-icon>{" "}
+                                        <IoCheckmarkCircleSharp className='text-primary fs-5' />{" "}
                                         {t("cart.part11")}{" "}
                                         <a href='#'>{t("cart.part12")}</a>
                                     </p>
@@ -655,40 +632,15 @@ export const Cart = () => {
                             ) : null}
                             {
                                 <div className='shadow p-3 bg-white'>
-                                    <h5>
-                                        <strong>{t("cart.part15")}</strong>
-                                    </h5>
-                                    <div className='row'>
-                                        {categoryProducts.map(
-                                            (product, index) => (
-                                                // return (
-                                                <ProductCard
-                                                    key={index}
-                                                    productID={product._id}
-                                                    productTitle={product.title}
-                                                    productRating={
-                                                        product.rating
-                                                    }
-                                                    productDiscount={
-                                                        product.discountPercentage
-                                                    }
-                                                    productThumbnail={
-                                                        product.thumbnail
-                                                    }
-                                                    productPrice={product.price}
-                                                    productDescription={
-                                                        product.description
-                                                    }
-                                                />
-                                            )
-                                        )}
-                                    </div>
+                                    <h3>{t("sugesstion.part1")}</h3>
+                                    <ProductsSide />
                                 </div>
                             }
                         </div>
                     </div>
                 </section>
             )}
+            <Sugessions number={8} col={3} />
         </>
     );
 };

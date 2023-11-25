@@ -19,6 +19,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { Reviews } from "../../components/review/reviews";
 import { Stars } from "../../components/stars/stars";
 import Spinner from "react-bootstrap/Spinner";
+import { Sugessions } from "../../components/sugesstion-producta/sugessions";
 // import { changeLoader } from "../../Store/Slice/Loader";
 
 const ProductDetails = () => {
@@ -444,32 +445,31 @@ const ProductDetails = () => {
                                     {isLogin ? (
                                         <div>
                                             <button
+                                                onClick={() =>
+                                                    navigate("/checkout", {
+                                                        state: {
+                                                            product: [
+                                                                myProd,
+                                                                {
+                                                                    quantity,
+                                                                },
+                                                            ],
+                                                            totalPrice:
+                                                                myProd?.price,
+                                                        },
+                                                    })
+                                                }
                                                 type='button'
                                                 className='btn w-75 rounded-pill text-center my-2 '
                                                 style={{
                                                     backgroundColor: "#FFA41C",
                                                 }}
                                             >
-                                                <button
-                                                    className='pe-3 btn'
-                                                    onClick={() =>
-                                                        navigate("/checkout", {
-                                                            state: {
-                                                                product: [
-                                                                    myProd,
-                                                                    {
-                                                                        quantity,
-                                                                    },
-                                                                ],
-                                                                totalPrice:
-                                                                    myProd?.price,
-                                                            },
-                                                        })
-                                                    }
-                                                >
-                                                    {t("prime.part9")}
-                                                </button>
-                                                <i className='fa-solid fa-money-check'></i>
+                                                <span>
+                                                    {" "}
+                                                    {t("prime.part9")}{" "}
+                                                </span>
+                                                <i className='fa-solid fa-money-check '></i>
                                             </button>{" "}
                                             <ul className='list-group list-group-horizontal '>
                                                 <li className='list-group-item w-50 border-0'>
@@ -508,7 +508,10 @@ const ProductDetails = () => {
                         </div>
                     </div>
                     {/* search section */}
+                     <Sugessions number={8} />
                     <Reviews productId={id} />
+                    <hr />
+                    <Sugessions number={8} />
                 </div>
             )}
         </>

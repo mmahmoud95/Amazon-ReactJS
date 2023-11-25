@@ -23,28 +23,34 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { SubCategory } from "./pages/subCategory/subCategory";
 import Order from "./pages/Orders/order";
-
+import { Help } from "./pages/help/help";
+import { Account } from "./pages/account/account";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
 
 const router = createBrowserRouter([
-  { path: "/", element: <Home /> },
-  {
-    path: "/",
-    element: <Applayout />,
-    children: [
-      { path: "cart", element: <Cart /> },
-      { path: "products/category/:categoryID", element: <Category /> },
-      { path: "products/SubCategory/:SubCategoryID", element: <SubCategory /> },
-      { path: "products/:id", element: <ProductDetails /> },
-      { path: "products/search/:category", element: <Search /> },
-      { path: "orders/", element: <Order /> },
-    ],
-  },
-  { path: "login", element: <Login /> },
-  { path: "login/loginStep2", element: <LoginStep2 /> },
-  { path: "signup", element: <Register /> },
-  { path: "checkout", element: <CheckOut /> },
+    { path: "/", element: <Home /> },
+    {
+        path: "/",
+        element: <Applayout />,
+        children: [
+            { path: "cart", element: <Cart /> },
+            { path: "products/category/:categoryID", element: <Category /> },
+            {
+                path: "products/SubCategory/:SubCategoryID",
+                element: <SubCategory />,
+            },
+            { path: "products/:id", element: <ProductDetails /> },
+            { path: "products/search/:category", element: <Search /> },
+            { path: "orders/", element: <Order /> },
+            { path: "help", element: <Help /> },
+            { path: "account", element: <Account /> },
+        ],
+    },
+    { path: "login", element: <Login /> },
+    { path: "login/loginStep2", element: <LoginStep2 /> },
+    { path: "signup", element: <Register /> },
+    { path: "checkout", element: <CheckOut /> },
 ]);
 
 function App() {

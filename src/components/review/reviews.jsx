@@ -102,8 +102,9 @@ export const Reviews = (props) => {
                 </ul>
             </div>
             <div className='border-top row'>
+                <h1 className="mb-0 mt-2">Customer Reviews</h1>
                 {/*  third section for ratings and comments  */}
-                <div className='col-lg-5 col-md-3 fs-3 p-5'>
+                <div className='col-lg-5 col-md-3 fs-3 p-4'>
                     {/*   rating section   */}
                     {loading ? (
                         <Spinner
@@ -253,10 +254,10 @@ export const Reviews = (props) => {
                 </div>
                 {/*  comments section  */}
                 <div className='col-lg-7'>
-                    <select className='my-2'>
+                    {/* <select className='my-2'>
                         <option>{t("rev.part7")}</option>
                         <option>{t("rev.part8")}</option>
-                    </select>
+                    </select> */}
                     {/*   user comment   */}
                     <div className='m-2 p-2'>
                         <form>

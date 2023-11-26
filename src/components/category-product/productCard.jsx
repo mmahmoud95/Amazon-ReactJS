@@ -14,14 +14,15 @@ export const ProductCard = (props) => {
                 navigate(`/products/${props.productID}`);
             }}
         >
-            <div className='card text-black my-3'>
-                <a className='text-black text-decoration-none text-left category-product'>
-                    <div className='img-container'>
+            <div className='card text-black my-2 shadow pt-2'>
+                <a className='text-black text-decoration-none text-left category-product m-2  p-1 pb-2'>
+                    <div className='img-container '>
                         <img
                             src={props.productThumbnail}
-                            style={{
-                                height: "160px",
-                            }}
+                            // style={{
+                            //     height: "160px",
+                            // }}
+                            style={{height:'15rem'}}
                             className='card-img-top d-block m-auto'
                             alt='...'
                         />
@@ -45,7 +46,7 @@ export const ProductCard = (props) => {
                                 {/* <strong>{props.productRating}</strong> */}
                             </span>
                         </div>
-                        <p className='price mt-2 d-inline-block'>
+                        <p className='price mt-1 d-inline-block'>
                             <sup> $ </sup>
                             {props.productPrice}
                             <sup> 00</sup>

@@ -507,7 +507,7 @@ export const Header = () => {
                     <li>
                         <NavLink
                             className='text-capitalize'
-                            to={`/products/category/${catogories.electronics.id}`}
+                            to={`/products/category/${catogories.electronics.id}` }
                         >
                             {catogories.electronics.name}
                         </NavLink>

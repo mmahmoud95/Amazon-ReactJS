@@ -10,7 +10,6 @@ import { useContext, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { authContext } from "../../context/authcontex";
-import { login, removeToCartWithAPI } from "../../services/auth";
 import { useTranslation } from "react-i18next";
 // import { instance } from "../../services/axios/instance";
 import { instance } from "../../services/axios/instance";
@@ -34,7 +33,7 @@ export const Cart = () => {
     const dispatch = useDispatch();
     var handelRemoveRedux = (id) => {
         // console.log(id);
-        dispatch(removeToCartWithAPI(id));
+        dispatch(removFromCart(id));
     };
     var handelincreasRedux = (index) => {
         const quantity = cartPageRedux[index].quantity;
@@ -181,7 +180,6 @@ export const Cart = () => {
                 .catch((error) => {
                     console.error("Error removing product:", error);
                 });
-            dispatch(totalPriceAction());
         }
     };
 

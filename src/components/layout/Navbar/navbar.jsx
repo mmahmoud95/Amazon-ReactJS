@@ -237,11 +237,13 @@ export const Header = () => {
                                             type='submit'
                                             className='serch-icon border-0'
                                         >
-                                            {/* <span className='d-block'> */}
-                                            <IoSearchOutline
-                                                style={{ marginRight: "-18px" }}
-                                            />
-                                            {/* </span> */}
+                                            <span className='mb-1 search-iconnn'>
+                                                <IoSearchOutline
+                                                    style={{
+                                                        marginLeft: "-8px",
+                                                    }}
+                                                />
+                                            </span>
                                         </button>
                                     </form>
                                 </li>
@@ -388,7 +390,7 @@ export const Header = () => {
                                             ? "text-decoration-none cart-container d-flex active-link p-1"
                                             : "text-decoration-none cart-container d-flex p-1"
                                     }
-                                    to='/cart'
+                                    to={"/cart"}
                                 >
                                     <span className='item-count'>
                                         {isLogin ? (
@@ -400,7 +402,7 @@ export const Header = () => {
                                                         height: "16px",
                                                         marginLeft: "-4px",
                                                         marginBottom: "8px",
-                                                        color: "#ffff",
+                                                        // color: "#ffff",
                                                     }}
                                                     animation='border'
                                                     role='status'

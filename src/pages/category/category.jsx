@@ -5,12 +5,10 @@ import { instance } from "../../services/axios/instance";
 import "./category.css";
 import { ProductCard } from "../../components/category-product/productCard";
 import { authContext } from "../../context/authcontex";
-import { Button } from "bootstrap";
 import Spinner from "react-bootstrap/Spinner";
-
 export const Category = () => {
     const [categoryProducts, setCategoryProducts] = useState([]);
-    const { lang, setLang } = useContext(authContext);
+    const { lang } = useContext(authContext);
     const [loading, setLoading] = useState(true);
     let { categoryID } = useParams();
 
@@ -18,9 +16,12 @@ export const Category = () => {
     const [price, setPrice] = useState("");
     const [rating, setRating] = useState("");
     const [brand, setBrand] = useState([]);
+    const [sorting, setSorting] = useState("");
     // const [brandCollection, setBrandCollection] = useState([]);
     // const [ArbrandCollection, setArBrandCollection] = useState([]);
     const [subCategories, setSubcategories] = useState([]);
+    const [productlength, setProductLength] = useState("");
+    const [pagination, setPagination] = useState({});
 
     // useEffect(() => {
     //     document.title = `Amazon - ${categoryName}`;
@@ -58,10 +59,13 @@ export const Category = () => {
                     // console.log(res);
                     setLoading(false);
                     setCategoryProducts(res.data.data);
+                    console.log(res.data.results);
+                    setProductLength(res.data.results);
+                    setPagination(res.data.pagination);
+                    console.log(res.data.pagination);
                 });
         } catch (error) {
             setLoading(false);
-
             // console.error(error);
             setCategoryProducts([]);
         }
@@ -102,17 +106,20 @@ export const Category = () => {
             setBrand("");
         } else if (event.target.checked === true) {
             setBrand([...brand, value]);
-            // console.log(brand);
         } else if (event.target.checked === false) {
             const newArr = brand.filter((e) => e !== value);
             setBrand([...newArr]);
-            // console.log(brand);
         }
+    };
+
+    const handleSorting = (event) => {
+        setSorting(event.target.value);
+        console.log(event.target.value);
     };
 
     useEffect(() => {
         applyFilters();
-    }, [price, rating, brand]);
+    }, [price, rating, brand, sorting]);
 
     let params = [];
     const applyFilters = () => {
@@ -124,6 +131,9 @@ export const Category = () => {
         }
         if (brand.length > 0) {
             params[lang === "en" ? "en.brand" : "ar.brand"] = brand;
+        }
+        if (sorting) {
+            params.sort = sorting;
         }
 
         fetchProducts(params);
@@ -165,6 +175,69 @@ export const Category = () => {
     return (
         // <></>
         <section className='container-fluid'>
+            <div className='row  mt-1 py-1 rounded border border-light-subtle shadow'>
+                <div className='col-sm-10 '>
+                    <p className='fs-6 ms-5 pt-2'>
+                        {pagination.skip + 1}-
+                        {pagination.limit + pagination.skip} of over{" "}
+                        {productlength} results
+                    </p>
+                </div>
+                <div className='col-sm-2 pt-1 me-0 pe-0 '>
+                    <div className='dropdown'>
+                        <button
+                            className='p-1 px-3 btn btn-light btn-outline-secondary shadow-sm dropdown-toggle'
+                            type='button'
+                            data-bs-toggle='dropdown'
+                            aria-expanded='false'
+                        >
+                            Sort By
+                        </button>
+                        <ul className='dropdown-menu'>
+                            <li>
+                                <button
+                                    type='button'
+                                    className='btn btn-light'
+                                    value={"price"}
+                                    onClick={() => handleSorting(event)}
+                                >
+                                    price: Low to High
+                                </button>
+                            </li>
+                            <li>
+                                <button
+                                    type='button'
+                                    className='btn btn-light'
+                                    value='-price'
+                                    onClick={() => handleSorting(event)}
+                                >
+                                    price: High to Low
+                                </button>
+                            </li>
+                            <li>
+                                <button
+                                    type='button'
+                                    className='btn btn-light'
+                                    value={"-rating"}
+                                    onClick={() => handleSorting(event)}
+                                >
+                                    Avg. Customer Reviews
+                                </button>
+                            </li>
+                            <li>
+                                <button
+                                    type='button'
+                                    className='btn btn-light'
+                                    value={"-sold"}
+                                    onClick={() => handleSorting(event)}
+                                >
+                                    Best Seller
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
             <div className='row mt-2 mb-2'>
                 <div className='col-lg-2 filter'>
                     {lang === "en" ? (
@@ -175,6 +248,7 @@ export const Category = () => {
                                     onClick={() =>
                                         navigate(
                                             `/products/SubCategory/${sub._id}`
+                                            // , {params:sub.en.name}
                                         )
                                     }
                                 >
@@ -334,16 +408,18 @@ export const Category = () => {
 
                             {subCategories.map((sub) => (
                                 <a
+                                    className='p-0 my-0 ms-4 text-truncate fs-6'
                                     key={sub._id}
                                     onClick={() =>
                                         navigate(
-                                            `/products/SubCategory/${sub._id}`
+                                            `/products/SubCategory/${sub._id}`,
+                                            {
+                                                params: sub.ar.name,
+                                            }
                                         )
                                     }
                                 >
-                                    <p className='p-0 my-0 ms-4 text-truncate fs-6'>
-                                        {sub.ar.name}
-                                    </p>
+                                    <p>{sub.ar.name}</p>
                                 </a>
                             ))}
 

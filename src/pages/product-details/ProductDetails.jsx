@@ -20,7 +20,7 @@ import { Reviews } from "../../components/review/reviews";
 import { Stars } from "../../components/stars/stars";
 import Spinner from "react-bootstrap/Spinner";
 import { Sugessions } from "../../components/sugesstion-producta/sugessions";
-// import { changeLoader } from "../../Store/Slice/Loader";
+import { changeLoader } from "../../Store/Slice/Loader";
 
 const ProductDetails = () => {
     const [loading, setLoading] = useState(true);
@@ -71,6 +71,7 @@ const ProductDetails = () => {
     // const dispatch = useDispatch();
 
     const hanleAddWithAp = (myProd) => {
+        dispatch(changeLoader(true));
         const items = [
             {
                 productId: myProd._id,
@@ -94,6 +95,7 @@ const ProductDetails = () => {
                 }
             )
             .then((res) => {
+                dispatch(changeLoader(false));
                 dispatch(totalPriceAction());
             });
     };
@@ -508,7 +510,7 @@ const ProductDetails = () => {
                         </div>
                     </div>
                     {/* search section */}
-                     <Sugessions number={8} />
+                    <Sugessions number={8} />
                     <Reviews productId={id} />
                     <hr />
                     <Sugessions number={8} />

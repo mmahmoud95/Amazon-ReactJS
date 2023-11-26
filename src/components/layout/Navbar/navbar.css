@@ -68,7 +68,9 @@
 [dir="rtl"] .serch-icon {
     padding: 2px 22px;
 }
-
+[dir="rtl"] .search-iconnn {
+    margin-right: -22px;
+}
 .serch-icon:hover {
     cursor: pointer;
     background-color: #ff9900;

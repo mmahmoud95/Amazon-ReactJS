@@ -20,9 +20,10 @@ export const ProductCard = (props) => {
                     <div className='img-container'>
                         <img
                             src={props.productThumbnail}
-                            style={{
-                                height: "160px",
-                            }}
+                            // style={{
+                            //     height: "160px",
+                            // }}
+                            style={{height:'15rem'}}
                             className='card-img-top d-block m-auto'
                             alt='...'
                         />

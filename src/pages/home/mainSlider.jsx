@@ -22,7 +22,7 @@ export default function MainSlider(){
         <div className="carousel-inner">
             <div className="carousel-item active">
                 <a  onClick={() => {
-                            navigate(`/products/category/lighting`);
+                            navigate("products/SubCategory/6562f4ad1cf9fca552f8c5b0");
                         }}>
                     <img
                         src={school}
@@ -33,7 +33,7 @@ export default function MainSlider(){
             </div>
             <div className="carousel-item">
                 <a onClick={() => {
-                            navigate(`/products/category/groceries`);
+                            navigate("products/category/656303b31cf9fca552f8cf4b?price[lte]=30");
                         }}>
                     <img
                         src={kitchen}

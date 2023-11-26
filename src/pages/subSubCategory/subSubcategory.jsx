@@ -2,15 +2,14 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { instance } from "../../services/axios/instance";
-import "./subCategory.css";
 import { ProductCard } from "../../components/category-product/productCard";
 import { authContext } from "../../context/authcontex";
 
-export const SubCategory = () => {
-    const [SubCategoryProducts, setSubCategoryProducts] = useState([]);
+export  const SubSubcategory = () => {
+    const [SubSubProducts, setSubSubProducts] = useState([]);
     const { lang, setLang } = useContext(authContext);
 
-    let { SubCategoryID } = useParams();
+    let { SubSubCategoryID } = useParams();
    
     const navigate = useNavigate();
     const [price, setPrice] = useState("");
@@ -18,7 +17,7 @@ export const SubCategory = () => {
     const [brand, setBrand] = useState([]);
     const [brandCollection, setBrandCollection] = useState([]);
     const [ArbrandCollection, setArBrandCollection] = useState([]);
-    const [subSubCategories,setSubSubcategories] = useState ([])
+    // const [subSubCategories,setSubSubcategories] = useState ([])
 
 
 
@@ -44,19 +43,19 @@ export const SubCategory = () => {
         fetchProducts();
        
     // }, [SubCategoryID, navigate, categoryName]);
-}, [SubCategoryID, navigate]);
+}, [SubSubCategoryID, navigate]);
 
     let fetchProducts = async (params) => {
         try {
           const res = await instance.get(
-            `/products/subCategoryPrd/${SubCategoryID}`,
+            `/products/subSubCategory/${SubSubCategoryID}`,
             {
               params: {
                 ...params,
               },
             }
           );
-          setSubCategoryProducts(res.data.data);
+          setSubSubProducts(res.data.data);
           
         } catch (error) {
           console.error(error);
@@ -66,7 +65,7 @@ export const SubCategory = () => {
 
       useEffect(() => {
         generateBrands();
-      }, [SubCategoryProducts]);
+      }, [SubSubProducts]);
 
       const generateBrands = () => {
         // const uniqueBrands = Array.from(
@@ -92,7 +91,7 @@ export const SubCategory = () => {
 
         const [subProdBrand, setSubProdBrand] = useState([]);
         useEffect(() => {
-            instance.get(`/products/subCategoryPrd/${SubCategoryID}`).then((res) => {
+            instance.get(`/products/subCategoryPrd/${SubSubCategoryID}`).then((res) => {
                 // console.log(res);
                 setSubProdBrand(res.data.data);
             });
@@ -173,16 +172,6 @@ export const SubCategory = () => {
     // }
     // console.log(categoryProducts);
 
-useEffect(()=>{
-    instance.get(`/subcategory/sub/subSub/${SubCategoryID}`)
-    .then((res)=>{
-setSubSubcategories(res.data.data)
-console.log(res.data.data);
-    })
-    .catch((err) => {
-        console.log(err);
-    });
-},[])
 
     return (
         // <></>
@@ -193,22 +182,6 @@ console.log(res.data.data);
                    <div>
                    {/* <h3>{categoryName} </h3> */}
                  
-                   {/* {subSubCategories.map((sub) => (
-                                <a
-                                    key={sub._id}
-                                    onClick={() =>
-                                        navigate(
-                                            `/products/SubSubCategory/${sub._id}`
-                                            // , {params:sub.en.name}
-                                        )
-                                    }
-                                >
-                                    <p className='p-0 my-0 ms-4 text-truncate fs-6'>
-                                        {sub.en.name}
-                                    </p>
-                                </a>
-                            ))} */}
-
 
 <h4 className="mt-3">Rating</h4>
 <label className="d-block fs-6 ms-2">
@@ -342,21 +315,7 @@ Equal to $300
  : 
 <div>
 {/* <h3>{categoryName}</h3> */}
-{/* {subSubCategories.map((sub) => (
-                                <a
-                                    key={sub._id}
-                                    onClick={() =>
-                                        navigate(
-                                            `/products/SubSubCategory/${sub._id}`
-                                            // , {params:sub.ar.name}
-                                        )
-                                    }
-                                >
-                                    <p className='p-0 my-0 ms-4 text-truncate fs-6'>
-                                        {sub.ar.name}
-                                    </p>
-                                </a>
-                            ))} */}
+
 
 <h4 className="mt-3">التقييم</h4>
 <label className="d-block fs-6 ms-2">
@@ -498,7 +457,7 @@ onChange={handlePriceChange}
                     <div className='row mt-5'>
                         <div className='col-12'>
                             <p>
-                                5-5 of over {SubCategoryProducts.length} results for &nbsp;
+                                5-5 of over {SubSubProducts.length} results for &nbsp;
                                 <span className='text-danger'>
                                     {/* {categoryName} */}
                                 </span>
@@ -506,7 +465,7 @@ onChange={handlePriceChange}
                         </div>
                     </div>
                     <div className='row'>
-                        {SubCategoryProducts.map((product, index) => (
+                        {SubSubProducts.map((product, index) => (
                             // return (
                             <ProductCard
                                 key={index}

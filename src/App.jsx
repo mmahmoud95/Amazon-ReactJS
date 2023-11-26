@@ -2,7 +2,6 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 // import { Navbar } from "./layout/Navbar/Navbar";
-import ReactStarRating from "react-star-ratings-component";
 
 import { Home } from "./pages/home/home";
 import { Cart } from "./pages/cart/cart";
@@ -17,11 +16,12 @@ import { store } from "./Store/store";
 import { Provider } from "react-redux";
 import LoginStep2 from "./pages/Login/loginStep2";
 import { Search } from "./pages/search/search";
-import { AuthProvider, CartProvider } from "./context/authcontex";
+import { AuthProvider } from "./context/authcontex";
 import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { SubCategory } from "./pages/subCategory/subCategory";
+// import { SubSubcategory } from "./pages/subSubCategory/subSubcategory";
 import Order from "./pages/Orders/order";
 import { Help } from "./pages/help/help";
 import { Account } from "./pages/account/account";
@@ -40,6 +40,8 @@ const router = createBrowserRouter([
                 path: "products/SubCategory/:SubCategoryID",
                 element: <SubCategory />,
             },
+            // { path: "products/SubSubCategory/:SubSubCategoryID", element: <SubSubcategory /> },
+
             { path: "products/:id", element: <ProductDetails /> },
             { path: "products/search/:category", element: <Search /> },
             { path: "orders/", element: <Order /> },

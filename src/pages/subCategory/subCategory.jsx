@@ -5,6 +5,8 @@ import { instance } from "../../services/axios/instance";
 import "./subCategory.css";
 import { ProductCard } from "../../components/category-product/productCard";
 import { authContext } from "../../context/authcontex";
+import ReactPaginate from "react-paginate";
+
 
 export const SubCategory = () => {
     const [SubCategoryProducts, setSubCategoryProducts] = useState([]);
@@ -16,9 +18,13 @@ export const SubCategory = () => {
     const [price, setPrice] = useState("");
     const [rating, setRating] = useState("");
     const [brand, setBrand] = useState([]);
+    const [sorting, setSorting] = useState("");
     const [brandCollection, setBrandCollection] = useState([]);
     const [ArbrandCollection, setArBrandCollection] = useState([]);
     const [subSubCategories,setSubSubcategories] = useState ([])
+    const [pagination, setPagination] = useState({});
+    const [productlength, setProductLength] = useState("");
+    const [currentPage, setCurrentPage] = useState("1");
 
 
 
@@ -44,12 +50,12 @@ export const SubCategory = () => {
         fetchProducts();
        
     // }, [SubCategoryID, navigate, categoryName]);
-}, [SubCategoryID, navigate]);
+}, [SubCategoryID, navigate,currentPage]);
 
     let fetchProducts = async (params) => {
         try {
           const res = await instance.get(
-            `/products/subCategoryPrd/${SubCategoryID}`,
+            `/products/subCategoryPrd/${SubCategoryID}?page=${currentPage}`,
             {
               params: {
                 ...params,
@@ -57,6 +63,10 @@ export const SubCategory = () => {
             }
           );
           setSubCategoryProducts(res.data.data);
+          setPagination(res.data.pagination);
+          setProductLength(res.data.results);
+
+
           
         } catch (error) {
           console.error(error);
@@ -123,9 +133,14 @@ export const SubCategory = () => {
     }
   };
 
+  const handleSorting = (event) => {
+    setSorting(event.target.value);
+    console.log(event.target.value);
+  };
+
   useEffect(() => {
     applyFilters();
-  }, [price, rating, brand]);
+  }, [price, rating, brand,sorting]);
 
   let params = [];
   const applyFilters = () => {
@@ -142,6 +157,9 @@ export const SubCategory = () => {
       // params.brand = brand;
       params[lang === "en" ? "en.brand" : "ar.brand"] = brand;
 
+    }
+    if (sorting) {
+      params.sort = sorting;
     }
 
     fetchProducts(params);
@@ -184,9 +202,80 @@ console.log(res.data.data);
     });
 },[])
 
+const handlePageClick=(data)=>{
+  console.log(data.selected+1);
+  setCurrentPage(data.selected+1)
+}
+
     return (
         // <></>
         <section className='container-fluid'>
+            <div className="row  mt-1 py-1 rounded border border-light-subtle shadow">
+        <div className="col-sm-10 ">
+          <p className="fs-6 ms-5 pt-2">
+            {pagination.skip + 1} -
+            {pagination.currentPage == pagination.numberOfPages
+              ? productlength
+              : pagination.limit + pagination.skip}
+            {/* {pagination.limit + pagination.skip} */} of over {productlength}{" "}
+            results
+          </p>
+        </div>
+        <div className="col-sm-2 pt-1 me-0 pe-0 ">
+          <div className="dropdown">
+            <button
+              className="p-1 px-3 btn btn-light btn-outline-secondary shadow-sm dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Sort By
+            </button>
+            <ul className="dropdown-menu">
+              <li>
+                <button
+                  type="button"
+                  className="btn btn-light"
+                  value={"price"}
+                  onClick={() => handleSorting(event)}
+                >
+                  price: Low to High
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  className="btn btn-light"
+                  value="-price"
+                  onClick={() => handleSorting(event)}
+                >
+                  price: High to Low
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  className="btn btn-light"
+                  value={"-rating"}
+                  onClick={() => handleSorting(event)}
+                >
+                  Avg. Customer Reviews
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  className="btn btn-light"
+                  value={"-sold"}
+                  onClick={() => handleSorting(event)}
+                >
+                  Best Seller
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
             <div className='row mt-2 mb-2'>
                 <div className='col-lg-2 filter'>
                    {(lang === "en")?
@@ -530,6 +619,28 @@ onChange={handlePriceChange}
                     </div>
                 </div>
             </div>
+
+            <ReactPaginate
+        breakLabel="..."
+        nextLabel="next"
+        onPageChange={handlePageClick}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={4}
+        pageCount={pagination.numberOfPages}
+        previousLabel="previous"
+        containerClassName="pagination justify-content-center"
+        pageClassName="page-item"
+        pageLinkClassName="page-link "
+        previousClassName="page-item"
+        nextClassName="page-item"
+        previousLinkClassName="page-link"
+        nextLinkClassName="page-link"
+        breakClassName="page-item"
+        breakLinkClassName="page-link"
+        activeClassName="active"
+
+        //   renderOnZeroPageCount={null}
+      />
         </section>
     );
 };

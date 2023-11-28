@@ -117,6 +117,10 @@ export const Header = () => {
             name: `${t("nav2.part12")}`,
             id: "65522f3250f3b49965ea7807",
         },
+        ToyGames: {
+            name: `${t("nav2.part5")}`,
+            id: "65657a1ae686c668a4d18968",
+        },
     };
 
     // console.log(catogories);
@@ -506,7 +510,12 @@ export const Header = () => {
                         <a href='#'>{t("nav2.part4")}</a>
                     </li>
                     <li>
-                        <a href='#'>{t("nav2.part5")}</a>
+                    <NavLink
+                            className='text-capitalize'
+                            to={`/products/category/${catogories.ToyGames.id}`}
+                        >
+                            {catogories.ToyGames.name}
+                        </NavLink>
                     </li>
                     <li>
                         <Link to={"/help"}>{t("nav2.part6")}</Link>

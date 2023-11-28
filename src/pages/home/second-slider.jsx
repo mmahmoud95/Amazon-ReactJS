@@ -24,7 +24,7 @@ export default function SecondSlider(props) {
     <>
       <div className="container-fluid px-4 py-2">
         <div
-          id="productSlider"
+          id={props.id}
           className="carousel slide position-relative bg-white mx-2">
           <h5 className="px-4 pt-3">
             <span className="pe-3 fs-3">{props.title1}</span>
@@ -38,6 +38,7 @@ export default function SecondSlider(props) {
           <div className="carousel-inner">
           <div className="carousel-item active">
           <CaraouselItem
+          url={props.url}
           skip={props.skip1}
           limit={props.limit1}
             />
@@ -45,12 +46,14 @@ export default function SecondSlider(props) {
 
           <div className="carousel-item">
           <CaraouselItem
+          url={props.url}
            skip={props.skip2}
            limit={props.limit2}
             />
           </div>
           <div className="carousel-item">
           <CaraouselItem
+          url={props.url}
           skip={props.skip3}
           limit={props.limit3}
             />
@@ -62,7 +65,7 @@ export default function SecondSlider(props) {
           <button
             className="carousel-control-prev position-absolute top-50 start-0 translate-middle btn-slider ms-3"
             type="button"
-            data-bs-target="#productSlider"
+            data-bs-target={props.id}
             data-bs-slide="prev"
           >
             <span
@@ -74,7 +77,7 @@ export default function SecondSlider(props) {
           <button
             className="carousel-control-next position-absolute top-50 end-0 translate-middle-y btn-slider"
             type="button"
-            data-bs-target="#productSlider"
+            data-bs-target={props.id}
             data-bs-slide="next"
           >
             <span

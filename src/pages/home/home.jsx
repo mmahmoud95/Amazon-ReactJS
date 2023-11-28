@@ -48,7 +48,7 @@ export const Home = () => {
               <MonoCard 
                 breackPoint="col-lg-3 col-sm-4 p-0"
                 title="Electronics"
-                navigation="laptops"
+                navigation="products/category/65527a31376a52ea210d9703"
                 image={electronics}
                 body="See more"
               />
@@ -56,7 +56,7 @@ export const Home = () => {
               <MonoCard
                 breackPoint="col-lg-3 col-sm-4 p-0"
                 title=" Health & Personal Care"
-                navigation="skincare"
+                navigation="products/category/65657705e686c668a4d1891c"
                 image={healthCare}
                 body="See more"
               />
@@ -64,7 +64,7 @@ export const Home = () => {
               <MonoCard
                 breackPoint="col-lg-3 col-sm-4 p-0"
                 title="Home & Kitchen Under $30"
-                navigation="home-decoration"
+                navigation="products/category/656303b31cf9fca552f8cf4b"
                 image={home}
                 body="Shop now"
               />
@@ -72,7 +72,7 @@ export const Home = () => {
               <MonoCard
                 breackPoint="col-lg-3 col-sm-4 p-0"
                 title="Toys Under $30"
-                navigation="home-decoration"
+                navigation="products/category/65657a1ae686c668a4d18968"
                 image={toys}
                 body="Shop now"
               />
@@ -128,8 +128,11 @@ export const Home = () => {
             {/* ////////////second slider//////////// */}
 
             <SecondSlider
+            id="ss1"
               title1="Related to items you've viewed"
               title2="Shop now"
+url='/products/categoryPrd/65527ac3376a52ea210d9706'
+
               skip1="0"
               limit1="6"
               skip2="6"
@@ -213,6 +216,23 @@ export const Home = () => {
               />
             </div>
             {/* ////////cards////////// */}
+
+{/* slider */}
+
+<SecondSlider
+            id="ss2"
+              title1="Related to items you've viewed"
+              title2="Shop now"
+url='/products/categoryPrd/65527c8c376a52ea210d970a'
+
+              skip1="0"
+              limit1="6"
+              skip2="6"
+              limit2="6"
+              skip3="12"
+              limit3="6"
+            />
+
           <Footer/>
           </div>
         </div>

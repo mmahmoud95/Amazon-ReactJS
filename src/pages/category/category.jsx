@@ -146,20 +146,21 @@ export const Category = () => {
   const [catogories, setCatogories] = useState([]);
   useEffect(() => {
     instance
-      .get("category")
+      .get("category/")
       .then((res) => {
         setCatogories(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [categoryID]);
 
   var categoryName;
   for (const category in catogories) {
     // console.log(categoriesArr[category].id, categoryID);
     if (catogories[category]._id === categoryID) {
-      categoryName = catogories[category].name;
+      // categoryName = catogories[category].name;
+     categoryName=(lang === "en" ? catogories[category].en?.name : catogories[category].ar?.name)
     }
   }
   // console.log(categoryProducts);
@@ -192,7 +193,7 @@ export const Category = () => {
               ? productlength
               : pagination.limit + pagination.skip}
             {/* {pagination.limit + pagination.skip} */} of over {productlength}{" "}
-            results
+            results for  <span className="text-danger fw-bold">  {categoryName} </span>
           </p>
         </div>
         <div className="col-sm-2 pt-1 me-0 pe-0 ">
@@ -250,8 +251,11 @@ export const Category = () => {
           </div>
         </div>
       </div>
+
+
       <div className="row mt-2 mb-2">
         <div className="col-lg-2 filter">
+          <p className="fs-5  fw-bold mb-0 mt-3">{categoryName}</p>
           {lang === "en" ? (
             <div>
               {subCategories.map((sub) => (
@@ -278,7 +282,7 @@ export const Category = () => {
                   value=""
                   onChange={handleRatingChange}
                 />
-                All Ratings
+                All 
               </label>
               <label className="d-block fs-6 ms-2">
                 <input
@@ -572,16 +576,7 @@ export const Category = () => {
           )}
         </div>
         <div className="col-lg-10">
-          <h3>{categoryName}</h3>
-          <div className="row mt-5">
-            <div className="col-12">
-              <p>
-                5-5 of over {categoryProducts.length} results for {categoryName}
-                &nbsp;
-                <span className="text-danger">{categoryName}</span>
-              </p>
-            </div>
-          </div>
+         
           <div className="row">
             {loading ? (
               <div className="m-auto d-flex vh-100">

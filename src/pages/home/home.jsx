@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import {useEffect} from "react";
 import electronics from "../../assets/home/cards/electronics.jpg";
 import healthCare from "../../assets/home/cards/health care.jpg";
 import home from "../../assets/home/cards/home.jpg";
@@ -26,217 +26,212 @@ import MainSlider from "./mainSlider";
 import MonoCard from "./mono-card";
 import QuartitCard from "./quartit-card";
 import SecondSlider from "./second-slider";
-import { Header } from "../../components/layout/Navbar/navbar";
+import {Header} from "../../components/layout/Navbar/navbar";
 import Footer from "../../components/layout/AmazonFooter/Footer";
 
 export const Home = () => {
-  useEffect(() => {
-    document.title = "Amazon";
-  }, []);
+	useEffect(() => {
+		document.title = "Amazon";
+	}, []);
 
-  return (
-    <>
-           
-      <div>
-      <Header />
-        <div className="container-fluid p-0 position-relative bg-body-secondary">
-          {/* main slider */}
-          <MainSlider />
-          <div className="container-fluid p-0 position-absolute top-50 start-0 ">
-            {/* //////////////// cards //////////////*/}
-            <div className="row gy-3 m-0 p-4 ">
-              <MonoCard 
-                breackPoint="col-lg-3 col-sm-4 p-0"
-                title="Electronics"
-                navigation="products/category/65527a31376a52ea210d9703"
-                image={electronics}
-                body="See more"
-              />
+	return (
+		<>
+			<div>
+				<Header />
+				<div className='container-fluid p-0 position-relative bg-body-secondary'>
+					{/* main slider */}
+					<MainSlider />
+					<div className='container-fluid p-0 position-absolute top-50 start-0 '>
+						{/* //////////////// cards //////////////*/}
+						<div className='row gy-3 m-0 p-4 '>
+							<MonoCard
+								breackPoint='col-lg-3 col-sm-4 p-0'
+								title='Electronics'
+								navigation='products/category/65527a31376a52ea210d9703'
+								image={electronics}
+								body='See more'
+							/>
 
-              <MonoCard
-                breackPoint="col-lg-3 col-sm-4 p-0"
-                title=" Health & Personal Care"
-                navigation="products/category/65657705e686c668a4d1891c"
-                image={healthCare}
-                body="See more"
-              />
+							<MonoCard
+								breackPoint='col-lg-3 col-sm-4 p-0'
+								title=' Health & Personal Care'
+								navigation='products/category/65657705e686c668a4d1891c'
+								image={healthCare}
+								body='See more'
+							/>
 
-              <MonoCard
-                breackPoint="col-lg-3 col-sm-4 p-0"
-                title="Home & Kitchen Under $30"
-                navigation="products/category/656303b31cf9fca552f8cf4b"
-                image={home}
-                body="Shop now"
-              />
+							<MonoCard
+								breackPoint='col-lg-3 col-sm-4 p-0'
+								title='Home & Kitchen Under $30'
+								navigation='products/category/656303b31cf9fca552f8cf4b'
+								image={home}
+								body='Shop now'
+							/>
 
-              <MonoCard
-                breackPoint="col-lg-3 col-sm-4 p-0"
-                title="Toys Under $30"
-                navigation="products/category/65657a1ae686c668a4d18968"
-                image={toys}
-                body="Shop now"
-              />
+							<MonoCard
+								breackPoint='col-lg-3 col-sm-4 p-0'
+								title='Toys Under $30'
+								navigation='products/category/65657a1ae686c668a4d18968'
+								image={toys}
+								body='Shop now'
+							/>
 
-              <QuartitCard
-                breackPoint="col-lg-3 col-sm-4 p-0"
-                title="Pick up where you left off"
-                navigation="laptops"
-                image1={headphone1}
-                image2={headphone2}
-                image3={headphone3}
-                image4={headphone4}
-                body="View your browsing history"
-              />
+							<QuartitCard
+								breackPoint='col-lg-3 col-sm-4 p-0'
+								title='Pick up where you left off'
+								navigation='laptops'
+								image1={headphone1}
+								image2={headphone2}
+								image3={headphone3}
+								image4={headphone4}
+								body='View your browsing history'
+							/>
 
-              <QuartitCard
-                breackPoint="col-lg-3 col-sm-4 p-0"
-                title="Pick up where you left off"
-                navigation="furniture"
-                image1={fur1}
-                image2={fur2}
-                image3={fur3}
-                image4={fur4}
-                body="View your browsing history"
-              />
+							<QuartitCard
+								breackPoint='col-lg-3 col-sm-4 p-0'
+								title='Pick up where you left off'
+								navigation='furniture'
+								image1={fur1}
+								image2={fur2}
+								image3={fur3}
+								image4={fur4}
+								body='View your browsing history'
+							/>
 
-              <MonoCard
-                breackPoint="col-lg-3 col-sm-4 p-0"
-                title="Shop school essentials"
-                navigation="home-decoration"
-                image={shopSchool}
-                body="See more"
-              />
+							<MonoCard
+								breackPoint='col-lg-3 col-sm-4 p-0'
+								title='Shop school essentials'
+								navigation='home-decoration'
+								image={shopSchool}
+								body='See more'
+							/>
 
-              <MonoCard
-                breackPoint="col-lg-3 col-sm-4 p-0"
-                title="Get your TV easily"
-                navigation="laptops"
-                image={tv}
-                body="See more"
-              />
+							<MonoCard
+								breackPoint='col-lg-3 col-sm-4 p-0'
+								title='Get your TV easily'
+								navigation='laptops'
+								image={tv}
+								body='See more'
+							/>
 
-              <MonoCard
-                breackPoint="d-lg-none col-sm-4 p-0"
-                title=" Beauty Picks"
-                navigation="skincare"
-                image={beauty}
-                body="Shop now"
-              />
-            </div>
-            {/* ///////////cards///////////////////// */}
+							<MonoCard
+								breackPoint='d-lg-none col-sm-4 p-0'
+								title=' Beauty Picks'
+								navigation='skincare'
+								image={beauty}
+								body='Shop now'
+							/>
+						</div>
+						{/* ///////////cards///////////////////// */}
 
-            {/* ////////////second slider//////////// */}
+						{/* ////////////second slider//////////// */}
 
-            <SecondSlider
-            id="ss1"
-              title1="Related to items you've viewed"
-              title2="Shop now"
-url='/products/categoryPrd/65527ac3376a52ea210d9706'
+						<SecondSlider
+							id='ss1'
+							title1="Related to items you've viewed"
+							title2='Shop now'
+							url='/products/categoryPrd/65527ac3376a52ea210d9706'
+							skip1='0'
+							limit1='6'
+							skip2='6'
+							limit2='6'
+							skip3='12'
+							limit3='6'
+						/>
+						{/* ////////////second slider//////////// */}
 
-              skip1="0"
-              limit1="6"
-              skip2="6"
-              limit2="6"
-              skip3="12"
-              limit3="6"
-            />
-            {/* ////////////second slider//////////// */}
+						{/* ////////cards//////// */}
+						<div className='row gy-2 m-0 p-4'>
+							<MonoCard
+								breackPoint='col-lg-3 col-sm-4 p-0'
+								title=' Stripe Light'
+								navigation='lighting'
+								image={stripeLight}
+								body='See more'
+							/>
 
-            {/* ////////cards//////// */}
-            <div className="row gy-2 m-0 p-4">
-              <MonoCard
-                breackPoint="col-lg-3 col-sm-4 p-0"
-                title=" Stripe Light"
-                navigation="lighting"
-                image={stripeLight}
-                body="See more"
-              />
+							<MonoCard
+								breackPoint='col-lg-3 col-sm-4 p-0'
+								title=' Home Refresh'
+								navigation='home-decoration'
+								image={homeRefresh}
+								body='Discover now'
+							/>
 
-              <MonoCard
-                breackPoint="col-lg-3 col-sm-4 p-0"
-                title=" Home Refresh"
-                navigation="home-decoration"
-                image={homeRefresh}
-                body="Discover now"
-              />
+							<MonoCard
+								breackPoint='col-lg-3 col-sm-4 p-0'
+								title='4+ Star picks for you'
+								navigation='furniture'
+								image={office}
+								body='Shop now'
+							/>
 
-              <MonoCard
-                breackPoint="col-lg-3 col-sm-4 p-0"
-                title="4+ Star picks for you"
-                navigation="furniture"
-                image={office}
-                body="Shop now"
-              />
+							<MonoCard
+								breackPoint='col-lg-3 col-md-4 p-0'
+								title='Shop Laptops & Tablets'
+								navigation='laptops'
+								image={laptop}
+								body='Shop now'
+							/>
+						</div>
+						{/* ////////cards//////// */}
 
-              <MonoCard
-                breackPoint="col-lg-3 col-md-4 p-0"
-                title="Shop Laptops & Tablets"
-                navigation="laptops"
-                image={laptop}
-                body="Shop now"
-              />
-            </div>
-            {/* ////////cards//////// */}
+						{/* ////////cards////////// */}
 
+						<div className='row gy-2 m-0 p-4'>
+							<MonoCard
+								breackPoint='col-lg-3 col-md-4 p-0'
+								title='For your Fitness Needs'
+								navigation='laptops'
+								image={fitness}
+								body='Shop now'
+							/>
 
+							<MonoCard
+								breackPoint='col-lg-3 col-md-4 p-0'
+								title=' Shop Pet supplies'
+								navigation='laptops'
+								image={pets}
+								body='Shop now'
+							/>
 
-            {/* ////////cards////////// */}
+							<MonoCard
+								breackPoint='col-lg-3 col-md-4 p-0'
+								title='4+ Star picks for you'
+								navigation='laptops'
+								image={deals}
+								body='Shop now'
+							/>
 
-            <div className="row gy-2 m-0 p-4">
-              <MonoCard
-                breackPoint="col-lg-3 col-md-4 p-0"
-                title="For your Fitness Needs"
-                navigation="laptops"
-                image={fitness}
-                body="Shop now"
-              />
+							<MonoCard
+								breackPoint='col-lg-3 col-md-4 p-0'
+								title='Deals in Tools and Home Improvement'
+								navigation='laptops'
+								image={cuttle}
+								body='Shop now'
+							/>
+						</div>
+						{/* ////////cards////////// */}
 
-              <MonoCard
-                breackPoint="col-lg-3 col-md-4 p-0"
-                title=" Shop Pet supplies"
-                navigation="laptops"
-                image={pets}
-                body="Shop now"
-              />
+						{/* slider */}
 
-              <MonoCard
-                breackPoint="col-lg-3 col-md-4 p-0"
-                title="4+ Star picks for you"
-                navigation="laptops"
-                image={deals}
-                body="Shop now"
-              />
+						<SecondSlider
+							id='ss2'
+							title1="Related to items you've viewed"
+							title2='Shop now'
+							url='/products/categoryPrd/65527c8c376a52ea210d970a'
+							skip1='0'
+							limit1='12'
+							skip2='6'
+							limit2='6'
+							skip3='12'
+							limit3='6'
+						/>
 
-              <MonoCard
-                breackPoint="col-lg-3 col-md-4 p-0"
-                title="Deals in Tools and Home Improvement"
-                navigation="laptops"
-                image={cuttle}
-                body="Shop now"
-              />
-            </div>
-            {/* ////////cards////////// */}
-
-{/* slider */}
-
-<SecondSlider
-            id="ss2"
-              title1="Related to items you've viewed"
-              title2="Shop now"
-url='/products/categoryPrd/65527c8c376a52ea210d970a'
-
-              skip1="0"
-              limit1="6"
-              skip2="6"
-              limit2="6"
-              skip3="12"
-              limit3="6"
-            />
-
-          <Footer/>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+						<Footer />
+					</div>
+				</div>
+			</div>
+		</>
+	);
 };

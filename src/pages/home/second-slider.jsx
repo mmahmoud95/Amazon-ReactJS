@@ -26,8 +26,8 @@ export default function SecondSlider(props) {
         <div
           id={props.id}
           className="carousel slide position-relative bg-white mx-2">
-          <h5 className="px-4 pt-3">
-            <span className="pe-3 fs-3">{props.title1}</span>
+          <h5 className="px-4 pt-3 fw-bold">
+            <span className="pe-3 fs-4">{props.title1}</span>
             <span>
               <a href="#" className="text-decoration-none fs-5">
                 {props.title2}
@@ -63,9 +63,9 @@ export default function SecondSlider(props) {
 
 
           <button
-            className="carousel-control-prev position-absolute top-50 start-0 translate-middle btn-slider ms-3"
+            className="carousel-control-prev position-absolute top-50 start-0 translate-middle btn-slider ms-3 mt-4 "
             type="button"
-            data-bs-target={props.id}
+            data-bs-target={"#"+props.id}
             data-bs-slide="prev"
           >
             <span
@@ -75,9 +75,9 @@ export default function SecondSlider(props) {
             <span className="visually-hidden">Previous</span>
           </button>
           <button
-            className="carousel-control-next position-absolute top-50 end-0 translate-middle-y btn-slider"
+            className="carousel-control-next position-absolute top-50 end-0 translate-middle-y btn-slider mt-4"
             type="button"
-            data-bs-target={props.id}
+            data-bs-target={"#"+props.id}
             data-bs-slide="next"
           >
             <span

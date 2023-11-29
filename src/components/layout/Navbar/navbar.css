@@ -1,306 +1,306 @@
 /*********Navbar****************/
 
 .location {
-    font-size: 24px;
-    color: #fff;
+	font-size: 24px;
+	color: #fff;
 }
 .deliver {
-    margin-bottom: -5px;
-    color: #ccc;
-    font-size: 10px;
+	margin-bottom: -5px;
+	color: #ccc;
+	font-size: 10px;
 }
 
 .navbar {
-    background-color: #131921 !important;
-    padding: 0;
+	background-color: #131921 !important;
+	padding: 0;
 }
 .address {
-    padding: 0 !important;
-    font-weight: bold;
-    color: #fff !important;
+	padding: 0 !important;
+	font-weight: bold;
+	color: #fff !important;
 }
 .location-item {
-    padding: 4px 4px;
+	padding: 4px 4px;
 }
 
 .search-bar {
-    border: #000 2px solid;
-    border-radius: 9px;
-    padding-bottom: 0;
-    overflow: hidden;
-    width: 600px;
-    margin: 0 10px 0;
-    transition: all 0.5s ease-in-out;
+	border: #000 2px solid;
+	border-radius: 9px;
+	padding-bottom: 0;
+	overflow: hidden;
+	width: 600px;
+	margin: 0 10px 0;
+	transition: all 0.5s ease-in-out;
 }
 .search-bar:hover {
-    border: #f3a847 2px solid;
+	border: #f3a847 2px solid;
 }
 
 .search-input {
-    border: none;
-    transition: all 0.1s ease-in-out;
-    /* height: 48px; */
-    padding: 8px;
-    padding-left: 56px;
-    /* margin: 0; */
-    border-radius: 0;
-    width: 400px;
+	border: none;
+	transition: all 0.1s ease-in-out;
+	/* height: 48px; */
+	padding: 8px;
+	padding-left: 56px;
+	/* margin: 0; */
+	border-radius: 0;
+	width: 400px;
 }
 .search input::placeholder {
-    font-size: 18px;
-    text-align: center;
+	font-size: 18px;
+	text-align: center;
 }
 
 .search-input:focus {
-    outline: 0;
-    /* border: #ff9900 3px solid; */
-    box-shadow: none;
+	outline: 0;
+	/* border: #ff9900 3px solid; */
+	box-shadow: none;
 }
 .serch-icon {
-    color: #000;
-    background-color: #ff9900;
-    font-size: 22px;
-    font-weight: bold;
-    padding: 2px 22px;
-    text-align: center;
+	color: #000;
+	background-color: #ff9900;
+	font-size: 22px;
+	font-weight: bold;
+	padding: 2px 22px;
+	text-align: center;
 }
 
 [dir="rtl"] .serch-icon {
-    padding: 2px 22px;
+	padding: 2px 22px;
 }
 [dir="rtl"] .search-iconnn {
-    margin-right: -22px;
+	margin-right: -22px;
 }
 .serch-icon:hover {
-    cursor: pointer;
-    background-color: #ff9900;
+	cursor: pointer;
+	background-color: #ff9900;
 }
 .all-category-search {
-    background-color: #e6e6e6;
-    /* position: absolute; */
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-    /* left: 16px; */
+	background-color: #e6e6e6;
+	/* position: absolute; */
+	border-top-left-radius: 8px;
+	border-bottom-left-radius: 8px;
+	/* left: 16px; */
 }
 /* .search {
   position: relative;
 } */
 .all-category-search {
-    margin-top: 0;
+	margin-top: 0;
 }
 
 .all-category-search .dropdown-menu.show {
-    padding-top: 0;
-    padding-bottom: 0;
+	padding-top: 0;
+	padding-bottom: 0;
 }
 .all-category-search .dropdown-item:hover {
-    background-color: hsl(206.25deg 80% 39.22%);
-    color: #fff;
+	background-color: hsl(206.25deg 80% 39.22%);
+	color: #fff;
 }
 .langugae-location {
-    color: #fff;
-    font-weight: bold;
+	color: #fff;
+	font-weight: bold;
 }
 .langugae-location:hover {
-    color: #fff;
+	color: #fff;
 }
 .navbar-nav .nav-link.active,
 .navbar-nav .nav-link.show {
-    color: #fff;
+	color: #fff;
 }
 
 .all-category-search .nav-link.active,
 .all-category-search .nav-link.show,
 .all-category-search .nav-link:hover {
-    color: #000;
+	color: #000;
 }
 
 /* search-bar-meduim */
 .search-bar-meduim {
-    /* width: 100% !important; */
-    /* overflow: hidden; */
-    border: 1px solid #f3a847;
-    height: 100%;
-    background-color: white;
+	/* width: 100% !important; */
+	/* overflow: hidden; */
+	border: 1px solid #f3a847;
+	height: 100%;
+	background-color: white;
 }
 
 .search-bar-meduim .seearch-input {
-    border: none;
+	border: none;
 }
 
 .search-bar-meduim .seearch-input:focus {
-    /* border: 5px solid #000; */
-    outline: 0;
-    box-shadow: none;
+	/* border: 5px solid #000; */
+	outline: 0;
+	box-shadow: none;
 }
 .search-bar-meduim .all-category-search {
-    background-color: #e6e6e6;
-    /* position: absolute; */
-    position: static;
-    height: 100%;
-    border-radius: 0;
-    padding: 8px;
+	background-color: #e6e6e6;
+	/* position: absolute; */
+	position: static;
+	height: 100%;
+	border-radius: 0;
+	padding: 8px;
 }
 .search-bar-meduim .serch-icon {
-    margin-bottom: -7px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+	margin-bottom: -7px;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
 }
 
 .dropdown-menu {
-    font-size: 14px;
+	font-size: 14px;
 }
 .cart,
 .cart:hover,
 .order,
 .order:hover,
 .nav-link.active {
-    color: #fff;
-    font-weight: 600;
-    letter-spacing: 1.2px;
+	color: #fff;
+	font-weight: 600;
+	letter-spacing: 1.2px;
 }
 .nav-link:focus,
 .nav-link:hover {
-    color: #fff;
+	color: #fff;
 }
 
 .cart {
-    padding: 8px 0 !important;
+	padding: 8px 0 !important;
 }
 .cart-container {
-    text-decoration: none;
-    position: relative;
+	text-decoration: none;
+	position: relative;
 }
 .cart-container {
-    margin-left: 10px;
+	margin-left: 10px;
 }
 .cart-container .item-count {
-    color: #ff9900;
-    position: absolute;
-    left: 22px;
-    bottom: 25px;
-    font-weight: 600;
-    font-size: 18px;
+	color: #ff9900;
+	position: absolute;
+	left: 22px;
+	bottom: 25px;
+	font-weight: 600;
+	font-size: 18px;
 }
 
 [dir="rtl"] .cart-container .item-count {
-    left: 106px;
+	left: 106px;
 }
 .nav-account a.nav-link.dropdown-toggle {
-    padding-top: 0;
-    padding-bottom: 0;
-    color: #fff;
+	padding-top: 0;
+	padding-bottom: 0;
+	color: #fff;
 }
 .nav-account .hello {
-    font-size: 12px;
-    color: #fff;
-    display: block;
+	font-size: 12px;
+	color: #fff;
+	display: block;
 }
 .account-lists {
-    color: #fff;
-    display: inline-block;
-    margin-top: -5px;
+	color: #fff;
+	display: inline-block;
+	margin-top: -5px;
 
-    font-size: 14px;
-    font-weight: 600;
+	font-size: 14px;
+	font-weight: 600;
 }
 /********** menu*****************/
 
 .menu {
-    background-color: #232f3e;
+	background-color: #232f3e;
 }
 .menu ul {
-    color: #fff;
-    padding: 0;
-    margin-bottom: 0;
+	color: #fff;
+	padding: 0;
+	margin-bottom: 0;
 }
 .menu ul li {
-    border: 1px solid transparent;
-    cursor: pointer;
+	border: 1px solid transparent;
+	cursor: pointer;
 }
 .menu ul li:hover {
-    border: 1px solid #fff;
+	border: 1px solid #fff;
 }
 .menu ul li a {
-    display: inline-block;
-    padding: 8px 12px;
+	display: inline-block;
+	padding: 8px 12px;
 
-    text-decoration: none;
-    color: #fff;
-    font-weight: 500;
-    font-size: 14px;
+	text-decoration: none;
+	color: #fff;
+	font-weight: 500;
+	font-size: 14px;
 }
 .navbar-collapse {
-    width: 100%;
-    padding: 10px;
+	width: 100%;
+	padding: 10px;
 }
 
 .navbar-toggler {
-    border: 1px solid #ff99008a;
-    background-color: #ff990071;
+	border: 1px solid #ff99008a;
+	background-color: #ff990071;
 }
 
 /* drop account */
 .drop-account {
-    background-color: #ffd814;
-    color: #000;
-    padding: 4px 24px;
-    font-size: 14px;
-    width: 100%;
-    text-align: center;
-    border-radius: 12px;
-    margin-bottom: 4px;
+	background-color: #ffd814;
+	color: #000;
+	padding: 4px 24px;
+	font-size: 14px;
+	width: 100%;
+	text-align: center;
+	border-radius: 12px;
+	margin-bottom: 4px;
 }
 
 .drop-account:hover {
-    background-color: #ebb609;
+	background-color: #ebb609;
 }
 .nav-account .dropdown-menu {
-    width: 50px;
-    padding: 8px 8px;
+	width: 50px;
+	padding: 8px 8px;
 }
 
 .nav-account .dropdown-menu .register {
-    font-size: 10px;
+	font-size: 10px;
 }
 @media screen and (max-width: 768px) {
-    .menu {
-        display: none;
-    }
+	.menu {
+		display: none;
+	}
 }
 
 @media screen and (max-width: 768px) {
-    .nav-item.search {
-        display: none;
-    }
+	.nav-item.search {
+		display: none;
+	}
 }
 @media screen and (max-width: 992px) {
-    .menu ul li a {
-        font-size: 8px;
-    }
-    .search-bar {
-        display: none;
-    }
+	.menu ul li a {
+		font-size: 8px;
+	}
+	.search-bar {
+		display: none;
+	}
 }
 @media screen and (min-width: 992px) {
-    .search-input {
-        width: 300px;
-    }
+	.search-input {
+		width: 300px;
+	}
 
-    /* .navbar-nav {
+	/* .navbar-nav {
       width: 100%;
   } */
 }
 
 @media screen and (min-width: 1024px) {
-    .search-input {
-        width: 340px;
-    }
+	.search-input {
+		width: 340px;
+	}
 }
 @media screen and (min-width: 1366px) {
-    .search-input {
-        width: 650px;
-    }
+	.search-input {
+		width: 650px;
+	}
 }
 /* .active-link {
     border: 0.5px solid #b3b2b2;
@@ -314,3 +314,6 @@ className="nav-link dropdown-toggle dropdown-menu"
 <option value="0">ALL</option>
 <option value="">phones</option>
 </select> */
+[dir="rtl"] .dropdMenuLanguageAccount {
+	text-align: right;
+}

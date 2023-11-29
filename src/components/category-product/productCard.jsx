@@ -3,7 +3,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {Stars} from "../../components/stars/stars";
 
-import "./productCard";
+import "./productCard.css";
 export const ProductCard = (props) => {
 	const {t} = useTranslation();
 
@@ -31,21 +31,21 @@ export const ProductCard = (props) => {
 						/>
 					</div>
 					<div className='card-body'>
-						<h5 className='card-title category-product-title fifty-chars'>
+						<h5 className='fifty-chars-title'>
 							{props.productTitle}
 						</h5>
 						<div className='product-rating'>
 							{/* {t("categoryPage.part1")}: &nbsp; */}
 							<span>
 								<Stars
-									starSize={24}
+									starSize={18}
 									productRating={Math.round(
 										props.productRating
 									)}
 								/>
 							</span>
 						</div>
-						<p className='price mt-2 d-inline-block'>
+						<p className='price mt-2 d-inline-block p-0'>
 							<sup> EGP </sup>
 							{props.productPrice}
 							<sup> 00</sup>
@@ -58,10 +58,10 @@ export const ProductCard = (props) => {
 								&nbsp;%
 							</p>
 						</p>
-						<p className='fifty-chars'>
+						{/* <p className='fifty-chars-description'>
 							{props.productDescription}
-						</p>
-						<p> {props.productBrand}</p>
+						</p> */}
+						<p className="text-success"> {props.productBrand}</p>
 						{/* <Link
                             className='btn btn-success text-decoration-none'
                             to={`/products//${props.id}`}

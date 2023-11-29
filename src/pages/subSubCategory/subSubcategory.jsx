@@ -4,10 +4,12 @@ import {useNavigate, useParams} from "react-router-dom";
 import {instance} from "../../services/axios/instance";
 import {ProductCard} from "../../components/category-product/productCard";
 import {authContext} from "../../context/authcontex";
-
+import {Stars} from "../../components/stars/stars";
+import Spinner from "react-bootstrap/Spinner";
+import {useTranslation} from "react-i18next";
+import "./subSubCategory.css";
 export const SubSubcategory = () => {
 	const [SubSubProducts, setSubSubProducts] = useState([]);
-	const {lang, setLang} = useContext(authContext);
 
 	let {SubSubCategoryID} = useParams();
 
@@ -18,6 +20,10 @@ export const SubSubcategory = () => {
 	const [brandCollection, setBrandCollection] = useState([]);
 	const [ArbrandCollection, setArBrandCollection] = useState([]);
 	// const [subSubCategories,setSubSubcategories] = useState ([])
+	const [loadingBrands, setLoadingBrands] = useState(false);
+	const [loading, setLoading] = useState(false);
+	const {lang} = useContext(authContext);
+	const {t} = useTranslation();
 
 	// useEffect(() => {
 	//     document.title = `Amazon - ${categoryName}`;
@@ -44,6 +50,7 @@ export const SubSubcategory = () => {
 	}, [SubSubCategoryID, navigate]);
 
 	let fetchProducts = async (params) => {
+		setLoading(true);
 		try {
 			const res = await instance.get(
 				`/products/subSubCategory/${SubSubCategoryID}`,
@@ -54,46 +61,44 @@ export const SubSubcategory = () => {
 				}
 			);
 			setSubSubProducts(res.data.data);
+			setLoading(false);
 		} catch (error) {
 			console.error(error);
+			setLoading(false);
+
 			//   navigate("/");
 		}
 	};
 
-	useEffect(() => {
-		generateBrands();
-	}, [SubSubProducts]);
+	useEffect(() => {}, [SubSubProducts]);
 
-	const generateBrands = () => {
+	const generateBrands = (data) => {
 		// const uniqueBrands = Array.from(
 		//   // new Set(categoryProducts.map((product) => product.brand))
 		//   new Set(categoryProducts.map((product) => lang === "en" ? product.en?.brand:product.ar?.brand))
 		// );
 		// setBrandCollection(uniqueBrands);
 
-		if (lang === "en") {
-			const enBrands = Array.from(
-				new Set(subProdBrand.map((product) => product.en.brand))
-			);
-			setBrandCollection(enBrands);
-		} else if (lang === "ar") {
-			const arBrands = Array.from(
-				new Set(subProdBrand.map((product) => product.ar.brand))
-			);
-			setArBrandCollection(arBrands);
-		}
+		const enBrands = Array.from(
+			new Set(data.map((product) => product.en.brand))
+		);
+		setBrandCollection(enBrands);
+
+		const arBrands = Array.from(
+			new Set(data.map((product) => product.ar.brand))
+		);
+		setArBrandCollection(arBrands);
 	};
 
-	const [subProdBrand, setSubProdBrand] = useState([]);
 	useEffect(() => {
+		setLoadingBrands(true);
 		instance
-			.get(`/products/subCategoryPrd/${SubSubCategoryID}`)
+			.get(`/products/subSubCategory/${SubSubCategoryID}`)
 			.then((res) => {
-				// console.log(res);
-				setSubProdBrand(res.data.data);
+				generateBrands(res.data.data);
+				setLoadingBrands(false);
 			});
-	}, [subProdBrand]);
-
+	}, []);
 	const handlePriceChange = (event) => {
 		setPrice(event.target.value);
 	};
@@ -125,7 +130,11 @@ export const SubSubcategory = () => {
 	let params = [];
 	const applyFilters = () => {
 		// let params = [];
-		if (price) {
+		if (price <= 10000 && price !== "") {
+			console.log(price);
+			params["price[lte]"] = price;
+		} else if (price > 10000) {
+			console.log(price);
 			params["price[gte]"] = price;
 		}
 		if (rating) {
@@ -168,117 +177,124 @@ export const SubSubcategory = () => {
 		// <></>
 		<section className='container-fluid'>
 			<div className='row mt-2 mb-2'>
-				<div className='col-lg-2 filter'>
-					{lang === "en" ? (
-						<div>
-							{/* <h3>{categoryName} </h3> */}
-
-							<h4 className='mt-3'>Rating</h4>
-							<label className='d-block fs-6 ms-2'>
+				<div className='col-lg-2 col-md-12 filter'>
+					<div>
+						{/* <h3>{categoryName} </h3> */}
+						<h4 className='mt-3'>
+							{t("category.part4")}
+						</h4>{" "}
+						<div className='d-flex ms-2'>
+							<input
+								type='radio'
+								name='rating'
+								value=''
+								className='price-rating'
+								onChange={handleRatingChange}
+							/>
+							<label className='d-block fs-6 ms-2 mt-1'>
+								{t("category.part6")}
+							</label>
+						</div>
+						<div className='d-flex'>
+							<label className='d-block fs-6 ms-2 mt-1 pe-1'>
 								<input
 									type='radio'
 									name='rating'
-									value=''
+									value={5}
 									onChange={
 										handleRatingChange
 									}
 								/>
-								All Ratings
 							</label>
-							<label className='d-block fs-6 ms-2'>
+							<Stars
+								starSize={24}
+								productRating={5}
+							/>
+						</div>
+						<div className='d-flex'>
+							<label className='d-block fs-6 ms-2 mt-1 pe-1'>
 								<input
 									type='radio'
 									name='rating'
-									value='5'
+									value={4}
 									onChange={
 										handleRatingChange
 									}
 								/>
-								Equal to 5 stars
 							</label>
-							<label className='d-block fs-6 ms-2'>
+							<Stars
+								starSize={24}
+								productRating={4}
+							/>
+						</div>
+						<div className='d-flex'>
+							<label className='d-block fs-6 ms-2 mt-1 pe-1'>
 								<input
 									type='radio'
 									name='rating'
-									value='4'
+									value={3}
 									onChange={
 										handleRatingChange
 									}
 								/>
-								Equal to 4 stars
 							</label>
-							<label className='d-block fs-6 ms-2'>
+							<Stars
+								starSize={24}
+								productRating={3}
+							/>
+						</div>
+						<div className='d-flex'>
+							<label className='d-block fs-6 ms-2 mt-1 pe-1'>
 								<input
 									type='radio'
 									name='rating'
-									value='3'
+									value={2}
 									onChange={
 										handleRatingChange
 									}
 								/>
-								Equal to 3 stars
 							</label>
-							<label className='d-block fs-6 ms-2'>
+							<Stars
+								starSize={24}
+								productRating={2}
+							/>
+						</div>
+						<div className='d-flex'>
+							<label className='d-block fs-6 ms-2 mt-1 pe-1'>
 								<input
 									type='radio'
 									name='rating'
-									value='2'
+									value={1}
 									onChange={
 										handleRatingChange
 									}
 								/>
-								Equal to 2 stars
 							</label>
-							<label className='d-block fs-6 ms-2'>
-								<input
-									type='radio'
-									name='rating'
-									value='1'
-									onChange={
-										handleRatingChange
-									}
-								/>
-								Equal to 1 star
-							</label>
-
-							<div className='mt-3'>
-								<h4>Price</h4>
-								<label className='d-block fs-6 ms-2'>
+							<Stars
+								starSize={24}
+								productRating={1}
+							/>
+						</div>
+						<div className='mt-3'>
+							<h4>{t("category.part7")}</h4>
+							<div className='d-flex'>
+								<label className='d-block fs-6 ms-2 mt-1 pe-1'>
 									<input
+										className='price-rating'
 										type='radio'
 										name='price'
-										value=''
+										value={""}
 										onChange={
 											handlePriceChange
 										}
 									/>
-									Any price
-								</label>
-								<label className='d-block fs-6 ms-2'>
+									{t("category.part8")}
+								</label>{" "}
+							</div>
+							<div className='d-flex'>
+								<label className='d-block fs-6 ms-2 mt-1 pe-1'>
 									<input
-										type='radio'
-										name='price'
-										value='25'
-										onChange={
-											handlePriceChange
-										}
-									/>
-									Equal to $25
-								</label>
-
-								<label className='d-block fs-6 ms-2'>
-									<input
-										type='radio'
-										name='price'
-										value='50'
-										onChange={
-											handlePriceChange
-										}
-									/>
-									Equal to $50
-								</label>
-								<label className='d-block fs-6 ms-2'>
-									<input
+										className='price-rating'
 										type='radio'
 										name='price'
 										value='100'
@@ -286,22 +302,13 @@ export const SubSubcategory = () => {
 											handlePriceChange
 										}
 									/>
-									Equal to $100
+									{t("category.part9")}
 								</label>
-
-								<label className='d-block fs-6 ms-2'>
+							</div>
+							<div className='d-flex'>
+								<label className='d-block fs-6 ms-2 mt-1 pe-1'>
 									<input
-										type='radio'
-										name='price'
-										value='200'
-										onChange={
-											handlePriceChange
-										}
-									/>
-									Equal to $200
-								</label>
-								<label className='d-block fs-6 ms-2'>
-									<input
+										className='price-rating'
 										type='radio'
 										name='price'
 										value='300'
@@ -309,16 +316,96 @@ export const SubSubcategory = () => {
 											handlePriceChange
 										}
 									/>
-									Equal to $300
+									{t("category.part10")}
 								</label>
-								<br />
-
-								<h4>Brands</h4>
-								{brandCollection.map((bd) => (
+							</div>
+							<div className='d-flex'>
+								<label className='d-block fs-6 ms-2 mt-1 pe-1'>
+									<input
+										className='price-rating'
+										type='radio'
+										name='price'
+										value='1000'
+										onChange={
+											handlePriceChange
+										}
+									/>
+									{t("category.part11")}
+								</label>
+							</div>
+							<div className='d-flex'>
+								<label className='d-block fs-6 ms-2 mt-1 pe-1'>
+									<input
+										className='price-rating'
+										type='radio'
+										name='price'
+										value='3000'
+										onChange={
+											handlePriceChange
+										}
+									/>
+									{t("category.part12")}
+								</label>
+							</div>
+							<div className='d-flex'>
+								<label className='d-block fs-6 ms-2 mt-1 pe-1'>
+									<input
+										className='price-rating'
+										type='radio'
+										name='price'
+										value='5000'
+										onChange={
+											handlePriceChange
+										}
+									/>
+									{t("category.part13")}
+								</label>
+							</div>{" "}
+							<div className='d-flex'>
+								<label className='d-block fs-6 ms-2 mt-1 pe-1'>
+									<input
+										className='price-rating'
+										type='radio'
+										name='price'
+										value='10000'
+										onChange={
+											handlePriceChange
+										}
+									/>
+									{t("category.part14")}
+								</label>
+							</div>
+							<div className='d-flex'>
+								<label className='d-block fs-6 ms-2 mt-1 pe-1'>
+									<input
+										className='price-rating'
+										type='radio'
+										name='price'
+										value='10001'
+										onChange={
+											handlePriceChange
+										}
+									/>
+									{t("category.part15")}
+								</label>
+							</div>
+							<br />
+							<h4>{t("category.part16")}</h4>
+							{loadingBrands ? (
+								<Spinner
+									style={{
+										color: "#FF9900",
+									}}
+									className='m-auto'
+									animation='border'
+									role='status'></Spinner>
+							) : (
+								brandCollection.map((bd) => (
 									<label
 										key={bd}
 										className='d-block fs-6 ms-2'>
 										<input
+											className='price-rating'
 											type='checkbox'
 											value={bd}
 											onChange={
@@ -328,173 +415,12 @@ export const SubSubcategory = () => {
 										/>
 										{bd}
 									</label>
-								))}
-							</div>
+								))
+							)}
 						</div>
-					) : (
-						<div>
-							{/* <h3>{categoryName}</h3> */}
-
-							<h4 className='mt-3'>التقييم</h4>
-							<label className='d-block fs-6 ms-2'>
-								<input
-									type='radio'
-									name='rating'
-									value=''
-									onChange={
-										handleRatingChange
-									}
-								/>
-								كل التقييمات
-							</label>
-							<label className='d-block fs-6 ms-2'>
-								<input
-									type='radio'
-									name='rating'
-									value='5'
-									onChange={
-										handleRatingChange
-									}
-								/>
-								5 نجوم
-							</label>
-							<label className='d-block fs-6 ms-2'>
-								<input
-									type='radio'
-									name='rating'
-									value='4'
-									onChange={
-										handleRatingChange
-									}
-								/>
-								4 نجوم
-							</label>
-							<label className='d-block fs-6 ms-2'>
-								<input
-									type='radio'
-									name='rating'
-									value='3'
-									onChange={
-										handleRatingChange
-									}
-								/>
-								3 نجوم
-							</label>
-							<label className='d-block fs-6 ms-2'>
-								<input
-									type='radio'
-									name='rating'
-									value='2'
-									onChange={
-										handleRatingChange
-									}
-								/>
-								نجمتين
-							</label>
-							<label className='d-block fs-6 ms-2'>
-								<input
-									type='radio'
-									name='rating'
-									value='1'
-									onChange={
-										handleRatingChange
-									}
-								/>
-								نجمة
-							</label>
-
-							<div className='mt-3'>
-								<h4>السعر</h4>
-								<label className='d-block fs-6 ms-2'>
-									<input
-										type='radio'
-										name='price'
-										value=''
-										onChange={
-											handlePriceChange
-										}
-									/>
-									كل الأسعار
-								</label>
-								<label className='d-block fs-6 ms-2'>
-									<input
-										type='radio'
-										name='price'
-										value='25'
-										onChange={
-											handlePriceChange
-										}
-									/>
-									25$
-								</label>
-
-								<label className='d-block fs-6 ms-2'>
-									<input
-										type='radio'
-										name='price'
-										value='50'
-										onChange={
-											handlePriceChange
-										}
-									/>
-									50$
-								</label>
-								<label className='d-block fs-6 ms-2'>
-									<input
-										type='radio'
-										name='price'
-										value='100'
-										onChange={
-											handlePriceChange
-										}
-									/>
-									100$
-								</label>
-
-								<label className='d-block fs-6 ms-2'>
-									<input
-										type='radio'
-										name='price'
-										value='200'
-										onChange={
-											handlePriceChange
-										}
-									/>
-									200$
-								</label>
-								<label className='d-block fs-6 ms-2'>
-									<input
-										type='radio'
-										name='price'
-										value='300'
-										onChange={
-											handlePriceChange
-										}
-									/>
-									300$
-								</label>
-
-								<h4>العلامات التجارية</h4>
-								{ArbrandCollection.map((bd) => (
-									<label
-										key={bd}
-										className='d-block fs-6 ms-2'>
-										<input
-											type='checkbox'
-											value={bd}
-											onChange={
-												handleBrandChange
-											}
-											// checked={brand.includes(bd)}
-										/>
-										{bd}
-									</label>
-								))}
-							</div>
-						</div>
-					)}
+					</div>
 				</div>
-				<div className='col-lg-10'>
+				<div className='col-lg-10 col-md-12'>
 					{/* <h3>{categoryName}</h3> */}
 					<div className='row mt-5'>
 						<div className='col-12'>
@@ -509,33 +435,69 @@ export const SubSubcategory = () => {
 						</div>
 					</div>
 					<div className='row'>
-						{SubSubProducts.map((product, index) => (
-							// return (
-							<ProductCard
-								key={index}
-								productID={product._id}
-								productTitle={
-									lang === "en"
-										? product.en?.title
-										: product.ar?.title
-								}
-								productRating={product.rating}
-								productDiscount={
-									product.discountPercentage
-								}
-								productThumbnail={
-									product.thumbnail
-								}
-								productPrice={product.price}
-								productDescription={
-									lang === "en"
-										? product.en
-												?.description
-										: product.ar
-												?.description
-								}
-							/>
-						))}
+						{" "}
+						{loading ? (
+							<div className='m-auto d-flex vh-100'>
+								<Spinner
+									style={{color: "#FF9900"}}
+									className='m-auto'
+									animation='border'
+									role='status'></Spinner>
+							</div>
+						) : SubSubProducts.length > 0 ? (
+							SubSubProducts.map(
+								(product, index) => (
+									// return (
+									<ProductCard
+										key={index}
+										productID={
+											product._id
+										}
+										productTitle={
+											lang === "en"
+												? product
+														.en
+														?.title
+												: product
+														.ar
+														?.title
+										}
+										productRating={
+											product.rating
+										}
+										productDiscount={
+											product.discountPercentage
+										}
+										productThumbnail={
+											product.thumbnail
+										}
+										productPrice={
+											product.price
+										}
+										productDescription={
+											lang === "en"
+												? product
+														.en
+														?.description
+												: product
+														.ar
+														?.description
+										}
+										productBrand={
+											lang === "en"
+												? product
+														.en
+														?.brand
+												: product
+														.ar
+														?.brand
+										}
+									/>
+								)
+							)
+						) : (
+							<h5>{t("category.part17")}</h5>
+						)}
 					</div>
 				</div>
 			</div>

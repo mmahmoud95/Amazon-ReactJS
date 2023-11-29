@@ -1,28 +1,34 @@
 .slider2-PrevIcon,
 .slider2-NextIcon {
-    height: 100px;
+    height: 90px !important;
     width: 40px;
-    outline: black;
-    border-radius: 5%;
-    border: 1.5px solid black;
-    background-image: none;
-    background-color: white;
+     /* outline: black;  */
+     border-radius: 5%; 
+     border: 0.25px solid gray !important; 
+     background-image: none; 
+     background-color: white; 
+    /* border:none !important; */
 }
+/* .slider2-PrevIcon:hover,
+.slider2-NextIcon:hover{
+border:1px solid gray !important;
+} */
 
 .slider2-NextIcon:after {
     content: ">";
     font-size: 50px;
-    color: black;
+    color: gray;
 }
 
 .slider2-PrevIcon:after {
     content: "<";
     font-size: 55px;
-    color: black;
+    color: gray;
 }
 
 .btn-slider {
     width: 40px;
+   
 }
 
 .product-details {

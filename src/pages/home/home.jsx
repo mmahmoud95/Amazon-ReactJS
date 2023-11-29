@@ -42,7 +42,7 @@ export const Home = () => {
         <div className="container-fluid p-0 position-relative bg-body-secondary">
           {/* main slider */}
           <MainSlider />
-          <div className="container-fluid p-0 position-absolute top-50 start-0 ">
+          <div className="container-fluid p-0 position-absolute top-50 start-0 bg-body-secondary">
             {/* //////////////// cards //////////////*/}
             <div className="row gy-3 m-0 p-4 ">
               <MonoCard 
@@ -133,14 +133,16 @@ export const Home = () => {
               title2="Shop now"
 url='/products/categoryPrd/65527ac3376a52ea210d9706'
 
-              skip1="0"
+              skip1="13"
               limit1="6"
-              skip2="6"
+              skip2="19"
               limit2="6"
-              skip3="12"
+              skip3="25"
               limit3="6"
             />
             {/* ////////////second slider//////////// */}
+
+
 
             {/* ////////cards//////// */}
             <div className="row gy-2 m-0 p-4">

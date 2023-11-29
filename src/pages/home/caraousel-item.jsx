@@ -18,13 +18,13 @@ export default function CarouselItem(props) {
             .catch((err) => {
                 console.log(err);
             });
-    }, [props]);
+    }, []);
 
     const navigate = useNavigate();
 
     return (
         <>
-            <div className='row'>
+            <div className='row mx-2'>
                 {products.map((prd) => (
                     <div
                         className='col-6 col-sm-4 col-md-3 col-lg-2 product-details'
@@ -34,10 +34,10 @@ export default function CarouselItem(props) {
                         }}
                     >
                         <img
-                            className='m-3'
-                            src={prd.images[0]}
+                            className='my-3 px-1'
+                            src={prd.thumbnail}
                             alt=''
-                            style={{ height: "12rem" }}
+                            style={{ height: "13rem" , width:"11rem"}}
                         />
                     </div>
                 ))}

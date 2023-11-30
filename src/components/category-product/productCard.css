@@ -1,6 +1,13 @@
-.fifty-chars {
-  height: 6ch;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin-bottom: 0;
+.fifty-chars-title {
+	height: 4ch;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-bottom: 0;
+  font-size: 16px;
+}
+.fifty-chars-description {
+	height: 6ch;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-bottom: 0;
 }

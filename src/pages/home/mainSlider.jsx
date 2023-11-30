@@ -44,7 +44,7 @@ export default function MainSlider(){
             </div>
             <div className="carousel-item">
                 <a onClick={() => {
-                            navigate(`/products/category/furniture`);
+                            navigate(`products/category/65658ceae686c668a4d191ec`);
                         }}>
                     <img
                         src={books}

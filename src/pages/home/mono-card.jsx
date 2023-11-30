@@ -11,7 +11,7 @@ export default function MonoCard(props) {
                     <h5 className='card-title text-truncate'>{props.title}</h5>
                     <a
                         onClick={() => {
-                            navigate(`/products/category/${props.navigation}`);
+                            navigate(props.navigation);
                         }}
                     >
                         <img
@@ -24,9 +24,7 @@ export default function MonoCard(props) {
                     <div className='card-body'>
                         <a
                             onClick={() => {
-                                navigate(
-                                    `/products/category/${props.navigation}`
-                                );
+                                navigate(props.navigation);
                             }}
                             className='card-link text-decoration-none'
                         >

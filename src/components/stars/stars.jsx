@@ -4,7 +4,7 @@ import {IoMdStarOutline} from "react-icons/io";
 import {IoMdStar} from "react-icons/io";
 export const Stars = (props) => {
 	return props.productRating === 1 ? (
-		<div className='d-inline'>
+		<div className='d-inline '>
 			<IoMdStar
 				style={{
 					color: "#ff9900",

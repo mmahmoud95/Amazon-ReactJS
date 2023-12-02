@@ -9,14 +9,14 @@ export const ProductCard = (props) => {
 
 	const navigate = useNavigate();
 	return (
-		<div className={`col-lg-3 col-sm-6`}>
-			<div className='card text-black my-3 shadow'>
+		<div className="col-lg-3 col-md-4 col-sm-6  col-xs-12">
+			<div className='card text-black my-3 shadow  bg-tertiary'>
 				<Link
 					className='text-black text-decoration-none text-left category-product'
 					onClick={() => {
 						navigate(`/products/${props.productID}`);
 					}}>
-					<div className='img-container'>
+					<div className='img-container '>
 						<img
 							src={props.productThumbnail}
 							// style={{
@@ -24,9 +24,9 @@ export const ProductCard = (props) => {
 							// }}
 							style={{
 								height: "15rem",
-								width: "160px",
+								width: "14rem",
 							}}
-							className='card-img-top d-block m-auto'
+							className='card-img-top d-block m-auto pt-1'
 							alt='...'
 						/>
 					</div>

@@ -64,6 +64,7 @@ export const SubSubcategory = () => {
 			setLoading(false);
 		} catch (error) {
 			console.error(error);
+			setSubSubProducts([]);
 			setLoading(false);
 
 			//   navigate("/");

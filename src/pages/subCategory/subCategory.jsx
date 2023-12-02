@@ -70,7 +70,8 @@ export const SubCategory = () => {
 			setPagination(res.data.pagination);
 			setProductLength(res.data.results);
 			setLoading(false);
-		} catch (error) {
+		} catch (error) {			setSubCategoryProducts([]);
+
 			setLoading(false);
 			console.error(error);
 			//   navigate("/");

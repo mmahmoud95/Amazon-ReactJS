@@ -55,28 +55,29 @@ export const SubCategory = () => {
     // }, [SubCategoryID, navigate, categoryName]);
   }, [SubCategoryID, navigate, currentPage]);
 
-  let fetchProducts = async (params) => {
-    setLoading(true);
-    try {
-      const res = await instance.get(
-        `/products/subCategoryPrd/${SubCategoryID}?page=${currentPage}`,
-        {
-          params: {
-            ...params,
-          },
-        }
-      );
-      setSubCategoryProducts(res.data.data);
-      setPagination(res.data.pagination);
-      setProductLength(res.data.results);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      console.error(error);
-      //   navigate("/");
-    }
-  };
-  const [loadingBrands, setLoadingBrands] = useState(false);
+	let fetchProducts = async (params) => {
+		setLoading(true);
+		try {
+			const res = await instance.get(
+				`/products/subCategoryPrd/${SubCategoryID}?page=${currentPage}`,
+				{
+					params: {
+						...params,
+					},
+				}
+			);
+			setSubCategoryProducts(res.data.data);
+			setPagination(res.data.pagination);
+			setProductLength(res.data.results);
+			setLoading(false);
+		} catch (error) {			setSubCategoryProducts([]);
+
+			setLoading(false);
+			console.error(error);
+			//   navigate("/");
+		}
+	};
+	const [loadingBrands, setLoadingBrands] = useState(false);
 
   // useEffect(() => {
   // 	setLoadingBrands(true);

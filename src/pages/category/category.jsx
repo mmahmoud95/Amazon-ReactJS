@@ -302,8 +302,8 @@ export const Category = () => {
                   </Link>
                 ))}
             <h4 className="mt-3 fs-5 fw-bold">{t("category.part4")}</h4>{" "}
-            <div className="d-flex  row">
-              <label className="d-block fs-6 ms-2 ">
+            <div className="d-flex row">
+              <label className="d-block fs-6 ms-2">
                 <input
                   className="price-rating"
                   type="radio"
@@ -454,7 +454,7 @@ export const Category = () => {
                   />
                   {t("category.part14")}
                 </label>
-              </div>{" "}
+              </div>
               <div className="d-flex">
                 <label className="d-block fs-6 ms-2 mt-1 pe-1">
                   <input

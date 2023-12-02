@@ -1,25 +1,9 @@
 /* eslint-disable react/prop-types */
-// import { useState, useEffect } from "react";
-// import { instance } from "../../services/axios/instance";
-// import { useNavigate } from "react-router-dom";
+import RatingSliderItem from "./ratingSliderItem"
+import {useNavigate} from "react-router-dom";
 
-import CaraouselItem from "./caraousel-item";
-
-export default function SecondSlider(props) {
-  // const [products, setProducts] = useState([]);
-
-  // useEffect(() => {
-  //   instance
-  //     .get(`?skip=${props.skip}&limit=${props.limit}`)
-  //     .then((res) => {
-  //       console.log(res.data.products);
-  //       setProducts(res.data.products);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
-  // const navigate = useNavigate();
+export default function SliderWithRating(props) {
+const navigate= useNavigate()
   return (
     <>
       <div className="container-fluid px-4  py-2 ">
@@ -29,7 +13,9 @@ export default function SecondSlider(props) {
           <h5 className="px-4 pt-3 fw-bold">
             <span className="pe-3 fs-4">{props.title1}</span>
             <span>
-              <a href="#" className="text-decoration-none fs-5">
+              <a  onClick={() => {
+                            navigate(props.navigation);
+                        }} className="text-decoration-none fs-5">
                 {props.title2}
               </a>
             </span>
@@ -37,7 +23,7 @@ export default function SecondSlider(props) {
 
           <div className="carousel-inner">
           <div className="carousel-item active">
-          <CaraouselItem
+          <RatingSliderItem
           url={props.url}
           skip={props.skip1}
           limit={props.limit1}
@@ -45,14 +31,14 @@ export default function SecondSlider(props) {
           </div>
 
           <div className="carousel-item">
-          <CaraouselItem
+          <RatingSliderItem
           url={props.url}
            skip={props.skip2}
            limit={props.limit2}
             />
           </div>
           <div className="carousel-item">
-          <CaraouselItem
+          <RatingSliderItem
           url={props.url}
           skip={props.skip3}
           limit={props.limit3}

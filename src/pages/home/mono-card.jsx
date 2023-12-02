@@ -8,7 +8,7 @@ export default function MonoCard(props) {
         <>
             <div className={props.breackPoint}>
                 <div className='card p-3  mx-2'>
-                    <h5 className='card-title text-truncate'>{props.title}</h5>
+                    <h5 className='card-title text-truncate ms-1'>{props.title}</h5>
                     <a
                         onClick={() => {
                             navigate(props.navigation);

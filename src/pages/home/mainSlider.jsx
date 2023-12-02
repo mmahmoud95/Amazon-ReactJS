@@ -55,7 +55,7 @@ export default function MainSlider(){
             </div>
             <div className="carousel-item">
                 <a onClick={() => {
-                            navigate(`/products/category/motorcycle`);
+                            navigate("products/SubCategory/6568b9238535d7773e72fee3");
                         }}>
                     <img
                         src={gaming}
@@ -66,7 +66,7 @@ export default function MainSlider(){
             </div>
             <div className="carousel-item">
                 <a onClick={() => {
-                            navigate(`/products/category/lighting`);
+                            navigate("products/category/65657a1ae686c668a4d18968");
                         }}>
                     <img
                         src={toys}
@@ -77,7 +77,7 @@ export default function MainSlider(){
             </div>
             <div className="carousel-item">
                 <a onClick={() => {
-                            navigate(`/products/category/skincare`);
+                            navigate("products/category/65527c8c376a52ea210d970a");
                         }}>
                     <img
                         src={beauty}

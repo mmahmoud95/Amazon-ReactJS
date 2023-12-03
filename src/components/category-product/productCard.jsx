@@ -10,7 +10,7 @@ export const ProductCard = (props) => {
 	const navigate = useNavigate();
 	return (
 		<div className="col-lg-3 col-md-4 col-sm-6  col-xs-12">
-			<div className='card text-black my-3 shadow  bg-tertiary'>
+			<div className='card text-black my-3 shadow  bg-tertiary p-4'>
 				<Link
 					className='text-black text-decoration-none text-left category-product'
 					onClick={() => {
@@ -23,15 +23,15 @@ export const ProductCard = (props) => {
 							//     height: "160px",
 							// }}
 							style={{
-								height: "15rem",
-								width: "14rem",
+								height: "16rem",
+								// width: "14rem",
 							}}
-							className='card-img-top d-block m-auto pt-1'
+							className='card-img-top d-block m-auto '
 							alt='...'
 						/>
 					</div>
 					<div className='card-body'>
-						<h5 className='fifty-chars-title'>
+						<h5 className='fifty-chars-title '>
 							{props.productTitle}
 						</h5>
 						<div className='product-rating'>
@@ -61,7 +61,7 @@ export const ProductCard = (props) => {
 						{/* <p className='fifty-chars-description'>
 							{props.productDescription}
 						</p> */}
-						<p className="text-success"> {props.productBrand}</p>
+						<p className="text-success fw-bold fs-6"> {props.productBrand}</p>
 						{/* <Link
                             className='btn btn-success text-decoration-none'
                             to={`/products//${props.id}`}

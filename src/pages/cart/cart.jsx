@@ -338,26 +338,6 @@ export const Cart = () => {
                                                                 )}
                                                             </a>
                                                         </li>
-                                                        <li>
-                                                            <a
-                                                                href='#'
-                                                                className='text-decoration-none me-2'
-                                                            >
-                                                                {t(
-                                                                    "cart.part6"
-                                                                )}
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a
-                                                                href='#'
-                                                                className='text-decoration-none me-2'
-                                                            >
-                                                                {t(
-                                                                    "cart.part7"
-                                                                )}
-                                                            </a>
-                                                        </li>
                                                     </ul>
                                                     <p className='total-price fw-bold'>
                                                         {/* {t("cart.part8")} : EGP{" "} */}
@@ -561,22 +541,6 @@ export const Cart = () => {
                                                             }
                                                         >
                                                             {t("cart.part4")}
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href='#'
-                                                            className='text-decoration-none me-2'
-                                                        >
-                                                            {t("cart.part6")}
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href='#'
-                                                            className='text-decoration-none me-2'
-                                                        >
-                                                            {t("cart.part7")}
                                                         </a>
                                                     </li>
                                                 </ul>

@@ -322,7 +322,7 @@
 		display: none !important;
 	}
 }
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 991px) {
 	.menu ul li a {
 		font-size: 8px;
 	}
@@ -336,7 +336,7 @@
 		border-radius: 0;
 	}
 	[dir="rtl"] .cart-container .item-count {
-		right: 0;
+		right: 15px;
 	}
 }
 @media screen and (min-width: 992px) {
@@ -347,11 +347,11 @@
 		width: 198px;
 	}
 	[dir="rtl"] .search1 {
-		width: 300px;
+		width: 296px;
 	}
 
 	[dir="rtl"] .serch-input1 {
-		width: 124px;
+		width: 118px;
 	}
 }
 
@@ -363,11 +363,11 @@
 		width: 228px;
 	}
 	[dir="rtl"] .search1 {
-		width: 330px;
+		width: 328px;
 	}
 
 	[dir="rtl"] .serch-input1 {
-		width: 157px;
+		width: 151px;
 	}
 }
 @media screen and (min-width: 1200px) {
@@ -378,11 +378,11 @@
 		width: 394px;
 	}
 	[dir="rtl"] .search1 {
-		width: 508px;
+		width: 504px;
 	}
 
 	[dir="rtl"] .serch-input1 {
-		width: 331px;
+		width: 326px;
 	}
 }
 @media screen and (min-width: 1366px) {
@@ -391,14 +391,14 @@
 	}
 
 	[dir="rtl"] .search1 {
-		width: 655px;
+		width: 650px;
 	}
 	.serch-input1 {
 		width: 535px;
 	}
 
 	[dir="rtl"] .serch-input1 {
-		width: 478px;
+		width: 473px;
 	}
 }
 

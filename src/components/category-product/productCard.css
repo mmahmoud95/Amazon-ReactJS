@@ -1,9 +1,9 @@
 .fifty-chars-title {
-	height: 4ch;
+	height: 4.5ch;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	margin-bottom: 0;
-  font-size: 16px;
+  font-size: 17px;
 }
 .fifty-chars-description {
 	height: 6ch;

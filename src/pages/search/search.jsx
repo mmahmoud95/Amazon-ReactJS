@@ -459,7 +459,7 @@ export const Search = () => {
           </div>
         </div>
         <nav>
-          <ul className="pagination justify-content-center">
+          <ul className="pagination justify-content-center align-items-center">
             <li className="page-item">
               <button className="page-link" onClick={prePage}>
                 Prev

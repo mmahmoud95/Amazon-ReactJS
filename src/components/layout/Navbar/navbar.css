@@ -76,11 +76,21 @@
 	background-color: #ff9900;
 }
 .all-category-search {
+	width: 115px;
 	background-color: #e6e6e6;
 	/* position: absolute; */
-	border-top-left-radius: 8px;
-	border-bottom-left-radius: 8px;
+	border-top-left-radius: 11px;
+	border-bottom-left-radius: 11px;
+	border: 0;
 	/* left: 16px; */
+}
+
+[dir="rtl"] .all-category-search {
+	border-radius: 0 11px 11px 0;
+	/* border-top-right-radius: 11px;
+	border-bottom-right-radius: 11px;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0; */
 }
 /* .search {
   position: relative;
@@ -88,10 +98,24 @@
 .all-category-search {
 	margin-top: 0;
 }
+.all-category-search:focus {
+	border: 0;
+	outline: 0;
+}
+.all-category-search:hover {
+	cursor: pointer;
+}
+.all-category-search .dropdown-item:hover {
+	cursor: pointer;
+}
 
 .all-category-search .dropdown-menu.show {
 	padding-top: 0;
 	padding-bottom: 0;
+}
+.all-category-search .dropdown-item {
+	background-color: #fff;
+	border-radius: 5px;
 }
 .all-category-search .dropdown-item:hover {
 	background-color: hsl(206.25deg 80% 39.22%);
@@ -124,27 +148,13 @@
 	background-color: white;
 }
 
-.search-bar-meduim .seearch-input {
-	border: none;
-}
-
-.search-bar-meduim .seearch-input:focus {
-	/* border: 5px solid #000; */
-	outline: 0;
-	box-shadow: none;
-}
 .search-bar-meduim .all-category-search {
 	background-color: #e6e6e6;
 	/* position: absolute; */
 	position: static;
 	height: 100%;
 	border-radius: 0;
-	padding: 8px;
-}
-.search-bar-meduim .serch-icon {
-	margin-bottom: -7px;
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 0;
+	padding: 1px 0;
 }
 
 .dropdown-menu {
@@ -263,6 +273,41 @@
 .nav-account .dropdown-menu .register {
 	font-size: 10px;
 }
+
+.search1 {
+	width: 600px;
+	border: 2px solid transparent;
+	transition: 0.5s all ease-in-out;
+	border-radius: 12px;
+}
+.serch-input1 {
+	border-radius: 0;
+	border: 0px solid #fff;
+	box-shadow: none;
+	outline: 0;
+}
+.serch-input1:focus {
+	border: 0px solid #fff;
+	box-shadow: none;
+	outline: 0;
+}
+.search1:hover {
+	border: 2px solid #ff9900;
+}
+
+.button-search {
+	border-radius: 0px 12px 12px 0;
+	border: 2px solid transparent;
+	padding: 0px 16px;
+	background-color: #fdb13e;
+	z-index: 1;
+}
+.search-icon-new-1 {
+	font-size: 24px;
+}
+[dir="rtl"] .button-search {
+	border-radius: 12px 0px 0px 12px;
+}
 @media screen and (max-width: 768px) {
 	.menu {
 		display: none;
@@ -273,47 +318,90 @@
 	.nav-item.search {
 		display: none;
 	}
+	.search-nav-larg {
+		display: none !important;
+	}
 }
 @media screen and (max-width: 992px) {
 	.menu ul li a {
 		font-size: 8px;
 	}
-	.search-bar {
-		display: none;
+	.button-search {
+		border-radius: 0;
+	}
+	.search1 {
+		display: none !important;
+	}
+	[dir="rtl"] .button-search {
+		border-radius: 0;
+	}
+	[dir="rtl"] .cart-container .item-count {
+		right: 0;
 	}
 }
 @media screen and (min-width: 992px) {
-	.search-input {
+	.search1 {
+		width: 375px;
+	}
+	.serch-input1 {
+		width: 198px;
+	}
+	[dir="rtl"] .search1 {
 		width: 300px;
 	}
 
-	/* .navbar-nav {
-      width: 100%;
-  } */
+	[dir="rtl"] .serch-input1 {
+		width: 124px;
+	}
 }
 
 @media screen and (min-width: 1024px) {
-	.search-input {
-		width: 340px;
+	.search1 {
+		width: 405px;
+	}
+	.serch-input1 {
+		width: 228px;
+	}
+	[dir="rtl"] .search1 {
+		width: 330px;
+	}
+
+	[dir="rtl"] .serch-input1 {
+		width: 157px;
+	}
+}
+@media screen and (min-width: 1200px) {
+	.search1 {
+		width: 570px;
+	}
+	.serch-input1 {
+		width: 394px;
+	}
+	[dir="rtl"] .search1 {
+		width: 508px;
+	}
+
+	[dir="rtl"] .serch-input1 {
+		width: 331px;
 	}
 }
 @media screen and (min-width: 1366px) {
-	.search-input {
-		width: 650px;
+	.search1 {
+		width: 712px;
+	}
+
+	[dir="rtl"] .search1 {
+		width: 655px;
+	}
+	.serch-input1 {
+		width: 535px;
+	}
+
+	[dir="rtl"] .serch-input1 {
+		width: 478px;
 	}
 }
-/* .active-link {
-    border: 0.5px solid #b3b2b2;
-} */
-/* 
-<select
-onChange={searchSubmit}
-className="nav-link dropdown-toggle dropdown-menu"
->
-<option value="-1">Select Brand</option>
-<option value="0">ALL</option>
-<option value="">phones</option>
-</select> */
+
 [dir="rtl"] .dropdMenuLanguageAccount {
 	text-align: right;
 }

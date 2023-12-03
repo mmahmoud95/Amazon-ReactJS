@@ -115,7 +115,7 @@ export const Header = () => {
 		},
 		mobilephones: {
 			name: `${t("nav2.part12")}`,
-			id: "65522f3250f3b49965ea7807",
+			id: "6552870b2c4411da5152c87a",
 		},
 		ToyGames: {
 			name: `${t("nav2.part5")}`,
@@ -177,8 +177,8 @@ export const Header = () => {
 									</div>
 								</div>
 							</li>
-							<ul className='navbar-nav search-bar'>
-								<li className='nav-item'>
+							<ul className='navbar-nav'>
+								<li className='nav-item d-flex justify-content-between search1 search-nav-larg'>
 									<form
 										className='d-flex'
 										role='search'
@@ -189,6 +189,11 @@ export const Header = () => {
 										}}>
 										<li className='nav-item dropdown all-category-search'>
 											<select
+												style={{
+													width: "100%",
+													fontSize: "18px",
+													padding: "8px",
+												}}
 												onChange={(
 													e
 												) => {
@@ -196,9 +201,12 @@ export const Header = () => {
 														e
 													);
 												}}
-												className='nav-item dropdown all-category-search py-2 rounded-0 border-0'
+												className='nav-item dropdown all-category-search py-2'
 												defaultValue='All'>
 												<option
+													style={{
+														padding: "8px", // Adjust this value as needed
+													}}
 													className='dropdown-item'
 													value='All'>
 													{t(
@@ -213,7 +221,7 @@ export const Header = () => {
 													)}
 												</option>
 												<option
-													className='dropdown-item'
+													className='dropdown-item p-2'
 													value='laptops'>
 													{t(
 														"navTop.part17"
@@ -242,10 +250,7 @@ export const Header = () => {
 										</li>
 
 										<input
-											className='form-control  align-items-center rounded-0'
-											style={{
-												width: "400px",
-											}}
+											className='form-control serch-input1'
 											type='text'
 											placeholder={t(
 												"navTop.part11"
@@ -264,16 +269,9 @@ export const Header = () => {
 										/>
 										<button
 											type='submit'
-											className='serch-icon border-0'>
-											<span className='mt-1 search-iconnn'>
-												<IoSearchOutline
-													style={{
-														marginLeft:
-															"-8px",
-														marginTop:
-															"-2px",
-													}}
-												/>
+											className='button-search'>
+											<span className='mt-1'>
+												<IoSearchOutline className='search-icon-new-1' />
 											</span>
 										</button>
 									</form>
@@ -499,23 +497,76 @@ export const Header = () => {
 					</div>
 				</div>
 			</nav>
-			<div className='search-bar-meduim d-flex d-lg-none'>
-				<div className='flex-grow-1 h-100'>
-					<form role='search'>
-						<input
-							className='form-control seearch-input'
-							type='search'
-							placeholder='Search'
-							aria-label='Search'
-						/>
-					</form>
-				</div>
-				<div className='h-100'>
-					<ion-icon
-						className='serch-icon'
-						name='search-outline'></ion-icon>
-				</div>
+			<div className='search-bar-meduim d-lg-none'>
+				{/* <div className='d-flex justify-content-between search1'> */}
+				<form
+					className='d-flex'
+					role='search'
+					onSubmit={(e) => {
+						handleSubmit(e);
+					}}>
+					<div
+						className='all-category-search'
+						style={{width: "35%"}}>
+						<select
+							style={{
+								width: "100%",
+								textAlign: "center",
+							}}
+							onChange={(e) => {
+								searchSubmit(e);
+							}}
+							className='nav-item dropdown all-category-search py-2'
+							defaultValue='All'>
+							<option
+								className='dropdown-item'
+								value='All'>
+								{t("navTop.part9")}
+							</option>
+							<option
+								className='dropdown-item'
+								value='groceries'>
+								{t("navTop.part14")}
+							</option>
+							<option
+								className='dropdown-item'
+								value='laptops'>
+								{t("navTop.part17")}
+							</option>
+							<option
+								className='dropdown-item'
+								value='fashion'>
+								{t("navTop.part15")}
+							</option>
+							<option
+								className='dropdown-item'
+								value=''>
+								{t("navTop.part16")}
+							</option>
+							<option className='dropdown-item'>
+								{t("navTop.part18")}
+							</option>
+						</select>
+					</div>
+
+					<input
+						className='form-control serch-input1'
+						type='text'
+						placeholder={t("navTop.part11")}
+						aria-label='Search'
+						value={searchText}
+						onChange={(e) => {
+							handleChange(e);
+						}}
+					/>
+					<button type='submit' className='button-search'>
+						<span className='mt-1'>
+							<IoSearchOutline className='search-icon-new-1' />
+						</span>
+					</button>
+				</form>
 			</div>
+			{/* </div> */}
 			<div className='menu'>
 				<ul className='list-unstyled d-flex flex-row'>
 					<li>
@@ -562,7 +613,7 @@ export const Header = () => {
 					<li>
 						<NavLink
 							className='text-capitalize'
-							to={`/products/category/${catogories.mobilephones.id}`}>
+							to={`/products/SubSubCategory/${catogories.mobilephones.id}`}>
 							{catogories.mobilephones.name}
 						</NavLink>
 					</li>

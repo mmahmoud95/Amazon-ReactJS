@@ -347,5 +347,9 @@
 		"part26":"Only",
 		"part27":"EGP",
 		"part28":"Beauty Picks"
+	},
+	"pagination":{
+			"part1":"next",
+			"part2":"previous"
 	}
 }

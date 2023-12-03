@@ -198,7 +198,7 @@ export const Category = () => {
     // <></>
     <section className="container-fluid">
       <div className="row  mt-1 py-1 rounded border border-light-subtle shadow">
-        <div className="col-sm-10 ">
+      <div className="col-sm-10 ">
           <p className="fs-6 ms-5 pt-2">
             {pagination.skip + 1} -
             {pagination.currentPage == pagination.numberOfPages
@@ -266,7 +266,7 @@ export const Category = () => {
       </div>
 
       <div className="row mt-2 mb-2">
-        <div className="col-lg-2 filter">
+        <div className="col-lg-2 col-md-2 col-sm-2  filter">
           <p className="fs-5  fw-bold mb-0 mt-3">{categoryName}</p>
 
           <div>
@@ -511,7 +511,7 @@ export const Category = () => {
             </div>
           </div>
         </div>
-        <div className="col-lg-10">
+        <div className="col-lg-10 col-md-10 col-sm-10">
           <div className="row">
             {loading ? (
               <div className="m-auto d-flex vh-100">
@@ -556,12 +556,12 @@ export const Category = () => {
 
       <ReactPaginate
         breakLabel="..."
-        nextLabel="next"
+        nextLabel= {t("pagination.part1")}
         onPageChange={handlePageClick}
         marginPagesDisplayed={2}
         pageRangeDisplayed={4}
         pageCount={pagination.numberOfPages}
-        previousLabel="previous"
+        previousLabel={t("pagination.part2")}
         containerClassName="pagination justify-content-center"
         pageClassName="page-item"
         pageLinkClassName="page-link "

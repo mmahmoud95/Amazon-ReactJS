@@ -205,8 +205,8 @@ const ProductDetails = () => {
 						<div className='col-lg-4  '>
 							<h2 className='product-title fw-normal'>
 								{lang === "en"
-									? myProd?.en.description
-									: myProd?.ar.description}
+									? myProd?.en.title
+									: myProd?.ar.title}
 							</h2>
 							<Link className='product-link text-decoration-none'>
 								{t("prodInfo.part1")}

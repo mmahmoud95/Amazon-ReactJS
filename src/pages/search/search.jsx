@@ -161,7 +161,7 @@ export const Search = () => {
           return false;
         }
       });
-      console.log(filteredData, "fouced");
+      // console.log(filteredData, "fouced");
 
       setFilteredProducts(filteredData);
     } catch (error) {
@@ -264,7 +264,7 @@ export const Search = () => {
                     numberOfSelectedStar={5}
                     colorFilledStar="#ff9900"
                     colorEmptyStar="#eee"
-                    starSize="30px"
+                    starSize="20px"
                     spaceBetweenStar="10px"
                   />
                 </span>
@@ -282,7 +282,7 @@ export const Search = () => {
                     numberOfSelectedStar={4}
                     colorFilledStar="#ff9900"
                     colorEmptyStar="#eee"
-                    starSize="30px"
+                    starSize="20px"
                     spaceBetweenStar="10px"
                   />
                 </span>
@@ -300,7 +300,7 @@ export const Search = () => {
                     numberOfSelectedStar={3}
                     colorFilledStar="#ff9900"
                     colorEmptyStar="#eee"
-                    starSize="30px"
+                    starSize="20px"
                     spaceBetweenStar="10px"
                   />
                 </span>{" "}
@@ -318,7 +318,7 @@ export const Search = () => {
                     numberOfSelectedStar={2}
                     colorFilledStar="#ff9900"
                     colorEmptyStar="#eee"
-                    starSize="30px"
+                    starSize="20px"
                     spaceBetweenStar="10px"
                   />
                 </span>{" "}
@@ -336,7 +336,7 @@ export const Search = () => {
                     numberOfSelectedStar={1}
                     colorFilledStar="#ff9900"
                     colorEmptyStar="#eee"
-                    starSize="30px"
+                    starSize="20px"
                     spaceBetweenStar="10px"
                   />
                 </span>{" "}

@@ -9,7 +9,7 @@ export const ProductCard = (props) => {
 
 	const navigate = useNavigate();
 	return (
-		<div className="col-lg-3 col-md-4 col-sm-6  col-xs-12">
+		<div className="col-lg-3 col-md-4 col-sm-6  col-xs-12 ">
 			<div className='card text-black my-3 shadow  bg-tertiary p-4 pb-0'>
 				<Link
 					className='text-black text-decoration-none text-left category-product'

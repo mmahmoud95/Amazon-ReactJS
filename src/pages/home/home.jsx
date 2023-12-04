@@ -17,6 +17,10 @@ import cuttle from "../../assets/home/cards/cuttle.jpg"
 import kindle from '../../assets/home/cards/kindle.jpg'
 import smartwatches from '../../assets/home/cards/smartwatches.jpg'
 import clothes from '../../assets/home/cards/clothes2.jpg'
+import winter1 from '../../assets/home/cards/winter1.jpg'
+import winter2 from '../../assets/home/cards/winter2.jpg'
+import winter3 from '../../assets/home/cards/winter3.jpg'
+import winter4 from '../../assets/home/cards/winter4.jpg'
 import MainSlider from "./mainSlider";
 import MonoCard from "./mono-card";
 import QuartitCard from "./quartit-card";
@@ -164,7 +168,7 @@ export const Home = () => {
 							/>
 
 							<MonoCard
-								breackPoint='col-lg-3 col-md-4 p-0'
+								breackPoint='col-lg-3 col-md-4 p-0 d-none d-lg-block'
 								title={t("home.part13")}
 								navigation="products/SubSubCategory/6568a0fa80c1e36f06eba931"
 								image={laptop}
@@ -201,7 +205,7 @@ export const Home = () => {
 							/>
 
 							<MonoCard
-								breackPoint='col-lg-3 col-md-4 p-0'
+								breackPoint='col-lg-3 col-md-4 p-0 d-none d-lg-block'
 								title={t("home.part16")}
 								navigation='laptops'
 								image={cuttle}
@@ -239,9 +243,10 @@ export const Home = () => {
 								breackPoint='col-lg-3 col-sm-4 p-0'
 								title={t("home.part18")}
 								navigation="6568c5908535d7773e730a9b?brand=decoration"
-								url='/products/subCategoryPrd/65694f7a244db28213810d99'
-								limit='4'
-								skip='16'
+								image1={winter1}
+								image2={winter2}
+								image3={winter3}
+								image4={winter4}
 								body={t("home.part23")}
 							/>
 
@@ -254,7 +259,7 @@ export const Home = () => {
 							/>
 
 							<MonoCard
-								breackPoint='col-lg-3 col-md-4 p-0'
+								breackPoint='col-lg-3 col-md-4 p-0 d-none d-lg-block'
 								title={t("home.part20")}
 								navigation='/products/subSubCategory/655bbdd1c29668369f97490d'
 								image={clothes}

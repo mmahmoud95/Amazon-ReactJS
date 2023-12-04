@@ -26,7 +26,10 @@ import Footer from "../../components/layout/AmazonFooter/Footer";
 import SliderWithRating from "./sliderWithRating"
 import { useTranslation } from "react-i18next";
 
-export const Home = () => {
+export const Home = () => {   
+ 
+	const body = document.querySelector("body");
+	body.classList.add("bg-body-tertiary");
 	useEffect(() => {
 		document.title = "Amazon";
 	}, []);

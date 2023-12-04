@@ -7,6 +7,8 @@ import { Link, Navigate } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import "./orderStyle.css";
 const Order = () => {
+    const body = document.querySelector("body");
+    body.classList.remove("bg-body-tertiary");
     const { lang, setLang } = useContext(authContext);
     const { isLogin, setLogin } = useContext(authContext);
     const [orders, setOrders] = useState([]);
@@ -64,7 +66,7 @@ const Order = () => {
                         ></Spinner>
                     </div>
                 ) : (
-                    <div className='container mt-4'>
+                    <div className='container mt-4 background-body'>
                         <div className='text-center'>
                             <h2 className='mb-4'>{t("order.part1")}</h2>
                         </div>
@@ -177,7 +179,7 @@ const Order = () => {
                                                             ) : (
                                                                 <span className='bg-danger rounded p-1 text-white'>
                                                                     No
-                                                                </span> 
+                                                                </span>
                                                             )}
                                                         </p>
                                                     </div>

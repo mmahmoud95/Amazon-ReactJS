@@ -122,7 +122,8 @@
 		"part10": "Payment",
 		"part11": "Secure transaction",
 		"part12": "Ships from",
-		"part13": "Sold by"
+		"part13": "Sold by",
+		"part14": "Out Of Stock"
 	},
 	"ask": {
 		"part1": "Looking for specific info?",

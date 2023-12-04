@@ -7,6 +7,8 @@ import { registerr } from "../../services/auth";
 import toast, { Toaster } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 const Register = () => {
+    const body = document.querySelector("body");
+    body.classList.remove("bg-body-tertiary");
     const [user, setUser] = useState({
         name: "",
         email: "",
@@ -287,9 +289,9 @@ const Register = () => {
                                             </div>
                                             <p className=' text-muted mt-3 mb-0'>
                                                 {t("signUp.part10")}
-                                                <a href='./Login'>
+                                                <Link to={'/Login'}>
                                                     <u> {t("signUp.part11")}</u>
-                                                </a>
+                                                </Link>
                                             </p>
                                         </form>
                                         <Toaster />

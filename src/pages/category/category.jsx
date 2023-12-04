@@ -53,6 +53,7 @@ export const Category = () => {
     }, [categoryID, navigate, currentPage]);
 
     let fetchProducts = async (params) => {
+        console.log(currentPage, params);
         setLoading(true);
         // console.log(params);
         try {
@@ -84,12 +85,14 @@ export const Category = () => {
     const [loadingBrands, setLoadingBrands] = useState(true);
     useEffect(() => {
         setLoadingBrands(true);
-        instance.get(`/products/categoryPrd/${categoryID}`).then((res) => {
-            // console.log(res);
-            generateBrands(res.data.data);
-            setLoadingBrands(false);
-        });
-    }, [categoryID]);
+        instance
+            .get(`/products/categoryPrd/${categoryID}?page=${currentPage}`)
+            .then((res) => {
+                // console.log(res);
+                generateBrands(res.data.data);
+                setLoadingBrands(false);
+            });
+    }, [categoryID, currentPage]);
     const [enBrands, setEnBrands] = useState([]);
     const [arBrands, setArBrands] = useState([]);
 

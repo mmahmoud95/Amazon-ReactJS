@@ -274,7 +274,7 @@ export const Reviews = (props) => {
                                 }}
                             />
                             <textarea
-                                className='p-1'
+                                className='p-1 col-8'
                                 cols={50}
                                 placeholder='enter your review'
                                 value={message}

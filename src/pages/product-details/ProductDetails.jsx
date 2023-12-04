@@ -249,25 +249,37 @@ const ProductDetails = () => {
                                 </span>
                                 <span className=' text-muted px-1 '>00</span>
                             </div>
-                            <div className='d-flex text-color p-2'>
-                                <div className='d-flex justify-content-center'>
+                            <div className='row'>
+                                <div className='col-md-3 col-6 text-center'>
                                     <CiLock className='icon' />
-                                    <p className='para1'> {t("prodInfo.part18")}</p>
+                                    <p className='para1'>
+                                        {" "}
+                                        {t("prodInfo.part18")}
+                                    </p>
                                 </div>
 
-                                <div className='d-flex justify-content-center'>
+                                <div className='col-md-3 col-6 text-center'>
                                     <RiLoopLeftFill className='icon' />
-                                    <p className='para1'> {t("prodInfo.part19")}</p>
+                                    <p className='para1'>
+                                        {" "}
+                                        {t("prodInfo.part19")}
+                                    </p>
                                 </div>
 
-                                <div className='d-flex justify-content-center'>
+                                <div className='col-md-3 col-6 text-center'>
                                     <GiTakeMyMoney className='icon' />
-                                    <p className='para1'> {t("prodInfo.part20")}</p>
+                                    <p className='para1'>
+                                        {" "}
+                                        {t("prodInfo.part20")}
+                                    </p>
                                 </div>
                                 <div>
-                                    <div className='d-flex justify-content-center'>
+                                    <div className='col-md-3 col-6 text-center'>
                                         <BsTruck className='icon' />{" "}
-                                        <p className='para1'> {t("prodInfo.part21")}</p>
+                                        <p className='para1'>
+                                            {" "}
+                                            {t("prodInfo.part21")}
+                                        </p>
                                     </div>
                                 </div>
                             </div>

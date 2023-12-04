@@ -7,7 +7,8 @@ import { registerr } from "../../services/auth";
 import toast, { Toaster } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 const Register = () => {
-    const body = document.querySelector("body");
+    const body = document.querySelector("body"); 
+    document.title = `Amazon - Register`;
     body.classList.remove("bg-body-tertiary");
     const [user, setUser] = useState({
         name: "",

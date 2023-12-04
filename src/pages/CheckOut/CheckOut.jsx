@@ -7,7 +7,8 @@ import { useTranslation } from "react-i18next";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
 
-const CheckOut = () => {
+const CheckOut = () => {  
+  document.title = `Amazon`;
   const navigate = useNavigate();
   const stripe = useStripe();
   const element = useElements();
@@ -499,7 +500,7 @@ const CheckOut = () => {
                     <span className="text-danger fw-bold">
                       {t("checkOut.part39")}
                     </span>
-                    <span style={{ float: "right" }}>---</span>
+                    <span style={{ float: "right" }}>EGP {totalPrice}</span>
                   </li>
                 </ul>
               </div>

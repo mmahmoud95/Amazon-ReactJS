@@ -10,6 +10,7 @@ import { login } from "../../services/auth";
 import { useTranslation } from "react-i18next";
 
 const Login = () => {
+    document.title = `Amazon - Login`;
     const body = document.querySelector("body");
     body.classList.remove("bg-body-tertiary");
     const [user, setUser] = useState({

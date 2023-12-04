@@ -27,6 +27,7 @@ import { BsTruck } from "react-icons/bs";
 import { CiLock } from "react-icons/ci";
 
 const ProductDetails = () => {
+    document.title = `Amazon`;
     const body = document.querySelector("body");
     body.classList.remove("bg-body-tertiary");
     const [loading, setLoading] = useState(true);

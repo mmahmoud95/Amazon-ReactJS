@@ -22,7 +22,7 @@ export default function SecondSlider(props) {
   // const navigate = useNavigate();
   return (
     <>
-      <div className="container-fluid px-4  py-2 ">
+      <div className="container-fluid px-4  py-2  d-none d-lg-block d-xl-block">
         <div
           id={props.id}
           className="carousel slide position-relative bg-white ms-2 ">

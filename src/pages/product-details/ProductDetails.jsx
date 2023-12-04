@@ -273,14 +273,12 @@ const ProductDetails = () => {
                                         {t("prodInfo.part20")}
                                     </p>
                                 </div>
-                                <div>
-                                    <div className='col-md-3 col-6 text-center'>
-                                        <BsTruck className='icon' />{" "}
-                                        <p className='para1'>
-                                            {" "}
-                                            {t("prodInfo.part21")}
-                                        </p>
-                                    </div>
+                                <div className='col-md-3 col-6 text-center'>
+                                    <BsTruck className='icon' />{" "}
+                                    <p className='para1'>
+                                        {" "}
+                                        {t("prodInfo.part21")}
+                                    </p>
                                 </div>
                             </div>
                             <div className='product-detail border-bottom'>

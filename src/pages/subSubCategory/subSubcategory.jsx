@@ -273,7 +273,7 @@ export const SubSubcategory = () => {
 				<div className='col-lg-2 filter'>
 					<div>
 						{/* <h3>{categoryName} </h3> */}
-						<h4 className='mt-3'>
+						<h4 className='mt-3 fs-5'>
 							{t("category.part4")}
 						</h4>{" "}
 						<div className='d-flex ms-2'>
@@ -284,7 +284,7 @@ export const SubSubcategory = () => {
 								className='price-rating'
 								onChange={handleRatingChange}
 							/>
-							<label className='d-block fs-6 ms-2 mt-1'>
+							<label className='d-block fs-6 ms-2 mt-1 fs-6'>
 								{t("category.part6")}
 							</label>
 						</div>
@@ -368,8 +368,8 @@ export const SubSubcategory = () => {
 								productRating={1}
 							/>
 						</div>
-						<div className='mt-3'>
-							<h4>{t("category.part7")}</h4>
+						<div className='mt-3 '>
+							<h4 className="fw-bold fs-5 ">{t("category.part7")}</h4>
 							<div className='d-flex'>
 								<label className='d-block fs-6 ms-2 mt-1 pe-1'>
 									<input
@@ -515,16 +515,9 @@ export const SubSubcategory = () => {
 				</div>
 				<div className='col-lg-10'>
 					{/* <h3>{categoryName}</h3> */}
-					<div className='row mt-5'>
+					<div className='row mt-2'>
 						<div className='col-12'>
-							<p>
-								5-5 of over{" "}
-								{SubSubProducts.length} results
-								for &nbsp;
-								<span className='text-danger'>
-									{/* {categoryName} */}
-								</span>
-							</p>
+						
 						</div>
 					</div>
 					<div className='row'>

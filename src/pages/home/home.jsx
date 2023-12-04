@@ -34,7 +34,7 @@ export const Home = () => {
 
 	return (
 		<>
-			<div>
+			<div className="">
 				<Header />
 
 				<div className='container-fluid p-0 position-relative '>
@@ -267,13 +267,13 @@ export const Home = () => {
 id='sr1'
 title1={t("home.part21")}
 title2={t("home.part23")}
-navigation='products/subCategoryPrd/656946418535d7773e731deb'
-url='/products/SubCategory/656946418535d7773e731deb'
-skip1='13'
+navigation='products/SubSubCategory/65694842244db28213810a44'
+url='/products/subSubCategory/65694842244db28213810a44'
+skip1='0'
 limit1='6'
-skip2='19'
+skip2='6'
 limit2='6'
-skip3='25'
+skip3='12'
 limit3='6'
 />
 						<Footer />

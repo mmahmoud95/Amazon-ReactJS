@@ -303,9 +303,10 @@ export const SubCategory = () => {
         </div>
       </div>
       <div className="row mt-2 mb-2">
-        <p className="fs-5  fw-bold mb-0 mt-3">{subCategoryName}</p>
+        
 
         <div className="col-lg-2 filter">
+        <p className="fs-5  fw-bold mb-0 mt-3  text-wrap ">{subCategoryName}</p>
           {
             <div>
               {/* <h3>{categoryName} </h3> */}

@@ -21,6 +21,10 @@ import { Stars } from "../../components/stars/stars";
 import Spinner from "react-bootstrap/Spinner";
 import { Sugessions } from "../../components/sugesstion-producta/sugessions";
 import { changeLoader } from "../../Store/Slice/Loader";
+import { GiTakeMyMoney } from "react-icons/gi";
+import { RiLoopLeftFill } from "react-icons/ri";
+import { BsTruck } from "react-icons/bs";
+import { CiLock } from "react-icons/ci";
 
 const ProductDetails = () => {
     const body = document.querySelector("body");
@@ -120,6 +124,7 @@ const ProductDetails = () => {
             .get(`/products/${id}`)
             .then((res) => {
                 setmyProd(res.data.data);
+                console.log(myProd);
                 console.log(res.data.data);
                 setLoading(false);
                 // console.log(res.data);
@@ -147,7 +152,7 @@ const ProductDetails = () => {
                     ></Spinner>
                 </div>
             ) : (
-                <div className='container-fluid'>
+                <div className='container-fluid pt-3'>
                     <Toaster />
                     <div className='row m-0 py-2 border-bottom '>
                         {/* carousel for product images */}
@@ -205,7 +210,7 @@ const ProductDetails = () => {
                             </Carousel>
                         </div>
                         {/* product details */}
-                        <div className='col-lg-4  '>
+                        <div className='col-lg-4'>
                             <h2 className='product-title fw-normal'>
                                 {lang === "en"
                                     ? myProd?.en.description
@@ -244,7 +249,28 @@ const ProductDetails = () => {
                                 </span>
                                 <span className=' text-muted px-1 '>00</span>
                             </div>
+                            <div className='d-flex text-color p-2'>
+                                <div className='d-flex justify-content-center'>
+                                    <CiLock className='icon' />
+                                    <p className='para1'> {t("prodInfo.part18")}</p>
+                                </div>
 
+                                <div className='d-flex justify-content-center'>
+                                    <RiLoopLeftFill className='icon' />
+                                    <p className='para1'> {t("prodInfo.part19")}</p>
+                                </div>
+
+                                <div className='d-flex justify-content-center'>
+                                    <GiTakeMyMoney className='icon' />
+                                    <p className='para1'> {t("prodInfo.part20")}</p>
+                                </div>
+                                <div>
+                                    <div className='d-flex justify-content-center'>
+                                        <BsTruck className='icon' />{" "}
+                                        <p className='para1'> {t("prodInfo.part21")}</p>
+                                    </div>
+                                </div>
+                            </div>
                             <div className='product-detail border-bottom'>
                                 <ul className='list-group list-group-horizontal '>
                                     <li className='list-group-item w-50 border-0 fw-bold'>
@@ -269,33 +295,16 @@ const ProductDetails = () => {
                                 </ul>
 
                                 <ul className='list-group list-group-horizontal'>
-                                    <li className='list-group-item w-50 border-0 fw-bold'>
-                                        {t("prodInfo.part6")}:
-                                    </li>
-                                    <li className='list-group-item border-0'>
-                                        Black
-                                    </li>
-                                </ul>
-
-                                <ul className='list-group list-group-horizontal'>
                                     <li className='list-group-item border-0 w-50  fw-bold'>
                                         {t("prodInfo.part7")}:
                                     </li>
                                     <li className='list-group-item border-0'>
                                         {lang === "en"
-                                            ? myProd?.category?.en?.name
-                                            : myProd?.category?.ar?.name}
+                                            ? myProd?.subSubCategor?.en?.name
+                                            : myProd?.subSubCategor?.ar?.name}
                                     </li>
                                 </ul>
 
-                                <ul className='list-group list-group-horizontal'>
-                                    <li className='list-group-item border-0 w-50 fw-bold small'>
-                                        {t("prodInfo.part8")}:
-                                    </li>
-                                    <li className='list-group-item border-0'>
-                                        .......
-                                    </li>
-                                </ul>
                                 <ul className='list-group list-group-horizontal'>
                                     <li className='list-group-item w-50 border-0 fw-bold'>
                                         {t("prodInfo.part9")}:
@@ -327,7 +336,11 @@ const ProductDetails = () => {
                                 <span className='fs-4 fw-bold'>
                                     {t("prodInfo.part14")}:
                                 </span>
-                                <p>{myProd?.description}</p>
+                                <p>
+                                    {lang === "en"
+                                        ? myProd?.en?.description
+                                        : myProd?.ar?.description}
+                                </p>
                             </div>
 
                             <div className='d-block'>
@@ -367,7 +380,7 @@ const ProductDetails = () => {
                                 </a>
                             </div>
                         </div>
-                        <div className='col-lg-3  '>
+                        <div className='col-lg-3 p-2'>
                             {/* style={{position:"fixed",right:"10px"}} */}
                             {/*  amazon prime section */}
                             <div className=' bg-white border p-1 w-100 m-1'>
@@ -396,12 +409,12 @@ const ProductDetails = () => {
                                 />
                             </div>
                             {/*  add to cart and buy section */}
-                            <div className='border d-block  p-1 w-100 m-1'>
-                                <div className=' d-flex  p-2'>
+                            <div className='border d-block p-2 w-100 m-1'>
+                                <div className=' d-flex p-2'>
                                     <span className=' text-muted px-1 '>
                                         EGP
                                     </span>
-                                    <span className='text-dark  fs-3 '>
+                                    <span className='text-dark fs-3 '>
                                         {myProd?.price}
                                     </span>
                                     <span className=' text-muted px-1 '>
@@ -420,15 +433,6 @@ const ProductDetails = () => {
                                                 {t("prime.part5")}
                                             </Link>
                                         </li>
-                                        <li className='py-1'>
-                                            <Link
-                                                className='text-decoration-none '
-                                                aria-disabled
-                                            >
-                                                <i className='fa-solid fa-location-dot pe-2'></i>
-                                                {t("prime.part6")}
-                                            </Link>
-                                        </li>
                                     </ul>
                                     <span
                                         className={`ps-2 fs-5 fw-medium ${
@@ -443,7 +447,9 @@ const ProductDetails = () => {
                                             : t("prime.part7")}
                                     </span>
                                     <div className='d-flex px-2 pt-3'>
-                                        <span className='pe-2'>Qty : </span>
+                                        <span className='pe-2'>
+                                            {t("prime.part15")} :{" "}
+                                        </span>
                                         <select
                                             value={quantity}
                                             onChange={handleSelectChange}
@@ -514,7 +520,7 @@ const ProductDetails = () => {
                                                 <i className='fa-solid fa-money-check'></i>
                                             </button>{" "}
                                             <ul className='list-group list-group-horizontal '>
-                                                <li className='list-group-item w-50 border-0'>
+                                                <li className='list-group-item border-0'>
                                                     {t("prime.part10")}:
                                                 </li>
                                                 <li className='list-group-item border-0'>

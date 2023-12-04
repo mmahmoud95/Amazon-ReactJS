@@ -21,6 +21,11 @@ import winter1 from '../../assets/home/cards/winter1.jpg'
 import winter2 from '../../assets/home/cards/winter2.jpg'
 import winter3 from '../../assets/home/cards/winter3.jpg'
 import winter4 from '../../assets/home/cards/winter4.jpg'
+import sportswear1 from '../../assets/home/cards/sportswear1.jpg'
+import sportswear2 from '../../assets/home/cards/sportswear2.jpg'
+import sportswear3 from '../../assets/home/cards/sportswear3.jpg'
+import sportswear4 from '../../assets/home/cards/sportswear4.jpg'
+import books from '../../assets/home/cards/books.jpg'
 import MainSlider from "./mainSlider";
 import MonoCard from "./mono-card";
 import QuartitCard from "./quartit-card";
@@ -84,22 +89,21 @@ export const Home = () => {
 
 							<QuartitCard
 								breackPoint='col-lg-3 col-sm-4 p-0'
-								title={t("home.part5")}
+								title={t("home.part17")}
 								navigation="65527ac3376a52ea210d9706"
-								url='/products/categoryPrd/65527ac3376a52ea210d9706'
-								limit='4'
-								skip='22'
+								image1={sportswear1}
+								image2={sportswear2}
+								image3={sportswear3}
+								image4={sportswear4}
 								body={t("home.part24")}
 							/>
 
-							<QuartitCard
+<MonoCard
 								breackPoint='col-lg-3 col-sm-4 p-0'
-								title={t("home.part17")}
-								navigation="65527ac3376a52ea210d9706"
-								url='/products/categoryPrd/65527ac3376a52ea210d9706'
-								limit='4'
-								skip='16'
-								body={t("home.part23")}
+								title={t("home.part5")}
+								navigation='products/category/65658ceae686c668a4d191ec'
+								image={books}
+								body={t("home.part24")}
 							/>
 
 							<MonoCard
@@ -134,12 +138,12 @@ export const Home = () => {
 							id='ss1'
 							title1={t("home.part9")}
 							title2={t("home.part23")}
-							url='/products/categoryPrd/65527ac3376a52ea210d9706'
-							skip1='13'
+							url='/products/subCategoryPrd/65694e7b244db28213810d49'
+							skip1='0'
 							limit1='6'
-							skip2='19'
+							skip2='6'
 							limit2='6'
-							skip3='25'
+							skip3='12'
 							limit3='6'
 						/>
 						{/* ////////////second slider//////////// */}
@@ -245,7 +249,7 @@ export const Home = () => {
 <QuartitCard
 								breackPoint='col-lg-3 col-sm-4 p-0'
 								title={t("home.part18")}
-								navigation="6568c5908535d7773e730a9b?brand=decoration"
+								navigation="6568c5908535d7773e730a9b?brand"
 								image1={winter1}
 								image2={winter2}
 								image3={winter3}

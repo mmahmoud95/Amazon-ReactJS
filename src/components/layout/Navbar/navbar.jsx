@@ -47,6 +47,12 @@ export const Header = () => {
             setSearchCategory("65522f3250f3b49965ea7807");
         } else if (value === "fashion") {
             setSearchCategory("65527ac3376a52ea210d9706");
+        } else if (value === "beauty") {
+            setSearchCategory("65527c8c376a52ea210d970a");
+        } else if (value === "electronics") {
+            setSearchCategory("65527a31376a52ea210d9703");
+        } else if (value === "sports") {
+            setSearchCategory("65527d1a376a52ea210d970e");
         } else {
             setSearchCategory("All");
         }
@@ -227,12 +233,21 @@ export const Header = () => {
                                                 </option>
                                                 <option
                                                     className='dropdown-item'
-                                                    value=''
+                                                    value='sports'
                                                 >
                                                     {t("navTop.part16")}
                                                 </option>
-                                                <option className='dropdown-item'>
-                                                    {t("navTop.part18")}
+                                                <option
+                                                    className='dropdown-item'
+                                                    value='beauty'
+                                                >
+                                                    {t("navTop.part28")}
+                                                </option>
+                                                <option
+                                                    className='dropdown-item'
+                                                    value='electronics'
+                                                >
+                                                    {t("navTop.part29")}
                                                 </option>
                                             </select>
                                         </li>
@@ -484,11 +499,17 @@ export const Header = () => {
                             <option className='dropdown-item' value='fashion'>
                                 {t("navTop.part15")}
                             </option>
-                            <option className='dropdown-item' value=''>
+                            <option className='dropdown-item' value='sports'>
                                 {t("navTop.part16")}
                             </option>
-                            <option className='dropdown-item'>
-                                {t("navTop.part18")}
+                            <option className='dropdown-item' value='beauty'>
+                                {t("navTop.part28")}
+                            </option>
+                            <option
+                                className='dropdown-item'
+                                value='electronics'
+                            >
+                                {t("navTop.part29")}
                             </option>
                         </select>
                     </div>
@@ -513,12 +534,6 @@ export const Header = () => {
             {/* </div> */}
             <div className='menu'>
                 <ul className='list-unstyled d-flex flex-row'>
-                    <li>
-                        <a href='#'>{t("nav2.part1")}</a>
-                    </li>
-                    <li>
-                        <a href='#'>{t("nav2.part2")}</a>
-                    </li>
                     <li>
                         <NavLink
                             className='text-capitalize'
@@ -566,13 +581,6 @@ export const Header = () => {
                         >
                             {catogories.mobilephones.name}
                         </NavLink>
-                    </li>
-
-                    <li>
-                        <a href='#'>{t("nav2.part3")}</a>
-                    </li>
-                    <li>
-                        <a href='#'>{t("nav2.part4")}</a>
                     </li>
                     <li>
                         <NavLink

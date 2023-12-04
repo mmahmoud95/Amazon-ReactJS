@@ -505,7 +505,12 @@ export const Search = () => {
                                     currentPage === 1 ? "disabled" : ""
                                 }`}
                                 disabled={currentPage === 1 ? true : false}
-                                onClick={prePage}
+                                onClick={() => {
+                                    prePage();
+                                    window.scrollTo({
+                                        top: 0,
+                                    });
+                                }}
                             >
                                 Prev
                             </button>
@@ -523,7 +528,6 @@ export const Search = () => {
                                         changeCpage(n);
                                         window.scrollTo({
                                             top: 0,
-                                            behavior: "smooth",
                                         });
                                     }}
                                 >
@@ -536,7 +540,12 @@ export const Search = () => {
                                 className={`page-link ${
                                     currentPage === nPage ? "disabled" : ""
                                 }`}
-                                onClick={nextPage}
+                                onClick={() => {
+                                    nextPage();
+                                    window.scrollTo({
+                                        top: 0,
+                                    });
+                                }}
                                 disabled={currentPage === nPage ? true : false}
                             >
                                 Next

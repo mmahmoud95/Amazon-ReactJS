@@ -28,10 +28,10 @@
         "part11": "Search",
         "part12": "Select category",
         "part13": "logout",
-        "part14": "groceries",
-        "part15": "fashion",
+        "part14": "Groceries",
+        "part15": "Fashion",
         "part16": "Sports",
-        "part17": " laptops",
+        "part17": " Laptops",
         "part18": "software",
         "part19": "Amazon warehouse ",
         "part20": " New customer?",
@@ -41,7 +41,9 @@
         "part24": "Your Orders",
         "part25": "learn more",
         "part26": "You are shopping on Amazon.eg",
-        "part27": "Change country/ region."
+        "part27": "Change country/ region.",
+        "part28": "Beauty",
+        "part29": "Electronics"
     },
     "signUp": {
         "part1": "Create account",

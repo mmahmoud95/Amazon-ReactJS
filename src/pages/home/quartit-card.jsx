@@ -40,13 +40,13 @@ export default function QuartitCard(props) {
              />
             )
             )} */}
-            <img className="w-50 " src={props.image1} alt="" style={{height:'8rem'}}
+            <img className="w-50 pb-1" src={props.image1} alt="" style={{height:'8rem'}}
              onClick={() => {
                navigate(`/products/category/${props.navigation}`);
              }}
             />
 
-            <img className="w-50" src={props.image2} alt="" style={{height:'8rem'}}
+            <img className="w-50 pb-1" src={props.image2} alt="" style={{height:'8rem'}}
              onClick={() => {
                 navigate(`/products/category/${props.navigation}`);
               }}

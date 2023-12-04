@@ -8,7 +8,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import axios from "axios";
 
 const CheckOut = () => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const stripe = useStripe();
   const element = useElements();
   const { t } = useTranslation();
@@ -69,6 +69,9 @@ const CheckOut = () => {
       [name]: error,
     }));
   };
+  const handleRadioChange = (method) => {
+    setPayMethod((prevMethod) => (prevMethod === method ? "card" : method));
+  };
   const handlePayment = async (e) => {
     e.preventDefault();
     const hasErrors = Object.values(errors).some((error) => error !== "");
@@ -84,7 +87,7 @@ const CheckOut = () => {
             orderData,
             product,
             payMethod,
-            cartID
+            cartID,
           },
           {
             headers: {
@@ -98,7 +101,7 @@ const CheckOut = () => {
           billing_details: orderData,
         });
         setProcessing(true);
-        navigate('/orders')
+        navigate("/orders");
 
         toast.success("successful payment", {
           position: "top-left",
@@ -108,29 +111,27 @@ const CheckOut = () => {
         console.log(error);
       }
     } else if (payMethod == "cash" && !hasErrors) {
-      const pamentIntent = await axios.post(
-        "http://localhost:3333/order/cash",
-        {
-          amount: totalPrice,
-          orderData,
-          product,
-          payMethod,
-          cartID,
-        },
-        {
-          headers: {
-            Authorization: localStorage.getItem("userToken"),
+      const pamentIntent = await axios
+        .post(
+          "http://localhost:3333/order/cash",
+          {
+            amount: totalPrice,
+            orderData,
+            product,
+            payMethod,
+            cartID,
           },
-        }
-      );
+          {
+            headers: {
+              Authorization: localStorage.getItem("userToken"),
+            },
+          }
+        )
+        .then((res) => {
           setProcessing(true);
 
-      toast.success("successful payment", {
-        position: "top-left",
-        autoClose: 5000, // 5000 milliseconds = 5 seconds
-      });
-      navigate('/orders')
-      
+          navigate("/orders");
+        });
     } else {
       toast.success("failed payment", {
         position: "top-left",
@@ -349,11 +350,23 @@ const CheckOut = () => {
               <h5 className="fw-bold"> {t("checkOut.part12")}</h5>
               <div className="border-top d-flex p-3">
                 <div className="mx-2">
+                  <label className="py-2">
+                    <input
+                      className="mx-2 fw-bold"
+                      type="radio"
+                      value="card"
+                      checked={payMethod === "card"} // Represents unselected state
+                      onChange={() => handleRadioChange("card")}
+                    />
+                    <span className="fs-6">pay By  Card</span>
+                  </label>
                   <p className="fw-bold">
                     <input
                       className="mx-2"
                       type="radio"
-                      onClick={() => setPayMethod("cash")}
+                      value="cash"
+                      checked={payMethod === "cash"}
+                      onChange={() => handleRadioChange("cash")}
                     />
                     {t("checkOut.part13")}
                     {" cash"}

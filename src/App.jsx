@@ -26,6 +26,7 @@ import Order from "./pages/Orders/order";
 import {Help} from "./pages/help/help";
 import {Account} from "./pages/account/account";
 import {SubSubcategory} from "./pages/subSubCategory/subSubcategory";
+import NotFound from "./pages/not-found/not-found";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_KEY);
 
@@ -60,6 +61,8 @@ const router = createBrowserRouter([
 	{path: "login/loginStep2", element: <LoginStep2 />},
 	{path: "signup", element: <Register />},
 	{path: "checkout", element: <CheckOut />},
+	{path:'*' ,element:<NotFound/> }
+
 ]);
 
 function App() {

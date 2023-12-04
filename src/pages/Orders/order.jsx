@@ -108,8 +108,8 @@ const Order = () => {
                                                         {t("order.part3")}
                                                     </button> */}
                                                 </div>
-                                                <div className='d-flex justify-content-start p-0'>
-                                                    <div className='fs-5 p-4 pt-0'>
+                                                <div className='row'>
+                                                    <div className='fs-5 p-4 pt-0 col-md-4 col-6'>
                                                         <h4 className='fs-4'>
                                                             {t("order.part4")}
                                                         </h4>
@@ -155,7 +155,7 @@ const Order = () => {
                                                             }
                                                         </p>
                                                     </div>
-                                                    <div className='fs-5 p-4 pt-0'>
+                                                    <div className='fs-5 p-4 pt-0 col-md-4 col-6'>
                                                         <h4 className='fs-4'>
                                                             {t("order.part17")}
                                                         </h4>
@@ -184,7 +184,7 @@ const Order = () => {
                                                                 </span>
                                                             )}{" "}
                                                         </p>
-                                                        <p className='card-text fs-6 p-1 mb-1'>
+                                                        <p className='card-text fs-6 mb-1'>
                                                             {t("order.part14")}
                                                             {order.isDelivered ? (
                                                                 <span className='text-success fs-5'>
@@ -197,7 +197,7 @@ const Order = () => {
                                                             )}
                                                         </p>
                                                     </div>{" "}
-                                                    <div className='p-4 pt-4'>
+                                                    <div className='p-4 pt-4 col-md-4 col-12'>
                                                         <p className='fs-5'>
                                                             {t("order.part20")}{" "}
                                                             :{" "}

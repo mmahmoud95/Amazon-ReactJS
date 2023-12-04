@@ -23,6 +23,8 @@ import { Sugessions } from "../../components/sugesstion-producta/sugessions";
 import { changeLoader } from "../../Store/Slice/Loader";
 
 const ProductDetails = () => {
+    const body = document.querySelector("body");
+    body.classList.remove("bg-body-tertiary");
     const [loading, setLoading] = useState(true);
 
     const { isLogin, setLogin } = useContext(authContext);
@@ -428,8 +430,17 @@ const ProductDetails = () => {
                                             </Link>
                                         </li>
                                     </ul>
-                                    <span className='text-success ps-2 fs-5'>
-                                        {t("prime.part7")}
+                                    <span
+                                        className={`ps-2 fs-5 fw-medium ${
+                                            myProd.quantityInStock === 0
+                                                ? "text-danger"
+                                                : "text-success"
+                                        }
+                                    `}
+                                    >
+                                        {myProd.quantityInStock === 0
+                                            ? t("prime.part14")
+                                            : t("prime.part7")}
                                     </span>
                                     <div className='d-flex px-2 pt-3'>
                                         <span className='pe-2'>Qty : </span>
@@ -448,6 +459,11 @@ const ProductDetails = () => {
 
                                 <div className='text-center my-2'>
                                     <button
+                                        disabled={
+                                            myProd.quantityInStock === 0
+                                                ? true
+                                                : false
+                                        }
                                         id='add-to-cart-button '
                                         type='button'
                                         className='btn rounded-pill bg-warning w-75'
@@ -466,6 +482,11 @@ const ProductDetails = () => {
                                     {isLogin ? (
                                         <div>
                                             <button
+                                                disabled={
+                                                    myProd.quantityInStock === 0
+                                                        ? true
+                                                        : false
+                                                }
                                                 onClick={() =>
                                                     navigate("/checkout", {
                                                         state: {
@@ -490,7 +511,7 @@ const ProductDetails = () => {
                                                     {" "}
                                                     {t("prime.part9")}{" "}
                                                 </span>
-                                                <i className='fa-solid fa-money-check '></i>
+                                                <i className='fa-solid fa-money-check'></i>
                                             </button>{" "}
                                             <ul className='list-group list-group-horizontal '>
                                                 <li className='list-group-item w-50 border-0'>

@@ -11,6 +11,8 @@ import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 
 const LoginStep2 = () => {
+    const body = document.querySelector("body");
+    body.classList.remove("bg-body-tertiary");
     let location = useLocation();
     const navigate = useNavigate();
     const { setLogin } = useContext(authContext);

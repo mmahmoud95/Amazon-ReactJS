@@ -17,3 +17,6 @@
     text-decoration: none;
     background-color: #ebb609;
 }
+body {
+    background-color: #fff !important;
+}

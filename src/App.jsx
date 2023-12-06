@@ -1,6 +1,6 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter, parsePath } from "react-router-dom";
 // import { Navbar } from "./layout/Navbar/Navbar";
 
 import { Home } from "./pages/home/home";
@@ -67,6 +67,21 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+    // const currentPage = "parsePath"; // Replace this with your current page or route
+
+    // // Function to change body class based on the current page
+    // function changeBodyClass() {
+    //     const body = document.querySelector("body");
+    //     if (currentPage !== "/") {
+    //         body.classList.remove("bg-body-tertiary");
+    //     } else {
+    //         body.classList.add("bg-white");
+    //     }
+    //     // Add more conditions for other pages if needed
+    // }
+
+    // Call the function to change the body class on page load
+    // changeBodyClass();
     const [isLogin, setLogin] = useState(
         localStorage.getItem("userToken") ? true : false
     );

@@ -6,7 +6,13 @@ import { authContext } from "../../context/authcontex";
 import { Link, Navigate } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
 import "./orderStyle.css";
+import { IoMdCloseCircleOutline } from "react-icons/io";
+import { FaCheckCircle } from "react-icons/fa";
+
 const Order = () => {
+    document.title = `Amazon - Orders`;
+    const body = document.querySelector("body");
+    body.classList.remove("bg-body-tertiary");
     const { lang, setLang } = useContext(authContext);
     const { isLogin, setLogin } = useContext(authContext);
     const [orders, setOrders] = useState([]);
@@ -50,6 +56,16 @@ const Order = () => {
     useEffect(() => {
         getUserOrders();
     }, []);
+    function calculateDeliveryDate(orderDate) {
+        const deliveryTimeInDays = 3;
+        const orderDateTime = new Date(orderDate);
+        const deliveryDate = new Date(orderDateTime);
+        deliveryDate.setDate(orderDateTime.getDate() + deliveryTimeInDays);
+        const formattedDeliveryDate = deliveryDate
+            .toISOString()
+            .substring(0, 10);
+        return formattedDeliveryDate;
+    }
 
     return (
         <>
@@ -64,7 +80,7 @@ const Order = () => {
                         ></Spinner>
                     </div>
                 ) : (
-                    <div className='container mt-4'>
+                    <div className='container mt-4 background-body'>
                         <div className='text-center'>
                             <h2 className='mb-4'>{t("order.part1")}</h2>
                         </div>
@@ -92,8 +108,8 @@ const Order = () => {
                                                         {t("order.part3")}
                                                     </button> */}
                                                 </div>
-                                                <div className='d-flex justify-content-start p-0'>
-                                                    <div className='fs-5 p-4 pt-0'>
+                                                <div className='row'>
+                                                    <div className='fs-5 p-4 pt-0 col-md-4 col-6'>
                                                         <h4 className='fs-4'>
                                                             {t("order.part4")}
                                                         </h4>
@@ -139,7 +155,7 @@ const Order = () => {
                                                             }
                                                         </p>
                                                     </div>
-                                                    <div className='fs-5 p-4 pt-0'>
+                                                    <div className='fs-5 p-4 pt-0 col-md-4 col-6'>
                                                         <h4 className='fs-4'>
                                                             {t("order.part17")}
                                                         </h4>
@@ -157,27 +173,43 @@ const Order = () => {
                                                             }
                                                         </p>{" "}
                                                         <p className='card-text fs-6 mb-1'>
-                                                            {t("order.part13")}:
+                                                            {t("order.part13")}
                                                             {order.isPaid ? (
-                                                                <span className='bg-success rounded p-1 text-white'>
-                                                                    Yes
+                                                                <span className='text-success fs-5'>
+                                                                    <FaCheckCircle />
                                                                 </span>
                                                             ) : (
-                                                                <span className='bg-danger rounded p-1 text-white'>
-                                                                    No
+                                                                <span className='text-danger fs-5'>
+                                                                    <IoMdCloseCircleOutline />
                                                                 </span>
                                                             )}{" "}
                                                         </p>
-                                                        <p className='card-text fs-6 p-1 mb-1'>
-                                                            {t("order.part14")}:
+                                                        <p className='card-text fs-6 mb-1'>
+                                                            {t("order.part14")}
                                                             {order.isDelivered ? (
-                                                                <span className='bg-success rounded p-1 text-white'>
-                                                                    Yes
+                                                                <span className='text-success fs-5'>
+                                                                    <FaCheckCircle />
                                                                 </span>
                                                             ) : (
-                                                                <span className='bg-danger rounded p-1 text-white'>
-                                                                    No
-                                                                </span> 
+                                                                <span className='text-danger fs-5'>
+                                                                    <IoMdCloseCircleOutline />
+                                                                </span>
+                                                            )}
+                                                        </p>
+                                                    </div>{" "}
+                                                    <div className='p-4 pt-4 col-md-4 col-12'>
+                                                        <p className='fs-5'>
+                                                            {t("order.part20")}{" "}
+                                                            :{" "}
+                                                            {order.createdAt.substring(
+                                                                0,
+                                                                10
+                                                            )}
+                                                        </p>
+                                                        <p className='fs-5'>
+                                                            {t("order.part21")}:{" "}
+                                                            {calculateDeliveryDate(
+                                                                order.createdAt
                                                             )}
                                                         </p>
                                                     </div>

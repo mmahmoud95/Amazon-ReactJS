@@ -1,36 +1,34 @@
 /* eslint-disable react/prop-types */
 // import { useState, useEffect } from "react";
 // import { instance } from "../../services/axios/instance";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import CaraouselItem from "./caraousel-item";
 
 export default function SecondSlider(props) {
-  // const [products, setProducts] = useState([]);
-
-  // useEffect(() => {
-  //   instance
-  //     .get(`?skip=${props.skip}&limit=${props.limit}`)
-  //     .then((res) => {
-  //       console.log(res.data.products);
-  //       setProducts(res.data.products);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
-  // const navigate = useNavigate();
+  
+  const navigate = useNavigate();
   return (
     <>
       <div className="container-fluid px-4  py-2  d-none d-lg-block d-xl-block">
         <div
           id={props.id}
           className="carousel slide position-relative bg-white ms-2 ">
-          <h5 className="px-4 pt-3 fw-bold">
-            <span className="pe-3 fs-4">{props.title1}</span>
+          <h5 className="px-4 pt-3 fw-bold product-curser">
+            <span className="pe-3 fs-4"
+            
+            onClick={() => {
+              navigate(props.navigation);
+          }}
+          >{props.title1}</span>
             <span>
-              <a href="#" className="text-decoration-none fs-5">
+              <a  className="text-decoration-none fs-5"
+               onClick={() => {
+                navigate(props.navigation);
+            }}
+              >
                 {props.title2}
+               
               </a>
             </span>
           </h5>

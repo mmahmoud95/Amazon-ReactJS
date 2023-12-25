@@ -145,17 +145,54 @@ export const Header = () => {
                             }}
                         />
                     </NavLink>
-                    <button
-                        className='navbar-toggler'
-                        type='button'
-                        data-bs-toggle='collapse'
-                        data-bs-target='#navbarNavDropdown'
-                        aria-controls='navbarNavDropdown'
-                        aria-expanded='false'
-                        aria-label='Toggle navigation'
-                    >
-                        <span className='navbar-toggler-icon'></span>
-                    </button>
+                    <div className='d-flex align-items-center'>
+                        <li className='d-lg-none mb-2 me-1'>
+                            <NavLink
+                                className={
+                                    "text-decoration-none cart-container d-flex active-link p-1"
+                                }
+                                to={"/cart"}
+                            >
+                                <span className='item-count'>
+                                    {isLogin ? (
+                                        loading ? (
+                                            <Spinner
+                                                style={{
+                                                    display: "block",
+                                                    width: "16px",
+                                                    height: "16px",
+                                                    marginLeft: "-4px",
+                                                    marginBottom: "8px",
+                                                    // color: "#ffff",
+                                                }}
+                                                animation='border'
+                                                role='status'
+                                            ></Spinner>
+                                        ) : (
+                                            totalPrice
+                                        )
+                                    ) : (
+                                        cart?.length
+                                    )}
+                                </span>
+                                <img className='mb-2' src={cartImage} />
+                                <span className='cart text-decoration-none'>
+                                    {t("navTop.part4")}
+                                </span>
+                            </NavLink>
+                        </li>
+                        <button
+                            className='navbar-toggler'
+                            type='button'
+                            data-bs-toggle='collapse'
+                            data-bs-target='#navbarNavDropdown'
+                            aria-controls='navbarNavDropdown'
+                            aria-expanded='false'
+                            aria-label='Toggle navigation'
+                        >
+                            <span className='navbar-toggler-icon'></span>
+                        </button>
+                    </div>
                     <div
                         className='collapse navbar-collapse'
                         id='navbarNavDropdown'

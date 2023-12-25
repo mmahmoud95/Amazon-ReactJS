@@ -138,6 +138,7 @@ export const Home = () => {
 							id='ss1'
 							title1={t("home.part9")}
 							title2={t("home.part23")}
+							navigation='products/SubCategory/65694e7b244db28213810d49'
 							url='/products/subCategoryPrd/65694e7b244db28213810d49'
 							skip1='0'
 							limit1='6'
@@ -225,8 +226,9 @@ export const Home = () => {
 
 						<SecondSlider
 							id='ss2'
-							title1="Related to items you've viewed"
-							title2='Shop now'
+							title1={t("home.part29")}
+							title2={t("home.part24")}
+							navigation="products/category/65527c8c376a52ea210d970a"
 							url='/products/categoryPrd/65527c8c376a52ea210d970a'
 							skip1='0'
 							limit1='6'
